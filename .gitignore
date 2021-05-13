@@ -5,6 +5,10 @@
 /.pnp
 .pnp.js
 
+#Westorm sys folders
+/.idea
+
+
 # testing
 /coverage
 
