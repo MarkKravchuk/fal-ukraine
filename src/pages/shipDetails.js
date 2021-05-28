@@ -54,11 +54,11 @@ const listOfOptions = [
         label: 'Waste',
         value: 'waste'
     }, {
-        label: 'Test 1',
+        label: 'Test 666',
         value: 'test 1'
     },
     {
-        label: 'Test 2',
+        label: 'Test 999',
         value: 'test 2'
     },
 ];
