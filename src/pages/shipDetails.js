@@ -57,10 +57,10 @@ const listOfOptions = [
         label: 'Test 1',
         value: 'test 1'
     },
-    {
-        label: 'Test 2',
-        value: 'test 2'
-    },
+    // {
+    //     label: 'Test 2',
+    //     value: 'test 2'
+    // },
 ];
 
 const defaultOption = 'Port';
