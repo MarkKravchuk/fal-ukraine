@@ -122,7 +122,7 @@ class ShipDetails extends React.Component {
                                         this.setActiveItem(index)
                                     }}>
 
-                                    {config.showDrawerIcons && <ListItemIcon><i>item</i></ListItemIcon>}
+                                    {config.showDrawerIcons && <ListItemIcon><i>icon</i></ListItemIcon>}
                                     <ListItemText primary={item.label} />
 
                                 </ListItem>
