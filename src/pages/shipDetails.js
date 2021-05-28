@@ -53,6 +53,13 @@ const listOfOptions = [
     }, {
         label: 'Waste',
         value: 'waste'
+    }, {
+        label: 'Test 1',
+        value: 'test 1'
+    },
+    {
+        label: 'Test 2',
+        value: 'test 2'
     },
 ];
 
