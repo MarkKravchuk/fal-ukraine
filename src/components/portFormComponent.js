@@ -1,6 +1,5 @@
 import React from "react";
 import Typography from '@material-ui/core/Typography';
-
 import {makeStyles} from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -20,7 +19,7 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddIcon from '@material-ui/icons/Add';
-
+import {generateXML} from '../pages/functions/generateXML'
 
 import './portFormComponent.css'
 
@@ -46,7 +45,53 @@ defaultDateTime.setMinutes(0);
 
 
 export default function PortForm(props) {
+
     const classes = useStyles();
+    let port = {
+        arrivalDeparture: 'arrival',
+        voyageNumber:'1',
+        portOfCall:'',
+        ETAPortOfCall: '',
+        ETDPortOfCall: '',
+        ATAPortOfCall: '',
+        ATDPortOfCall: '',
+        portFacilityAtArrival: '',
+        portOfArrival: '',
+        lastPortOfCall: '',
+        nextPortOfCall: '',
+        callAnchorage: '',
+        positionPortOfCall: {
+            latitude:'',
+            longitude:'',
+            time:'',
+        },
+        cargoDescription: '',
+        nameMaster: {
+            familyName:'',
+            givenName:'',
+        },
+        purposesOfCall: [''],
+        airDraught: '',
+        arrivalDepartureDraught:{
+           foreDraught:'',
+           MidShipDraught:'',
+           AftDraught:'',
+        },
+        agent:{
+            name:'',
+            mobileTelephone:'',
+            businessTelephone:'',
+            telefax:'',
+            email:'',
+        },
+        personsOnBoard:{
+            numberOfPersons:'',
+            numberOfCrew:'',
+            numberOfPassengers:'',
+            periodOfStay:''
+        }
+
+    }
 
 
     const [data, setData] = React.useState({
@@ -73,6 +118,7 @@ export default function PortForm(props) {
         setData(dataCopy);
     }
 
+    generateXML(port)
     console.log('data: ', data);
 
     return <>
