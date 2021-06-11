@@ -1,0 +1,31 @@
+.flex-parent {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+}
+
+.flex-item {
+    padding: 10px;
+    flex: 0 0 auto;
+}
+
+.flex-item-40 {
+    flex: 0 0 auto;
+    width: 35%;
+}
+
+.flex-item-30 {
+    flex: 0 0 auto;
+    width: 30%;
+}
+
+.flex-item-70 {
+    flex: 0 0 auto;
+    width: 70%;
+}
+
+.flex-item-60 {
+    flex: 0 0 auto;
+    width: 60%;
+    margin-left: 5%;
+}

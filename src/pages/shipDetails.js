@@ -53,7 +53,7 @@ const listOfOptions = [
     }, {
         label: 'Waste',
         value: 'waste'
-    },
+    }
 ];
 
 const defaultOption = 'Port';
@@ -122,7 +122,7 @@ class ShipDetails extends React.Component {
                                         this.setActiveItem(index)
                                     }}>
 
-                                    {config.showDrawerIcons && <ListItemIcon><i>item</i></ListItemIcon>}
+                                    {config.showDrawerIcons && <ListItemIcon><i>icon</i></ListItemIcon>}
                                     <ListItemText primary={item.label} />
 
                                 </ListItem>
@@ -167,4 +167,4 @@ class ShipDetails extends React.Component {
 
 }
 
-export default withStyles(styles)(ShipDetails);
+export default  withStyles(styles)(ShipDetails);

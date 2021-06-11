@@ -1,5 +1,5 @@
 let config = {
-    showDrawerIcons: true
+    showDrawerIcons: false
 };
 
-export {config};
+export {config}
