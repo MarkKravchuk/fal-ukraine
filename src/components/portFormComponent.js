@@ -48,7 +48,7 @@ export default function PortForm(props) {
 
     const classes = useStyles();
     let port = {
-        arrivalDeparture: 'arrival',
+        arrivalDeparture: 'Departure',
         voyageNumber:'1',
         portOfCall:{
             name:'name',
@@ -104,17 +104,17 @@ export default function PortForm(props) {
             CallPurposeCode : 'CallPurposeCode',
             CallPurposeText : 'CallPurposeCText',
         },{
-            CallPurposeCode : 'CallPurposeCode',
-            CallPurposeText : 'CallPurposeCText',
+            CallPurposeCode : '',
+            CallPurposeText : '',
         },{
-            CallPurposeCode : 'CallPurposeCode',
-            CallPurposeText : 'CallPurposeCText',
+            CallPurposeCode : '',
+            CallPurposeText : '',
         },{
-            CallPurposeCode : 'CallPurposeCode',
-            CallPurposeText : 'CallPurposeCText',
+            CallPurposeCode : '',
+            CallPurposeText : '',
         },{
-            CallPurposeCode : 'CallPurposeCode',
-            CallPurposeText : 'CallPurposeCText',
+            CallPurposeCode : '',
+            CallPurposeText : '',
         },
         ],
         airDraught: 'airDraught',

@@ -1,6 +1,20 @@
 import xml from 'xml'
 export let generateXML  =(port) =>{
     console.log(port);
+    let ArrivalDepartureDraught;
+    if(port.arrivalDeparture == 'Arrival'){
+        ArrivalDepartureDraught = {ArrivalDraught: [
+            {ForeDraught: port.arrivalDepartureDraught.foreDraught},
+            {MidShipDraught: port.arrivalDepartureDraught.MidShipDraught},
+            {Time: port.arrivalDepartureDraught.AftDraught},
+        ]}
+    }else {
+        ArrivalDepartureDraught = {DepartureDraught: [
+            {ForeDraught: port.arrivalDepartureDraught.foreDraught},
+            {MidShipDraught: port.arrivalDepartureDraught.MidShipDraught},
+            {Time: port.arrivalDepartureDraught.AftDraught},
+        ]}
+    }
     let xmlValue = xml([{
         EPCMessage: [{
             EPCMessageHeader: [
@@ -89,12 +103,7 @@ export let generateXML  =(port) =>{
                                     {CallPurposeText:port.purposesOfCall[8].CallPurposeText}
                                 ]},
                     {AirDraught: port.airDraught},
-                    {
-                        ArrivalDepartureDraught: [
-                            {ForeDraught: port.arrivalDepartureDraught.foreDraught},
-                            {MidShipDraught: port.arrivalDepartureDraught.MidShipDraught},
-                            {Time: port.arrivalDepartureDraught.AftDraught},
-                        ]},
+                   ArrivalDepartureDraught,
                     {Agent: [
                             {Company: port.agent.name},
                             {ContactNumbers:[
