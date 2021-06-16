@@ -50,46 +50,92 @@ export default function PortForm(props) {
     let port = {
         arrivalDeparture: 'arrival',
         voyageNumber:'1',
-        portOfCall:'',
-        ETAPortOfCall: '',
-        ETDPortOfCall: '',
-        ATAPortOfCall: '',
-        ATDPortOfCall: '',
-        portFacilityAtArrival: '',
-        portOfArrival: '',
-        lastPortOfCall: '',
-        nextPortOfCall: '',
-        callAnchorage: '',
+        portOfCall:{
+            name:'name',
+            CountryCode:'CountryCode',
+            UNLoCode:'UNLoCode',
+        },
+        portFacilityAtArrival: {
+            Facility:'Facility'
+        },
+        ETAPortOfCall: 'ETAPortOfCall',
+        ETDPortOfCall: 'ETDPortOfCall',
+        ATAPortOfCall: 'ATAPortOfCall',
+        ATDPortOfCall: 'ATDPortOfCall',
+        portOfArrival: {
+            name:'name',
+            CountryCode:'CountryCode',
+            UNLoCode:'UNLoCode',
+        },
+        lastPortOfCall: {
+            name:'name',
+            CountryCode:'CountryCode',
+            UNLoCode:'UNLoCode',
+        },
+        nextPortOfCall: {
+            name:'name',
+            CountryCode:'CountryCode',
+            UNLoCode:'UNLoCode',
+        },
+        callAnchorage: 'callAnchorage',
         positionPortOfCall: {
-            latitude:'',
-            longitude:'',
-            time:'',
+            latitude:'latitude',
+            longitude:'longitude',
+            time:'time',
         },
-        cargoDescription: '',
+        cargoDescription: 'cargoDescription',
         nameMaster: {
-            familyName:'',
-            givenName:'',
+            familyName:'familyName',
+            givenName:'givenName',
         },
-        purposesOfCall: [''],
-        airDraught: '',
+        purposesOfCall: [{
+            CallPurposeCode : 'CallPurposeCode',
+            CallPurposeText : 'CallPurposeCText',
+        },{
+            CallPurposeCode : 'CallPurposeCode',
+            CallPurposeCText : 'CallPurposeCText',
+        },{
+            CallPurposeCode : 'CallPurposeCode',
+            CallPurposeText : 'CallPurposeCText',
+        },{
+            CallPurposeCode : 'CallPurposeCode',
+            CallPurposeText : 'CallPurposeCText',
+        },{
+            CallPurposeCode : 'CallPurposeCode',
+            CallPurposeText : 'CallPurposeCText',
+        },{
+            CallPurposeCode : 'CallPurposeCode',
+            CallPurposeText : 'CallPurposeCText',
+        },{
+            CallPurposeCode : 'CallPurposeCode',
+            CallPurposeText : 'CallPurposeCText',
+        },{
+            CallPurposeCode : 'CallPurposeCode',
+            CallPurposeText : 'CallPurposeCText',
+        },{
+            CallPurposeCode : 'CallPurposeCode',
+            CallPurposeText : 'CallPurposeCText',
+        },
+        ],
+        airDraught: 'airDraught',
         arrivalDepartureDraught:{
-           foreDraught:'',
-           MidShipDraught:'',
-           AftDraught:'',
+           foreDraught:'foreDraught',
+           MidShipDraught:'MidShipDraught',
+           AftDraught:'AftDraught',
         },
         agent:{
-            name:'',
-            mobileTelephone:'',
-            businessTelephone:'',
-            telefax:'',
-            email:'',
+            name:'name',
+            mobileTelephone:'mobileTelephone',
+            businessTelephone:'businessTelephone',
+            telefax:'telefax',
+            email:'email',
         },
         personsOnBoard:{
-            numberOfPersons:'',
-            numberOfCrew:'',
-            numberOfPassengers:'',
-            periodOfStay:''
-        }
+            numberOfPersons:'personsOnBoard',
+            numberOfCrew:'numberOfCrew',
+            numberOfPassengers:'numberOfPassengers',
+        },
+        periodOfStay:'periodOfStay'
 
     }
 
