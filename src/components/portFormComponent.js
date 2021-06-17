@@ -20,6 +20,7 @@ import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddIcon from '@material-ui/icons/Add';
 import {generateXML} from '../pages/functions/generateXML'
+import {readXML} from '../pages/functions/readXML'
 
 import './portFormComponent.css'
 
@@ -164,19 +165,21 @@ export default function PortForm(props) {
         setData(dataCopy);
     }
 
-    generateXML(port)
+    // generateXML(port)
     console.log('data: ', data);
 
     return <>
         <Typography variant="h3" component="h3" gutterBottom>
             Port information
         </Typography>
-
+        <input type="file" name="file" id="file"/>
+        <button onClick={readXML} name="submit">Upload File</button>
         <FormControl
             variant="outlined"
             required
             className={classes.formControl}
         >
+
             <InputLabel id="departure-arrival-label">Departure / Arrival</InputLabel>
             <Select
                 labelId="departure-arrival-label"
