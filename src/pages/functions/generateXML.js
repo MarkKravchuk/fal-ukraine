@@ -118,7 +118,8 @@ export let generateXML  =(port) =>{
                             {Passengers: port.personsOnBoard.numberOfPassengers},
                             {Crew: port.personsOnBoard.numberOfCrew},
                         ]},
-                    {PeriodOfStay: port.personsOnBoard.periodOfStay}
+                    {Stowaways: port.Stowaways},
+                    {PeriodOfStay: port.periodOfStay}
 
             ]}
         ]

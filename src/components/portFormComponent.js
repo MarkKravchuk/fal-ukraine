@@ -94,7 +94,7 @@ export default function PortForm(props) {
             CallPurposeText : 'CallPurposeCText',
         },{
             CallPurposeCode : 'CallPurposeCode',
-            CallPurposeCText : 'CallPurposeCText',
+            CallPurposeText : 'CallPurposeCText',
         },{
             CallPurposeCode : 'CallPurposeCode',
             CallPurposeText : 'CallPurposeCText',
@@ -136,6 +136,7 @@ export default function PortForm(props) {
             numberOfCrew:'numberOfCrew',
             numberOfPassengers:'numberOfPassengers',
         },
+        Stowaways:'Stowaways',
         periodOfStay:'periodOfStay'
 
     }
@@ -165,7 +166,7 @@ export default function PortForm(props) {
         setData(dataCopy);
     }
 
-    // generateXML(port)
+     // generateXML(port)
     console.log('data: ', data);
 
     return <>
