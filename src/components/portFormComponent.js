@@ -21,6 +21,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import AddIcon from '@material-ui/icons/Add';
 import {generateXML} from '../pages/functions/generateXML'
 import {readXML} from '../pages/functions/readXML'
+import {readXLS} from '../pages/functions/readXLS'
 
 import './portFormComponent.css'
 
@@ -175,6 +176,8 @@ export default function PortForm(props) {
         </Typography>
         <input type="file" name="file" id="file"/>
         <button onClick={readXML} name="submit">Upload File</button>
+        <input type="file" name="xls" id="xls"/>
+        <button onClick={readXLS} name="submit">Upload XLS</button>
         <FormControl
             variant="outlined"
             required

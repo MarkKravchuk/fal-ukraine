@@ -1,6 +1,5 @@
-import xmlFile from '../../XML/example.xml'
 let XMLParser = require('react-xml-parser');
-export let readXML  =() =>{
+export let readXML  = () =>{
     let port = {
         arrivalDeparture: '',
         voyageNumber:'',
@@ -168,6 +167,7 @@ export let readXML  =() =>{
             port.Stowaways = xml.getElementsByTagName('Stowaways')[0].value;
             port.periodOfStay = xml.getElementsByTagName('periodOfStay')[0].value;
             console.log("Port ", port);
+            return port;
 
 
         };
