@@ -13,8 +13,10 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ShipForm from "../components/shipFormComponent";
 import PortForm from "../components/portFormComponent";
 import VoyageForm from "../components/voyageFormComponent";
+import CrewForm from "../components/crewFormComponent";
 
 import {config} from "../config/shipDetailsConfig";
+import {readXML} from "./functions/readXML";
 
 const listOfOptions = [
     {
@@ -148,7 +150,7 @@ class ShipDetails extends React.Component {
             case 'ship': return <ShipForm/>
             case 'voyage': return <VoyageForm/>
             case 'passengers':
-            case 'crew':
+            case 'crew': return <CrewForm/>
             case 'ship_stores':
             case 'crew_effects':
             case 'cargo':

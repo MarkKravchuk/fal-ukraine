@@ -132,11 +132,8 @@ export let readXLS = () =>{
         port.nameMaster.familyName = Row13[2];
         port.nameMaster.givenName = Row14[2];
         port.purposesOfCall[0].CallPurposeCode = Row13[4];
-        port.purposesOfCall[0].CallPurposeCText = Row13[5];
         port.purposesOfCall[1].CallPurposeCode = Row14[4];
-        port.purposesOfCall[1].CallPurposeCText = Row14[5];
         port.purposesOfCall[2].CallPurposeCode = Row15[4];
-        port.purposesOfCall[2].CallPurposeCText = Row15[5];
         port.airDraught = Row15[2];
         port.arrivalDepartureDraught.foreDraught = Row17[2];
         port.arrivalDepartureDraught.MidShipDraught = Row17[4];
