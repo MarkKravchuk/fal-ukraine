@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import DatePicker from "react-datepicker";
 import moment from "moment";
 import "react-datepicker/dist/react-datepicker.css";
-class dataGridDatePicker extends React.Component {
+class dateOfBirthPicker extends React.Component {
     constructor(props) {
         super(props);
         this.state = { color: new Date() };
@@ -24,4 +24,4 @@ class dataGridDatePicker extends React.Component {
         return <DatePicker selected={this.state.color} onChange={this.onChange} />;
     }
 }
-export default dataGridDatePicker;
+export default dateOfBirthPicker;
