@@ -36,19 +36,19 @@ const CountryCodesEditor = <DropDownEditor options={countryCodesList}/>;
 
 const columns = [
     { key: "NR", name: "NR", editable: true, width: 50},
-    { key: "Family name", name: "Family name", editable: true },
-    { key: "Given name", name: "Given name", editable: true },
+    { key: "Family_name", name: "Family name", editable: true },
+    { key: "Given_name", name: "Given name", editable: true },
     { key: "Gender", name: "Gender", editable: true, width: 80, editor: GendersEditor },
-    { key: "Rank of rating", name: "Rank of rating", editable: true, editor:RanksOfRatingEditor },
+    { key: "Rank_of_rating", name: "Rank of rating", editable: true, editor:RanksOfRatingEditor },
     { key: "Nationality", name: "Nationality", editable: true, editor:CountryCodesEditor },
-    { key: "Country of birth", name: "Country of birth", editable: true, editor:CountryCodesEditor },
-    { key: "Place of birth", name: "Place of birth", editable: true },
+    { key: "Country_of_birth", name: "Country of birth", editable: true, editor:CountryCodesEditor },
+    { key: "Place_of_birth", name: "Place of birth", editable: true },
     { key: "date_of_birth", name: "Date of birth", editable: true, editor:dateOfBirthPicker },
-    { key: "ID type", name: "ID type", editable: true, width: 80, editor: IDTypesEditor},
-    { key: "ID document number", name: "ID document number", editable: true },
-    { key: "Issuing state of identity document", name: "Issuing state of identity document", editable: true },
+    { key: "ID_type", name: "ID type", editable: true, width: 80, editor: IDTypesEditor},
+    { key: "ID_document_number", name: "ID document number", editable: true },
+    { key: "Issuing_state_of_identity_document", name: "Issuing state of identity document", editable: true },
     { key: "Expiry_date_of_identity_document", name: "Expiry date of identity document", editable: true, editor: expiryDatePicker},
-    { key: "Visa/Residence permit number", name: "Visa/Residence permit number", editable: true },
+    { key: "Visa_Residence_permit_number", name: "Visa/Residence permit number", editable: true },
 ];
 
 const rows = [
@@ -78,13 +78,16 @@ class CrewForm extends React.Component{
         })
     }
 
-    handleFileInput=()=>{
-        console.log("Handle upload");
+     handleFileInput=async()=>{
 
-        this.setState(state=>{
-            let rows = readXLSCrew.readXLS().crew;
-            return {rows}
-        })
+            let rows =   readXLSCrew.readXLS().crew;
+            //very dirty
+            await new Promise(r => setTimeout(r, 100));
+                 this.setState(state=>{
+                    return {rows}
+                })
+
+
     }
     onGridRowsUpdated = ({ fromRow, toRow, updated }) => {
         this.setState(state => {
