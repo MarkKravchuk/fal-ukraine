@@ -1,5 +1,8 @@
 import xml from 'xml'
+import crewFormComponent from "../components/crewFormComponent";
+
 export let generateXML  =(port) =>{
+    // let port = getPort.getPort();
     console.log(port);
     let ArrivalDepartureDraught;
     if(port.arrivalDeparture == 'Arrival'){

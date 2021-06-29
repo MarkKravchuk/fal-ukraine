@@ -16,7 +16,7 @@ import VoyageForm from "../components/voyageFormComponent";
 import CrewForm from "../components/crewFormComponent";
 
 import {config} from "../config/shipDetailsConfig";
-import {readXML} from "./functions/readXML";
+import {readXML} from "../functions/readXML";
 
 const listOfOptions = [
     {

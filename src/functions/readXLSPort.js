@@ -1,5 +1,5 @@
 import readXlsxFile from 'read-excel-file'
-export let readXLS = () =>{
+export let readXLSPort = () =>{
     let port = {
         arrivalDeparture: '',
         voyageNumber:'',
@@ -152,4 +152,4 @@ export let readXLS = () =>{
         return port;
     }).then(console.log("finish"))
 }
-export default {readXLS}
+export default {readXLS: readXLSPort}

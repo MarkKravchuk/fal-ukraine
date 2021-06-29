@@ -6,7 +6,8 @@ import Button from "@material-ui/core/Button";
 import { Editors, Formatters } from 'react-data-grid-addons';
 import dateOfBirthPicker from "./dateOfBirthPicker";
 import expiryDatePicker from "./expiryDatePicker";
-import countryCodes from "./functions/countryCodes";
+import countryCodes from "../functions/countryCodes";
+import readXLSCrew from "../functions/readXLSCrew";
 const { DropDownEditor } = Editors;
 const { DropDownFormatter } = Formatters;
 
@@ -29,6 +30,7 @@ const RanksOfRating = ["(...)", 'AbleSeaman', 'Agent', 'AsstFoodBevMngr', 'BarMa
 const RanksOfRatingEditor = <DropDownEditor options={RanksOfRating}  />;
 
 const countryCodesList = countryCodes.getCountryCodes();
+countryCodesList.unshift("(...)")
 const CountryCodesEditor = <DropDownEditor options={countryCodesList}/>;
 
 
@@ -76,7 +78,14 @@ class CrewForm extends React.Component{
         })
     }
 
+    handleFileInput=()=>{
+        console.log("Handle upload");
 
+        this.setState(state=>{
+            let rows = readXLSCrew.readXLS().crew;
+            return {rows}
+        })
+    }
     onGridRowsUpdated = ({ fromRow, toRow, updated }) => {
         this.setState(state => {
             const rows = state.rows.slice();
@@ -88,11 +97,16 @@ class CrewForm extends React.Component{
     };
     render() {
         console.log("rows ", this.state.rows);
-        countryCodes.getCountryCodes();
         return (
-            <div>    <Typography variant="h3" component="h3" gutterBottom>
+            <div><Typography variant="h3" component="h3" gutterBottom>
                 Crew list
             </Typography>
+                {/*<label htmlFor="file">Upload xls</label>*/}
+                {/*<input type="file" name="xlsCrew" id="xlsCrew" onChange={console.log("file submited")}/>*/}
+                {/*<Button onClick={this.setState(readXLSCrew)} name="submit">Upload XLS</Button>*/}
+                <div className="file-uploader">
+                    <input type="file" id="xlsCrew" onChange={this.handleFileInput}/>
+                </div>
                 <ReactDataGrid
                     columns={columns}
                     rowGetter={i => this.state.rows[i]}
