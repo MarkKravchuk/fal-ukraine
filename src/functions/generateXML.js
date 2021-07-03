@@ -1,10 +1,22 @@
 import xml from 'xml'
-import crewFormComponent from "../components/crewFormComponent";
-
-export let generateXML  =(port) =>{
-    // let port = getPort.getPort();
-    console.log(port);
+let data = require("../data/data");
+export let generateXML  =() =>{
+    let port = data.port;
+    let crew = data.crew;
+    console.log("generatexmldata ",data);
     let ArrivalDepartureDraught;
+    let CrewList = [];
+    for (let i = 0; i <crew.length ; i++) {
+        let CrewMemberData = [];
+        console.log("id type ", crew[i].ID_type)
+        CrewMemberData.push({
+            CrewIdDocument :[
+                {IdDocument : crew[i].ID_type},
+
+            ]
+        })
+        CrewList.push({CrewMemberData})
+    }
     if(port.arrivalDeparture == 'Arrival'){
         ArrivalDepartureDraught = {ArrivalDraught: [
             {ForeDraught: port.arrivalDepartureDraught.foreDraught},
@@ -122,7 +134,8 @@ export let generateXML  =(port) =>{
                             {Crew: port.personsOnBoard.numberOfCrew},
                         ]},
                     {Stowaways: port.Stowaways},
-                    {PeriodOfStay: port.periodOfStay}
+                    {PeriodOfStay: port.periodOfStay},
+                    {CrewList:CrewList}
 
             ]}
         ]

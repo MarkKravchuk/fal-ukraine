@@ -1,5 +1,6 @@
 import readXlsxFile from 'read-excel-file'
 import moment from "moment";
+let data = require("../data/data");
  export  function readXLSCrew(){
      let crew = [];
 
@@ -22,6 +23,7 @@ import moment from "moment";
 
 
     })
+     data.crew = crew;
      return {crew};
 }
 export default {readXLS: readXLSCrew}

@@ -1,97 +1,7 @@
 import readXlsxFile from 'read-excel-file'
+let data = require("../data/data")
 export let readXLSPort = () =>{
-    let port = {
-        arrivalDeparture: '',
-        voyageNumber:'',
-        portOfCall:{
-            name:'',
-            CountryCode:'',
-            UNLoCode:'',
-        },
-        portFacilityAtArrival: {
-            Facility:''
-        },
-        ETAPortOfCall: '',
-        ETDPortOfCall: '',
-        ATAPortOfCall: '',
-        ATDPortOfCall: '',
-        portOfArrival: {
-            name:'',
-            CountryCode:'',
-            UNLoCode:'',
-        },
-        lastPortOfCall: {
-            name:'',
-            CountryCode:'',
-            UNLoCode:'',
-        },
-        nextPortOfCall: {
-            name:'',
-            CountryCode:'',
-            UNLoCode:'',
-        },
-        callAnchorage: '',
-        positionPortOfCall: {
-            latitude:'',
-            longitude:'',
-            time:'',
-        },
-        cargoDescription: '',
-        nameMaster: {
-            familyName:'',
-            givenName:'',
-        },
-        purposesOfCall: [{
-            CallPurposeCode : '',
-            CallPurposeText : '',
-        },{
-            CallPurposeCode : '',
-            CallPurposeText : '',
-        },{
-            CallPurposeCode : '',
-            CallPurposeText : '',
-        },{
-            CallPurposeCode : '',
-            CallPurposeText : '',
-        },{
-            CallPurposeCode : '',
-            CallPurposeText : '',
-        },{
-            CallPurposeCode : '',
-            CallPurposeText : '',
-        },{
-            CallPurposeCode : '',
-            CallPurposeText : '',
-        },{
-            CallPurposeCode : '',
-            CallPurposeText : '',
-        },{
-            CallPurposeCode : '',
-            CallPurposeText : '',
-        },
-        ],
-        airDraught: '',
-        arrivalDepartureDraught:{
-            foreDraught:'',
-            MidShipDraught:'',
-            AftDraught:'',
-        },
-        agent:{
-            name:'',
-            mobileTelephone:'',
-            businessTelephone:'',
-            telefax:'',
-            email:'',
-        },
-        personsOnBoard:{
-            numberOfPersons:'',
-            numberOfCrew:'',
-            numberOfPassengers:'',
-        },
-        Stowaways:'',
-        periodOfStay:''
-
-    }
+    let port = data.port
     let file = document.getElementById("xls");
     readXlsxFile(file.files[0]).then((rows) => {
         console.log("rows ", rows)
@@ -148,7 +58,8 @@ export let readXLSPort = () =>{
         port.Stowaways = Row25[3];
         port.periodOfStay= Row27[4];
 
-        console.log("Port ", port)
+        console.log("Port ", port);
+        data.port = port
         return port;
     }).then(console.log("finish"))
 }

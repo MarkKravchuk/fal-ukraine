@@ -8,6 +8,10 @@ import dateOfBirthPicker from "./dateOfBirthPicker";
 import expiryDatePicker from "./expiryDatePicker";
 import countryCodes from "../functions/countryCodes";
 import readXLSCrew from "../functions/readXLSCrew";
+import {generateXML} from "../functions/generateXML";
+let data = require("../data/data");
+const editJsonFile = require("edit-json-file");
+let file = editJsonFile("src/data/dafta.json");
 const { DropDownEditor } = Editors;
 const { DropDownFormatter } = Formatters;
 
@@ -51,19 +55,18 @@ const columns = [
     { key: "Visa_Residence_permit_number", name: "Visa/Residence permit number", editable: true },
 ];
 
-const rows = [
-    { NR: 1, },
-    { NR: 2 },
-    { NR: 3 },
-    { NR: 4 },
-    { NR: 5 },
-];
+// const rows = [
+//     { NR: 1, },
+//     { NR: 2 },
+//     { NR: 3 },
+//     { NR: 4 },
+//     { NR: 5 },
+// ];
 
-
-
+let rows = data.crew.rows;
 
 class CrewForm extends React.Component{
-    state = { rows };
+    state =  {rows} ;
     addRow =()=>  {
          console.log("adding row")
         this.setState(state=>{
@@ -74,6 +77,7 @@ class CrewForm extends React.Component{
             let row = {NR:number}
             rows.push(row)
             console.log("rows set ", rows)
+            data.crew.rows = rows
             return {rows}
         })
     }
@@ -95,6 +99,7 @@ class CrewForm extends React.Component{
             for (let i = fromRow; i <= toRow; i++) {
                 rows[i] = { ...rows[i], ...updated };
             }
+            data.crew.rows=rows;
             return { rows };
         });
     };
@@ -106,7 +111,7 @@ class CrewForm extends React.Component{
             </Typography>
                 {/*<label htmlFor="file">Upload xls</label>*/}
                 {/*<input type="file" name="xlsCrew" id="xlsCrew" onChange={console.log("file submited")}/>*/}
-                {/*<Button onClick={this.setState(readXLSCrew)} name="submit">Upload XLS</Button>*/}
+                <Button onClick={generateXML} name="generateXML">Generate XML</Button>
                 <div className="file-uploader">
                     <input type="file" id="xlsCrew" onChange={this.handleFileInput}/>
                 </div>

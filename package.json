@@ -11,6 +11,7 @@
     "@testing-library/react": "^11.2.6",
     "@testing-library/user-event": "^12.8.3",
     "date-fns": "2.11.1",
+    "edit-json-file": "^1.6.0",
     "history": "^5.0.0",
     "material-ui-icons": "^1.0.0-beta.36",
     "moment": "^2.29.1",
