@@ -1,6 +1,5 @@
 import React from "react";
 import Typography from '@material-ui/core/Typography';
-
 import {makeStyles} from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -24,6 +23,11 @@ import ValueConst from "../config/consts/valueConsts";
 import CountryList from "../lists/countryList";
 
 import './portFormComponent.css';
+import {generateXML} from '../pages/functions/generateXML'
+import {readXML} from '../pages/functions/readXML'
+import {readXLS} from '../pages/functions/readXLS'
+
+import './portFormComponent.css'
 
 const useStyles = makeStyles((theme) => ({
     formControl: {
@@ -47,7 +51,100 @@ defaultDateTime.setMinutes(0);
 
 
 export default function PortForm(props) {
+
     const classes = useStyles();
+    let port = {
+        arrivalDeparture: 'Departure',
+        voyageNumber:'1',
+        portOfCall:{
+            name:'name',
+            CountryCode:'CountryCode',
+            UNLoCode:'UNLoCode',
+        },
+        portFacilityAtArrival: {
+            Facility:'Facility'
+        },
+        ETAPortOfCall: 'ETAPortOfCall',
+        ETDPortOfCall: 'ETDPortOfCall',
+        ATAPortOfCall: 'ATAPortOfCall',
+        ATDPortOfCall: 'ATDPortOfCall',
+        portOfArrival: {
+            name:'name',
+            CountryCode:'CountryCode',
+            UNLoCode:'UNLoCode',
+        },
+        lastPortOfCall: {
+            name:'name',
+            CountryCode:'CountryCode',
+            UNLoCode:'UNLoCode',
+        },
+        nextPortOfCall: {
+            name:'name',
+            CountryCode:'CountryCode',
+            UNLoCode:'UNLoCode',
+        },
+        callAnchorage: 'callAnchorage',
+        positionPortOfCall: {
+            latitude:'latitude',
+            longitude:'longitude',
+            time:'time',
+        },
+        cargoDescription: 'cargoDescription',
+        nameMaster: {
+            familyName:'familyName',
+            givenName:'givenName',
+        },
+        purposesOfCall: [{
+            CallPurposeCode : 'CallPurposeCode',
+            CallPurposeText : 'CallPurposeCText',
+        },{
+            CallPurposeCode : 'CallPurposeCode',
+            CallPurposeText : 'CallPurposeCText',
+        },{
+            CallPurposeCode : 'CallPurposeCode',
+            CallPurposeText : 'CallPurposeCText',
+        },{
+            CallPurposeCode : 'CallPurposeCode',
+            CallPurposeText : 'CallPurposeCText',
+        },{
+            CallPurposeCode : 'CallPurposeCode',
+            CallPurposeText : 'CallPurposeCText',
+        },{
+            CallPurposeCode : '',
+            CallPurposeText : '',
+        },{
+            CallPurposeCode : '',
+            CallPurposeText : '',
+        },{
+            CallPurposeCode : '',
+            CallPurposeText : '',
+        },{
+            CallPurposeCode : '',
+            CallPurposeText : '',
+        },
+        ],
+        airDraught: 'airDraught',
+        arrivalDepartureDraught:{
+           foreDraught:'foreDraught',
+           MidShipDraught:'MidShipDraught',
+           AftDraught:'AftDraught',
+        },
+        agent:{
+            name:'name',
+            mobileTelephone:'mobileTelephone',
+            businessTelephone:'businessTelephone',
+            telefax:'telefax',
+            email:'email',
+        },
+        personsOnBoard:{
+            numberOfPersons:'personsOnBoard',
+            numberOfCrew:'numberOfCrew',
+            numberOfPassengers:'numberOfPassengers',
+        },
+        Stowaways:'Stowaways',
+        periodOfStay:'periodOfStay'
+
+    }
 
 
     const [data, setData] = React.useState({
@@ -78,6 +175,7 @@ export default function PortForm(props) {
         setData(dataCopy);
     }
 
+     // generateXML(port)
     const countryList = new CountryList();
 
     console.log('data: ', data);
@@ -86,7 +184,10 @@ export default function PortForm(props) {
         <Typography variant="h3" component="h3" gutterBottom>
             Port information
         </Typography>
-
+        <input type="file" name="file" id="file"/>
+        <button onClick={readXML} name="submit">Upload File</button>
+        <input type="file" name="xls" id="xls"/>
+        <button onClick={readXLS} name="submit">Upload XLS</button>
         <Grid container justify={'flex-start'}>
             <FormControl
                 variant="outlined"
@@ -303,6 +404,7 @@ export default function PortForm(props) {
 
         <TextField
             style={{marginTop: '30px'}}
+            id="cargo-description"
             label="Brief description of onboard cargo"
             multiline
             fullWidth
