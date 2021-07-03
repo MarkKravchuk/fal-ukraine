@@ -6,6 +6,7 @@ import Button from "@material-ui/core/Button";
 import { Editors, Formatters } from 'react-data-grid-addons';
 import dateOfBirthPicker from "./dateOfBirthPicker";
 import expiryDatePicker from "./expiryDatePicker";
+import issuingDatePicker from "./issuingDatePicker";
 import countryCodes from "../functions/countryCodes";
 import readXLSCrew from "../functions/readXLSCrew";
 import {generateXML} from "../functions/generateXML";
@@ -50,7 +51,7 @@ const columns = [
     { key: "date_of_birth", name: "Date of birth", editable: true, editor:dateOfBirthPicker },
     { key: "ID_type", name: "ID type", editable: true, width: 80, editor: IDTypesEditor},
     { key: "ID_document_number", name: "ID document number", editable: true },
-    { key: "Issuing_state_of_identity_document", name: "Issuing state of identity document", editable: true },
+    { key: "Issuing_state_of_identity_document", name: "Issuing state of identity document", editable: true, editor: issuingDatePicker },
     { key: "Expiry_date_of_identity_document", name: "Expiry date of identity document", editable: true, editor: expiryDatePicker},
     { key: "Visa_Residence_permit_number", name: "Visa/Residence permit number", editable: true },
 ];
@@ -77,7 +78,7 @@ class CrewForm extends React.Component{
             let row = {NR:number}
             rows.push(row)
             console.log("rows set ", rows)
-            data.crew.rows = rows
+            data.crew=rows;
             return {rows}
         })
     }
@@ -99,7 +100,7 @@ class CrewForm extends React.Component{
             for (let i = fromRow; i <= toRow; i++) {
                 rows[i] = { ...rows[i], ...updated };
             }
-            data.crew.rows=rows;
+            data.crew=rows;
             return { rows };
         });
     };
