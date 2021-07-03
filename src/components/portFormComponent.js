@@ -20,9 +20,10 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddIcon from '@material-ui/icons/Add';
+import ValueConst from "../config/consts/valueConsts";
+import CountryList from "../lists/countryList";
 
-
-import './portFormComponent.css'
+import './portFormComponent.css';
 
 const useStyles = makeStyles((theme) => ({
     formControl: {
@@ -51,6 +52,7 @@ export default function PortForm(props) {
 
     const [data, setData] = React.useState({
         arrivalDeparture: '',
+        voyageNumber: '',
         ETAPortOfCall: defaultDateTime,
         ETDPortOfCall: defaultDateTime,
         ATAPortOfCall: defaultDateTime,
@@ -61,7 +63,10 @@ export default function PortForm(props) {
         cargoDescription: '',
         nameMaster: '',
         airDraught: '',
-        purposesOfCall: ['']
+        purposesOfCall: [''],
+        portOfArrival: '',
+        lastPortOfCall: '',
+        nextPortOfCall: '',
     });
 
     let setDataProp = function (dataItem) {
@@ -73,6 +78,8 @@ export default function PortForm(props) {
         setData(dataCopy);
     }
 
+    const countryList = new CountryList();
+
     console.log('data: ', data);
 
     return <>
@@ -80,33 +87,55 @@ export default function PortForm(props) {
             Port information
         </Typography>
 
-        <FormControl
-            variant="outlined"
-            required
-            className={classes.formControl}
-        >
-            <InputLabel id="departure-arrival-label">Departure / Arrival</InputLabel>
-            <Select
-                labelId="departure-arrival-label"
-                id="arrival-departure"
-                value={data.arrivalDeparture}
-                onChange={(e) => {
-                    setDataProp({arrivalDeparture: e.target.value})
-                }}
+        <Grid container justify={'flex-start'}>
+            <FormControl
+                variant="outlined"
+                required
+                className={classes.formControlNoMargin}
             >
-                <MenuItem value={'Arrival'}>Arrival</MenuItem>
-                <MenuItem value={'Departure'}>Departure</MenuItem>
-            </Select>
-        </FormControl>
+                <InputLabel id="departure-arrival-label">Departure / Arrival</InputLabel>
+                <Select
+                    labelId="departure-arrival-label"
+                    id="arrival-departure"
+                    value={data.arrivalDeparture}
+                    onChange={(e) => {
+                        setDataProp({arrivalDeparture: e.target.value})
+                    }}
+                >
+                    <MenuItem value={'Arrival'}>{ValueConst.arrival}</MenuItem>
+                    <MenuItem value={'Departure'}>{ValueConst.departure}</MenuItem>
+                </Select>
+            </FormControl>
+
+            <FormControl
+                variant="outlined"
+                required
+                style={{marginLeft: '10%'}}
+                className={classes.formControlNoMargin}
+            >
+                <TextField
+                    label="Voyage Number:"
+                    value={data.voyageNumber}
+                    onChange={(e) => setDataProp({voyageNumber: e.target.value})}
+                    variant="outlined"
+                />
+            </FormControl>
+
+        </Grid>
 
         <Typography variant="h5" component="h5" gutterBottom style={{marginTop: '20px'}}>
             Port of call
         </Typography>
 
+        {/*Port of call and all time pickers*/}
         <div className={'flex-parent'}>
             <div className={'flex-item-40'}>
                 <TextField id="port-call-field" label="Port of call" margin={'normal'} fullWidth variant="outlined"/>
+
+                <TextField style={{marginTop: '15px'}} id="port-facility" label="Port facility at arrival"
+                           variant="outlined"/>
             </div>
+
             <div className={'flex-item-60'}>
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
                     <Grid container justify="space-between">
@@ -160,6 +189,7 @@ export default function PortForm(props) {
             </div>
         </div>
 
+        {/*Port of arrival / last port of call / next port of call*/}
         <Grid container justify="space-between" style={{marginTop: '30px'}}>
 
             <FormControl
@@ -167,17 +197,17 @@ export default function PortForm(props) {
                 required
                 className={classes.formControlNoMargin}
             >
-                <InputLabel id="call-anchorage-label">Call at anchorage</InputLabel>
+                <InputLabel id="port-of-arrival-label">Port of arrival</InputLabel>
                 <Select
-                    labelId="call-anchorage-label"
-                    id="call-anchorage"
-                    value={data.callAnchorage}
+                    labelId="port-of-arrival-label"
+                    value={data.portOfArrival}
                     onChange={(e) => {
-                        setDataProp({callAnchorage: e.target.value})
+                        setDataProp({portOfArrival: e.target.value})
                     }}
                 >
-                    <MenuItem value={'yes'}>Yes</MenuItem>
-                    <MenuItem value={'no'}>No</MenuItem>
+                    <MenuItem value={'port 1'}>Port 1</MenuItem>
+                    <MenuItem value={'port 2'}>Port 2</MenuItem>
+                    <MenuItem value={'default'}>Port default</MenuItem>
                 </Select>
             </FormControl>
 
@@ -186,16 +216,93 @@ export default function PortForm(props) {
                 required
                 className={classes.formControlNoMargin}
             >
-                <TextField id="position-port-of-call" label="Position in port of call"
-                           variant="outlined"/>
+                <InputLabel id="last-port-call-label">Last port of call</InputLabel>
+                <Select
+                    labelId="last-port-call-label"
+                    value={data.lastPortOfCall}
+                    onChange={(e) => {
+                        setDataProp({lastPortOfCall: e.target.value})
+                    }}
+                >
+                    <MenuItem value={'port 1'}>Port 1</MenuItem>
+                    <MenuItem value={'port 2'}>Port 2</MenuItem>
+                    <MenuItem value={'default'}>Port default</MenuItem>
+                </Select>
             </FormControl>
-            <TextField id="port-facility" label="Port facility at arrival" variant="outlined"/>
+
+
+            <FormControl
+                variant="outlined"
+                required
+                className={classes.formControlNoMargin}
+            >
+                <InputLabel id="next-port-call-label">Next port of call</InputLabel>
+                <Select
+                    labelId="next-port-call-label"
+                    value={data.nextPortOfCall}
+                    onChange={(e) => {
+                        setDataProp({nextPortOfCall: e.target.value})
+                    }}
+                >
+                    <MenuItem value={'port 1'}>Port 1</MenuItem>
+                    <MenuItem value={'port 2'}>Port 2</MenuItem>
+                    <MenuItem value={'default'}>Port default</MenuItem>
+                </Select>
+            </FormControl>
+        </Grid>
+
+        <FormControl
+            variant="outlined"
+            required
+            className={classes.formControlNoMargin}
+            style={{marginTop: "30px"}}
+        >
+            <InputLabel id="next-port-call-label">Call at anchorage</InputLabel>
+            <Select
+                labelId="next-port-call-label"
+                value={data.nextPortOfCall}
+                onChange={(e) => {
+                    setDataProp({nextPortOfCall: e.target.value})
+                }}
+            >
+                <MenuItem value={'port 1'}>Port 1</MenuItem>
+                <MenuItem value={'port 2'}>Port 2</MenuItem>
+                <MenuItem value={'default'}>Port default</MenuItem>
+            </Select>
+        </FormControl>
+
+        <Typography variant="h5" component="h5" style={{marginTop: '30px'}} gutterBottom>
+            Position at port of call
+        </Typography>
+
+        {/*Latitude, longitute and time*/}
+        <Grid container justify="space-between" style={{marginTop: '30px'}}>
+
+            <TextField
+                label="Latitude"
+                value={data.cargoDescription}
+                onChange={(e) => setDataProp({cargoDescription: e.target.value})}
+                variant="outlined"
+            />
+
+            <TextField
+                label="Longtitude"
+                value={data.cargoDescription}
+                onChange={(e) => setDataProp({cargoDescription: e.target.value})}
+                variant="outlined"
+            />
+
+            <TextField
+                label="Time"
+                value={data.cargoDescription}
+                onChange={(e) => setDataProp({cargoDescription: e.target.value})}
+                variant="outlined"
+            />
 
         </Grid>
 
         <TextField
             style={{marginTop: '30px'}}
-            id="cargo-description"
             label="Brief description of onboard cargo"
             multiline
             fullWidth
@@ -205,98 +312,138 @@ export default function PortForm(props) {
             variant="outlined"
         />
 
-        <div className={'flex-parent'} style={{marginTop: '30px'}}>
+        <Typography variant="h5" component="h5" style={{marginTop: '30px'}} gutterBottom>
+            Name of master
+        </Typography>
 
-            <div className={'flex-item-30'}>
+        <Grid container justify={'flex-start'}>
 
-                <TextField
-                    id="name-master-field"
-                    label="Name of master"
-                    value={data.nameMaster}
-                    onChange={(e) => setDataProp({nameMaster: e.target.value})}
-                    variant="outlined"
-                />
+            <TextField
+                label="Family name"
+                value={data.cargoDescription}
+                onChange={(e) => setDataProp({cargoDescription: e.target.value})}
+                variant="outlined"
+            />
 
-                <TextField
-                    style={{marginTop: '20px'}}
-                    id="air-draught-field"
-                    label="Air draught"
-                    value={data.airDraught}
-                    onChange={(e) => setDataProp({airDraught: e.target.value})}
-                    variant="outlined"
-                />
+            <TextField
+                style={{marginLeft: '10%'}}
+                label="Given name"
+                value={data.cargoDescription}
+                onChange={(e) => setDataProp({cargoDescription: e.target.value})}
+                variant="outlined"
+            />
 
-            </div>
-
-            <div className={'flex-item-70'}>
-
-                <Grid container justify={'space-around'}>
-
-                    <Typography variant="h6" component="p" style={{marginTop: '5px'}} gutterBottom>
-                        Purpose of call:
-                    </Typography>
-
-                    <div>
-                        {data.purposesOfCall.map((item, index) => <div key={index}>
-                            <TextField
-                                id={`purpose-of-call-${index}`}
-                                label={index === 0 ? 'Call purpose' : `Call purpose (${index})`}
-                                value={item}
-                                onChange={(e) => {
-                                    let purposeArr = data.purposesOfCall;
-                                    purposeArr[index] = e.target.value;
-                                    setDataProp({purposesOfCall: purposeArr})
-                                }}
-                                variant="outlined"
-                            />
-
-                            <IconButton
-                                style={{
-                                    marginLeft: '10px',
-                                    marginBottom: '20px'
-                                }}
-                                color={'secondary'}
-                                aria-label="delete"
-                                variant={'outlined'}
-                                onClick={() => {
-                                    if (index === 0 && data.purposesOfCall.length === 1) {
-                                        setDataProp({purposesOfCall: ['']})
-                                    } else {
-                                        let slicedData = JSON.parse(JSON.stringify(data.purposesOfCall));
-                                        slicedData.splice(index, 1);
-                                        setDataProp({purposesOfCall: slicedData})
-                                    }
-                                }}
-                            >
-                                <DeleteIcon/>
-                            </IconButton>
-
-                        </div>)}
-
-                        <Button
-                            style={{marginTop: '15px'}}
-                            variant="outlined"
-                            color="primary"
-                            disabled={data.purposesOfCall[data.purposesOfCall.length - 1] === ''}
-                            className={classes.button}
-                            onClick={() => setDataProp({purposeOfCall: data.purposesOfCall.push('')})}
-                            startIcon={<AddIcon/>}
-                        >
-                            Add new row
-                        </Button>
-
-                    </div>
-
-                </Grid>
-
-            </div>
-        </div>
-
-        <Grid container justify={'space-between '}>
-            <TextField id="port-call-field" label="Fore draught" margin={'normal'} variant="outlined"/>
-            <TextField id="port-call-field" label="Mid-ship draught" margin={'normal'} variant="outlined"/>
-            <TextField id="port-call-field" label="Aft draught" margin={'normal'}   variant="outlined"/>
         </Grid>
 
+        <Typography variant="h5" component="h5" style={{marginTop: '30px'}} gutterBottom>
+            Purpose of call
+        </Typography>
+        <div style={{marginTop: "20px"}}>
+            {data.purposesOfCall.map((item, index) => <div key={index}>
+                <TextField
+                    id={`purpose-of-call-${index}`}
+                    label={index === 0 ? 'Call purpose' : `Call purpose (${index})`}
+                    value={item}
+                    onChange={(e) => {
+                        let purposeArr = data.purposesOfCall;
+                        purposeArr[index] = e.target.value;
+                        setDataProp({purposesOfCall: purposeArr})
+                    }}
+                    variant="outlined"
+                />
+
+                <IconButton
+                    style={{
+                        marginLeft: '10px',
+                        marginBottom: '20px'
+                    }}
+                    color={'secondary'}
+                    aria-label="delete"
+                    variant={'outlined'}
+                    onClick={() => {
+                        if (index === 0 && data.purposesOfCall.length === 1) {
+                            setDataProp({purposesOfCall: ['']})
+                        } else {
+                            let slicedData = JSON.parse(JSON.stringify(data.purposesOfCall));
+                            slicedData.splice(index, 1);
+                            setDataProp({purposesOfCall: slicedData})
+                        }
+                    }}
+                >
+                    <DeleteIcon/>
+                </IconButton>
+
+            </div>)}
+
+            <Button
+                style={{marginTop: '15px'}}
+                variant="outlined"
+                color="primary"
+                disabled={data.purposesOfCall[data.purposesOfCall.length - 1] === ''}
+                className={classes.button}
+                onClick={() => setDataProp({purposeOfCall: data.purposesOfCall.push('')})}
+                startIcon={<AddIcon/>}
+            >
+                Add new row
+            </Button>
+
+        </div>
+
+        <TextField
+            style={{marginTop: '20px'}}
+            id="air-draught-field"
+            label="Air draught"
+            value={data.airDraught}
+            onChange={(e) => setDataProp({airDraught: e.target.value})}
+            variant="outlined"
+        />
+
+
+        <Typography variant="h5" component="h5" style={{marginTop: '30px'}} gutterBottom>
+            {data.arrivalDeparture} draught
+        </Typography>
+
+        <Grid container justify={'space-between'}>
+            <TextField id="port-call-field" label="Fore draught" margin={'normal'} variant="outlined"/>
+            <TextField id="port-call-field" label="Mid-ship draught" margin={'normal'} variant="outlined"/>
+            <TextField id="port-call-field" label="Aft draught" margin={'normal'} variant="outlined"/>
+        </Grid>
+
+
+        <Typography variant="h5" component="h5" style={{marginTop: '30px'}} gutterBottom>
+            Name and contact details of ship's agent
+        </Typography>
+
+        <Grid container justify={'space-between'}>
+            <TextField
+                style={{width: 'calc(90% - 220px)'}}
+                label="Name"
+                multiline
+                rowsMax={2}
+                value={data.cargoDescription}
+                onChange={(e) => setDataProp({cargoDescription: e.target.value})}
+                variant="outlined"
+            />
+
+            <TextField label="Mobile telephone" variant="outlined"/>
+        </Grid>
+
+        <Grid container justify={'space-between'}>
+            <TextField id="port-call-field" label="Business telephone" margin={'normal'} variant="outlined"/>
+            <TextField id="port-call-field" label="Telefax" margin={'normal'} variant="outlined"/>
+            <TextField id="port-call-field" label="Email" margin={'normal'} variant="outlined"/>
+        </Grid>
+
+        <Typography variant="h5" component="h5" style={{marginTop: '30px'}} gutterBottom>
+            Number of persons on board
+        </Typography>
+
+        <Grid container justify={'space-between'}>
+            <TextField label="Number of persons" margin={'normal'} variant="outlined"/>
+            <TextField label="Number of crew" margin={'normal'} variant="outlined"/>
+            <TextField label="Number of passengers" margin={'normal'} variant="outlined"/>
+        </Grid>
+        <TextField label="Have any stowaways been found on boards" margin={'normal'} variant="outlined"/> <br/>
+        <TextField label="Period of stay" margin={'normal'} variant="outlined"/>
     </>
 }

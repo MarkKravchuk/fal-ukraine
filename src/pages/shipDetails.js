@@ -16,6 +16,25 @@ import VoyageForm from "../components/voyageFormComponent";
 
 import {config} from "../config/shipDetailsConfig";
 
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from 'yup'
+
+const schema = yup.object.shape({
+    port: yup.object.shape({
+        arrivalDeparture: yup.string(),
+        voyageNumber: yup.string().required(),
+        ETAPortOfCall: yup.string(),
+        ATAPortOfCall: yup.string(),
+        ETDPortOfCall: yup.string(),
+        ATDPortOfCall: yup.string(),
+        callAnchorage: yup.string(), //Yes or No
+        positionPortOfCall: yup.string(),
+
+
+    })
+})
+
 const listOfOptions = [
     {
         label: 'Port',
@@ -132,10 +151,16 @@ class ShipDetails extends React.Component {
                 </Drawer>
                 <main className={classes.content}>
                     <Toolbar />
-                    {this.getChildComponent()}
+                    {this.getMainPage()}
                 </main>
             </div>
         )
+    }
+
+    getMainPage() {
+
+
+
     }
 
     getChildComponent() {
