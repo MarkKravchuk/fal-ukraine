@@ -1,7 +1,8 @@
 let XMLParser = require('react-xml-parser');
 let data = require("../data/data");
 export let readXML  = () =>{
-    let port = data.port
+    let port = data.port;
+    let crew =  data.crew;
 
     let file = document.getElementById("file").files[0];
 
@@ -77,7 +78,8 @@ export let readXML  = () =>{
             port.Stowaways = xml.getElementsByTagName('Stowaways')[0].value;
             port.periodOfStay = xml.getElementsByTagName('periodOfStay')[0].value;
             console.log("Port ", port);
-            return port;
+
+
 
 
         };

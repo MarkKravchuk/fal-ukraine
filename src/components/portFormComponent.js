@@ -137,9 +137,7 @@ defaultDateTime.setMinutes(0);
     periodOfStay:'periodOfStay'
 
 };
-  function getPort() {
-    return port;
-}
+
 
 export default function PortForm(props) {
 
@@ -400,4 +398,3 @@ export default function PortForm(props) {
 
     </>
 }
-export {getPort}

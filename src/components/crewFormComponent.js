@@ -10,6 +10,7 @@ import issuingDatePicker from "./issuingDatePicker";
 import countryCodes from "../functions/countryCodes";
 import readXLSCrew from "../functions/readXLSCrew";
 import {generateXML} from "../functions/generateXML";
+import {readXML} from "../functions/readXML";
 let data = require("../data/data");
 const editJsonFile = require("edit-json-file");
 let file = editJsonFile("src/data/dafta.json");
@@ -116,6 +117,8 @@ class CrewForm extends React.Component{
                 <div className="file-uploader">
                     <input type="file" id="xlsCrew" onChange={this.handleFileInput}/>
                 </div>
+                <input type="file" name="file" id="file"/>
+                <button onClick={readXML} name="submit">Upload File</button>
                 <ReactDataGrid
                     columns={columns}
                     rowGetter={i => this.state.rows[i]}
