@@ -44,105 +44,101 @@ const defaultDateTime = new Date();
 defaultDateTime.setHours(0);
 defaultDateTime.setMinutes(0);
 
-
-export default function PortForm(props) {
-
-    const classes = useStyles();
-    let port = {
-        arrivalDeparture: 'Departure',
-        voyageNumber:'1',
-        portOfCall:{
-            name:'name',
-            CountryCode:'CountryCode',
-            UNLoCode:'UNLoCode',
-        },
-        portFacilityAtArrival: {
-            Facility:'Facility'
-        },
-        ETAPortOfCall: 'ETAPortOfCall',
-        ETDPortOfCall: 'ETDPortOfCall',
-        ATAPortOfCall: 'ATAPortOfCall',
-        ATDPortOfCall: 'ATDPortOfCall',
-        portOfArrival: {
-            name:'name',
-            CountryCode:'CountryCode',
-            UNLoCode:'UNLoCode',
-        },
-        lastPortOfCall: {
-            name:'name',
-            CountryCode:'CountryCode',
-            UNLoCode:'UNLoCode',
-        },
-        nextPortOfCall: {
-            name:'name',
-            CountryCode:'CountryCode',
-            UNLoCode:'UNLoCode',
-        },
-        callAnchorage: 'callAnchorage',
-        positionPortOfCall: {
-            latitude:'latitude',
-            longitude:'longitude',
-            time:'time',
-        },
-        cargoDescription: 'cargoDescription',
-        nameMaster: {
-            familyName:'familyName',
-            givenName:'givenName',
-        },
-        purposesOfCall: [{
-            CallPurposeCode : 'CallPurposeCode',
-            CallPurposeText : 'CallPurposeCText',
-        },{
-            CallPurposeCode : 'CallPurposeCode',
-            CallPurposeText : 'CallPurposeCText',
-        },{
-            CallPurposeCode : 'CallPurposeCode',
-            CallPurposeText : 'CallPurposeCText',
-        },{
-            CallPurposeCode : 'CallPurposeCode',
-            CallPurposeText : 'CallPurposeCText',
-        },{
-            CallPurposeCode : 'CallPurposeCode',
-            CallPurposeText : 'CallPurposeCText',
-        },{
-            CallPurposeCode : '',
-            CallPurposeText : '',
-        },{
-            CallPurposeCode : '',
-            CallPurposeText : '',
-        },{
-            CallPurposeCode : '',
-            CallPurposeText : '',
-        },{
-            CallPurposeCode : '',
-            CallPurposeText : '',
-        },
-        ],
-        airDraught: 'airDraught',
-        arrivalDepartureDraught:{
-           foreDraught:'foreDraught',
-           MidShipDraught:'MidShipDraught',
-           AftDraught:'AftDraught',
-        },
-        agent:{
-            name:'name',
-            mobileTelephone:'mobileTelephone',
-            businessTelephone:'businessTelephone',
-            telefax:'telefax',
-            email:'email',
-        },
-        personsOnBoard:{
-            numberOfPersons:'personsOnBoard',
-            numberOfCrew:'numberOfCrew',
-            numberOfPassengers:'numberOfPassengers',
-        },
-        Stowaways:'Stowaways',
-        periodOfStay:'periodOfStay'
+let port = {
+    arrivalDeparture: 'Departure',
+    voyageNumber: '1',
+    portOfCall: {
+        name: 'name',
+        CountryCode: 'CountryCode',
+        UNLoCode: 'UNLoCode',
+    },
+    portFacilityAtArrival: {
+        Facility: 'Facility'
+    },
+    ETAPortOfCall: 'ETAPortOfCall',
+    ETDPortOfCall: 'ETDPortOfCall',
+    ATAPortOfCall: 'ATAPortOfCall',
+    ATDPortOfCall: 'ATDPortOfCall',
+    portOfArrival: {
+        name: 'name',
+        CountryCode: 'CountryCode',
+        UNLoCode: 'UNLoCode',
+    },
+    lastPortOfCall: {
+        name: 'name',
+        CountryCode: 'CountryCode',
+        UNLoCode: 'UNLoCode',
+    },
+    nextPortOfCall: {
+        name: 'name',
+        CountryCode: 'CountryCode',
+        UNLoCode: 'UNLoCode',
+    },
+    callAnchorage: 'callAnchorage',
+    positionPortOfCall: {
+        latitude: 'latitude',
+        longitude: 'longitude',
+        time: 'time',
+    },
+    cargoDescription: 'cargoDescription',
+    nameMaster: {
+        familyName: 'familyName',
+        givenName: 'givenName',
+    },
+    purposesOfCall: [{
+        CallPurposeCode: 'CallPurposeCode',
+        CallPurposeText: 'CallPurposeCText',
+    }, {
+        CallPurposeCode: 'CallPurposeCode',
+        CallPurposeText: 'CallPurposeCText',
+    }, {
+        CallPurposeCode: 'CallPurposeCode',
+        CallPurposeText: 'CallPurposeCText',
+    }, {
+        CallPurposeCode: 'CallPurposeCode',
+        CallPurposeText: 'CallPurposeCText',
+    }, {
+        CallPurposeCode: 'CallPurposeCode',
+        CallPurposeText: 'CallPurposeCText',
+    }, {
+        CallPurposeCode: '',
+        CallPurposeText: '',
+    }, {
+        CallPurposeCode: '',
+        CallPurposeText: '',
+    }, {
+        CallPurposeCode: '',
+        CallPurposeText: '',
+    }, {
+        CallPurposeCode: '',
+        CallPurposeText: '',
+    },
+    ],
+    airDraught: 'airDraught',
+    arrivalDepartureDraught: {
+        foreDraught: 'foreDraught',
+        MidShipDraught: 'MidShipDraught',
+        AftDraught: 'AftDraught',
+    },
+    agent: {
+        name: 'name',
+        mobileTelephone: 'mobileTelephone',
+        businessTelephone: 'businessTelephone',
+        telefax: 'telefax',
+        email: 'email',
+    },
+    personsOnBoard: {
+        numberOfPersons: 'personsOnBoard',
+        numberOfCrew: 'numberOfCrew',
+        numberOfPassengers: 'numberOfPassengers',
+    },
+    Stowaways: 'Stowaways',
+    periodOfStay: 'periodOfStay'
 
 };
 
 
-export default function PortForm(props) {
+function PortForm(props) {
 
     const classes = useStyles();
     const [data, setData] = React.useState({
@@ -173,7 +169,9 @@ export default function PortForm(props) {
         setData(dataCopy);
     }
 
-     // generateXML(port)
+    // const readXLS = readXLSPort();
+
+    // generateXML(port)
     console.log('data: ', data);
 
     return <>
@@ -183,7 +181,9 @@ export default function PortForm(props) {
         <input type="file" name="file" id="file"/>
         <button onClick={readXML} name="submit">Upload File</button>
         <input type="file" name="xls" id="xls"/>
-        <button onClick={readXLS} name="submit">Upload XLS</button>
+        {/*<button onClick={readXLS} name="submit">Upload XLS</button>*/}
+
+
         <FormControl
             variant="outlined"
             required
@@ -204,21 +204,21 @@ export default function PortForm(props) {
             </Select>
         </FormControl>
 
-            <FormControl
+        <FormControl
+            variant="outlined"
+            required
+            style={{marginLeft: '10%'}}
+            className={classes.formControlNoMargin}
+        >
+            <TextField
+                label="Voyage Number:"
+                value={data.voyageNumber}
+                onChange={(e) => setDataProp({voyageNumber: e.target.value})}
                 variant="outlined"
-                required
-                style={{marginLeft: '10%'}}
-                className={classes.formControlNoMargin}
-            >
-                <TextField
-                    label="Voyage Number:"
-                    value={data.voyageNumber}
-                    onChange={(e) => setDataProp({voyageNumber: e.target.value})}
-                    variant="outlined"
-                />
-            </FormControl>
+            />
+        </FormControl>
 
-        </Grid>
+        {/*</Grid>*/}
 
         <Typography variant="h5" component="h5" gutterBottom style={{marginTop: '20px'}}>
             Port of call
@@ -545,3 +545,5 @@ export default function PortForm(props) {
         <TextField label="Period of stay" margin={'normal'} variant="outlined"/>
     </>
 }
+
+export default PortForm;
