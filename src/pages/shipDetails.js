@@ -1,5 +1,4 @@
-import React from "react";
-import {withStyles} from '@material-ui/core/styles';
+import React, {useState} from "react";
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -16,12 +15,13 @@ import VoyageForm from "../components/voyageFormComponent";
 
 import {config} from "../config/shipDetailsConfig";
 
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
+import {useForm} from "react-hook-form";
+import {yupResolver} from "@hookform/resolvers/yup";
 import * as yup from 'yup'
+import {makeStyles} from "@material-ui/core/styles";
 
-const schema = yup.object.shape({
-    port: yup.object.shape({
+const schema = yup.object().shape({
+    port: yup.object().shape({
         arrivalDeparture: yup.string(),
         voyageNumber: yup.string().required(),
         ETAPortOfCall: yup.string(),
@@ -30,8 +30,6 @@ const schema = yup.object.shape({
         ATDPortOfCall: yup.string(),
         callAnchorage: yup.string(), //Yes or No
         positionPortOfCall: yup.string(),
-
-
     })
 })
 
@@ -79,7 +77,7 @@ const defaultOption = 'Port';
 
 const drawerWidth = config.showDrawerIcons ? 240 : 180;
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
     },
@@ -100,96 +98,85 @@ const styles = (theme) => ({
         flexGrow: 1,
         padding: theme.spacing(3),
     },
-});
+}));
 
-class ShipDetails extends React.Component {
+function ShipDetails() {
 
-    state = {
-        activeItem: listOfOptions.indexOf(listOfOptions.find( (a) => a.label === defaultOption))
-    }
+    const classes = useStyles();
+    const [activeItem, setActiveItem] = useState(0);
 
-    render() {
-        const { classes } = this.props;
-        let { activeItem } = this.state;
+    const {register, handleSubmit, errors} = useForm({
+        resolver: yupResolver(schema)
+    })
 
-        return (
-            <div className={classes.root}>
-                <CssBaseline />
-                <AppBar position="fixed" className={classes.appBar}>
-                    <Toolbar>
-                        <Typography variant="h6" noWrap>
-                            Ship details
-                        </Typography>
-                    </Toolbar>
-                </AppBar>
-                <Drawer
-                    className={classes.drawer}
-                    variant="permanent"
-                    classes={{
-                        paper: classes.drawerPaper,
-                    }}
-                >
-                    <Toolbar />
-                    <div className={classes.drawerContainer}>
-                        <List>
-                            {listOfOptions.map((item, index) => (
-                                <ListItem
-                                    key={index}
-                                    button
-                                    selected={activeItem === index}
-                                    onClick={() => {
-                                        this.setActiveItem(index)
-                                    }}>
+    return (
+        <div className={classes.root}>
+            <CssBaseline/>
+            <AppBar position="fixed" className={classes.appBar}>
+                <Toolbar>
+                    <Typography variant="h6" noWrap>
+                        Ship details
+                    </Typography>
+                </Toolbar>
+            </AppBar>
 
-                                    {config.showDrawerIcons && <ListItemIcon><i>icon</i></ListItemIcon>}
-                                    <ListItemText primary={item.label} />
+            <Drawer
+                className={classes.drawer}
+                variant="permanent"
+                classes={{
+                    paper: classes.drawerPaper,
+                }}
+            >
+                <Toolbar/>
+                <div className={classes.drawerContainer}>
+                    <List>
+                        {listOfOptions.map((item, index) => (
+                            <ListItem
+                                key={index}
+                                button
+                                selected={activeItem === index}
+                                onClick={() => {
+                                    setActiveItem(index)
+                                }}>
 
-                                </ListItem>
-                            ))}
-                        </List>
-                    </div>
-                </Drawer>
-                <main className={classes.content}>
-                    <Toolbar />
-                    {this.getMainPage()}
-                </main>
-            </div>
-        )
-    }
+                                {config.showDrawerIcons && <ListItemIcon><i>icon</i></ListItemIcon>}
+                                <ListItemText primary={item.label}/>
 
-    getMainPage() {
-
-
-
-    }
-
-    getChildComponent() {
-        let { activeItem } = this.state;
-
-        let selectedItem = listOfOptions[activeItem].value;
-
-        switch (selectedItem) {
-            case 'port': return <PortForm/>
-            case 'ship': return <ShipForm/>
-            case 'voyage': return <VoyageForm/>
-            case 'passengers':
-            case 'crew':
-            case 'ship_stores':
-            case 'crew_effects':
-            case 'cargo':
-            case 'health':
-            case 'dangerous_goods':
-            case 'security':
-            case 'waste':
-            default:
-                return <h1>Not supported yet</h1>
-        }
-    }
-
-    setActiveItem(id) {
-        this.setState({activeItem: id});
-    }
-
+                            </ListItem>
+                        ))}
+                    </List>
+                </div>
+            </Drawer>
+            <main className={classes.content}>
+                <Toolbar/>
+                {getChildComponent(activeItem)}
+            </main>
+        </div>
+    )
 }
 
-export default  withStyles(styles)(ShipDetails);
+function getChildComponent(activeItem) {
+    let selectedItem = listOfOptions[activeItem].value;
+
+    switch (selectedItem) {
+        case 'port':
+            return <PortForm/>
+        case 'ship':
+            return <ShipForm/>
+        case 'voyage':
+            return <VoyageForm/>
+        case 'passengers':
+        case 'crew':
+        case 'ship_stores':
+        case 'crew_effects':
+        case 'cargo':
+        case 'health':
+        case 'dangerous_goods':
+        case 'security':
+        case 'waste':
+        default:
+            return <h1>Not supported yet</h1>
+    }
+}
+
+export default ShipDetails;

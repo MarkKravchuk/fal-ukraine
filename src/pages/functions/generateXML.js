@@ -8,6 +8,7 @@ export let generateXML  =(port) =>{
             {MidShipDraught: port.arrivalDepartureDraught.MidShipDraught},
             {Time: port.arrivalDepartureDraught.AftDraught},
         ]}
+
     }else {
         ArrivalDepartureDraught = {DepartureDraught: [
             {ForeDraught: port.arrivalDepartureDraught.foreDraught},

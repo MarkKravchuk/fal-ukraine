@@ -1,5 +1,5 @@
-let XMLParser = require('react-xml-parser');
-export let readXML  = () =>{
+import XMLParser from 'react-xml-parser';
+export let readXML  = () => {
     let port = {
         arrivalDeparture: '',
         voyageNumber:'',
