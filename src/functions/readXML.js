@@ -1,3 +1,5 @@
+import XMLParser from 'react-xml-parser';
+export let readXML  = () => {
 let XMLParser = require('react-xml-parser');
 let data = require("../data/data");
 export let readXML  = () =>{
