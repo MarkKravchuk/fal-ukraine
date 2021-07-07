@@ -27,7 +27,7 @@ let data = require("../data/data");
 
 
     })
-     data.crew = crew;
+     data.crew.rows = crew;
      return {crew};
 }
 export default {readXLS: readXLSCrew}

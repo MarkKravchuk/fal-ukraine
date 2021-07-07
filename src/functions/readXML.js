@@ -1,11 +1,13 @@
 import XMLParser from 'react-xml-parser';
 
 export let readXML = () => {
+    console.log("readXML")
     let XMLParser = require('react-xml-parser');
     let data = require("../data/data");
     let readXML = () => {
+        console.log("readXML1")
         let port = data.port;
-        let crew = data.crew;
+        // let crew = data.crew;
 
         let file = document.getElementById("file").files[0];
 
@@ -82,6 +84,25 @@ export let readXML = () => {
                 port.periodOfStay = xml.getElementsByTagName('periodOfStay')[0].value;
                 console.log("Port ", port);
 
+                let crewList = xml.getElementsByTagName('CrewList');
+                let crew = [];
+                console.log("crewList ",crewList[0].children);
+                for (let i = 0; i <crewList[0].children.length; i++) {
+                    let CreMemberData = crewList[0].children[i];
+                    let row = {NR:i,Family_name: CreMemberData.children[1].children[1].value,Given_name:CreMemberData.children[1].children[0].value,
+                        Gender:CreMemberData.children[2].value, Rank_of_rating:CreMemberData.children[3].children[1].value, Nationality:CreMemberData.children[7].value,
+                        Country_of_birth:CreMemberData.children[6].value, Place_of_birth:CreMemberData.children[5].value,date_of_birth:CreMemberData.children[4].value,
+                        ID_type:CreMemberData.children[0].children[0].value, ID_document_number:CreMemberData.children[0].children[1].value,
+                        Issuing_state_of_identity_document:CreMemberData.children[0].children[2].value, Expiry_date_of_identity_document: CreMemberData.children[0].children[3].value,
+                        Visa_Residence_permit_number:CreMemberData.children[8].value
+                    }
+                    crew.push(row)
+                }
+                data.crew.rows = crew;
+                console.log(data.crew)
+                // console.log("crewList ",crewList[0].children[0].children[2].value);
+                // console.log("crewList ",crewList[0].children[0].children[2].value);
+
 
             };
         })();
@@ -89,7 +110,8 @@ export let readXML = () => {
 
 
     }
+    readXML()
 }
 
-export default readXML;
+export default {readXML};
 

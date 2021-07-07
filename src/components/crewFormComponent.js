@@ -68,7 +68,7 @@ const columns = [
 let rows = data.crew.rows;
 
 class CrewForm extends React.Component{
-    state =  {rows} ;
+    state =  {rows:data.crew.rows} ;
     addRow =()=>  {
          console.log("adding row")
         this.setState(state=>{
@@ -79,18 +79,18 @@ class CrewForm extends React.Component{
             let row = {NR:number}
             rows.push(row)
             console.log("rows set ", rows)
-            data.crew=rows;
-            return {rows}
+            data.crew.rows=rows;
+            return {rows:rows}
         })
     }
 
      handleFileInput=async()=>{
 
-            let rows =   readXLSCrew.readXLS().crew;
+            let rows = readXLSCrew.readXLS().crew;
             //very dirty
             await new Promise(r => setTimeout(r, 100));
                  this.setState(state=>{
-                    return {rows}
+                    return {rows:rows}
                 })
 
 
@@ -101,8 +101,8 @@ class CrewForm extends React.Component{
             for (let i = fromRow; i <= toRow; i++) {
                 rows[i] = { ...rows[i], ...updated };
             }
-            data.crew=rows;
-            return { rows };
+            data.crew.rows=rows;
+            return { rows:rows };
         });
     };
     render() {
