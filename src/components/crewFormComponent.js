@@ -70,18 +70,11 @@ let rows = data.crew.rows;
 class CrewForm extends React.Component{
     state =  {rows:data.crew.rows} ;
     addRow =()=>  {
-         console.log("adding row")
-        this.setState(state=>{
-            let rows = state.rows;
-            console.log("setting state ", rows)
-            let number = state.rows.length+1
-            console.log("nr ", number)
-            let row = {NR:number}
-            rows.push(row)
-            console.log("rows set ", rows)
-            data.crew.rows=rows;
-            return {rows:rows}
-        })
+         console.log("adding row");
+        let number = data.crew.rows.length+1
+        let row = {NR:number}
+        data.crew.rows.push(row)
+        this.setState(rows = data.crew.rows)
     }
 
      handleFileInput=async()=>{
