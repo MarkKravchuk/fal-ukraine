@@ -9,7 +9,7 @@ const RanksOfRating = ['AbleSeaman', 'Agent', 'AsstFoodBevMngr', 'BarManager', '
 export let generateXML  =() =>{
     if(dataCheck() == true){
         let port = data.port;
-        let crew = data.crew;
+        let crew = data.crew.rows;
         console.log("generatexmldata ",data);
         let ArrivalDepartureDraught;
         let CrewList = [];
@@ -18,7 +18,7 @@ export let generateXML  =() =>{
             console.log("id type ", crew[i].ID_type);
             let RankOfRatingCode = "";
             if(crew[i].Rank_of_rating != null){
-                RankOfRatingCode = RanksOfRating.indexOf(crew[i].Rank_of_rating);
+                RankOfRatingCode = RanksOfRating.indexOf(crew[i].Rank_of_rating)+1;
             }
             CrewMemberData.push({
                 CrewIdDocument :[
@@ -195,6 +195,38 @@ let dataCheck = () =>{
         let row = data.crew.rows[i]
         if(row.Family_name == null){
             alert("Please, fill in the required field 'Family name' in Crew list")
+            return false
+        }
+        if(row.Given_name == null){
+            alert("Please, fill in the required field 'Given name' in Crew list")
+            return false
+        }
+        if(row.Rank_of_rating == null){
+            alert("Please, fill in the required field 'Rank of rating' in Crew list")
+            return false
+        }
+        if(row.Nationality == null){
+            alert("Please, fill in the required field 'Nationality' in Crew list")
+            return false
+        }
+        if(row.Country_of_birth == null){
+            alert("Please, fill in the required field 'Country of birth' in Crew list")
+            return false
+        }
+        if(row.Place_of_birth == null){
+            alert("Please, fill in the required field 'Place of birth' in Crew list")
+            return false
+        }
+        if(row.date_of_birth == null){
+            alert("Please, fill in the required field 'date of birth' in Crew list")
+            return false
+        }
+        if(row.ID_type == null){
+            alert("Please, fill in the required field 'ID type' in Crew list")
+            return false
+        }
+        if(row.ID_document_number == null){
+            alert("Please, fill in the required field 'ID document number' in Crew list")
             return false
         }
     }
