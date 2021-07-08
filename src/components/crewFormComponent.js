@@ -42,19 +42,19 @@ const CountryCodesEditor = <DropDownEditor options={countryCodesList}/>;
 
 const columns = [
     { key: "NR", name: "NR", editable: true, width: 50},
-    { key: "Family_name", name: "Family name", editable: true },
-    { key: "Given_name", name: "Given name", editable: true },
+    { key: "Family_name", name: "Family name", editable: true, width: 120 },
+    { key: "Given_name", name: "Given name", editable: true, width: 120 },
     { key: "Gender", name: "Gender", editable: true, width: 80, editor: GendersEditor },
-    { key: "Rank_of_rating", name: "Rank of rating", editable: true, editor:RanksOfRatingEditor },
-    { key: "Nationality", name: "Nationality", editable: true, editor:CountryCodesEditor },
-    { key: "Country_of_birth", name: "Country of birth", editable: true, editor:CountryCodesEditor },
-    { key: "Place_of_birth", name: "Place of birth", editable: true },
-    { key: "date_of_birth", name: "Date of birth", editable: true, editor:dateOfBirthPicker },
+    { key: "Rank_of_rating", name: "Rank of rating", editable: true, editor:RanksOfRatingEditor, width: 120},
+    { key: "Nationality", name: "Nationality", editable: true, editor:CountryCodesEditor, width: 100 },
+    { key: "Country_of_birth", name: "Country of birth", editable: true, editor:CountryCodesEditor, width: 120 },
+    { key: "Place_of_birth", name: "Place of birth", editable: true, width: 120 },
+    { key: "date_of_birth", name: "Date of birth", editable: true, editor:dateOfBirthPicker, width: 120 },
     { key: "ID_type", name: "ID type", editable: true, width: 80, editor: IDTypesEditor},
-    { key: "ID_document_number", name: "ID document number", editable: true },
-    { key: "Issuing_state_of_identity_document", name: "Issuing state of identity document", editable: true, editor: issuingDatePicker },
-    { key: "Expiry_date_of_identity_document", name: "Expiry date of identity document", editable: true, editor: expiryDatePicker},
-    { key: "Visa_Residence_permit_number", name: "Visa/Residence permit number", editable: true },
+    { key: "ID_document_number", name: "ID document number", editable: true, width: 150 },
+    { key: "Issuing_state_of_identity_document", name: "Issuing state of identity document", editable: true, editor: issuingDatePicker, width: 250},
+    { key: "Expiry_date_of_identity_document", name: "Expiry date of identity document", editable: true, editor: expiryDatePicker, width: 250},
+    { key: "Visa_Residence_permit_number", name: "Visa/Residence permit number", editable: true, width: 250 },
 ];
 
 // const rows = [
@@ -77,7 +77,9 @@ class CrewForm extends React.Component{
         this.setState(rows = data.crew.rows)
     }
 
-     handleFileInput=async()=>{
+
+    handleFileInput=async()=>{
+
 
             let rows = readXLSCrew.readXLS().crew;
             //very dirty
@@ -98,6 +100,15 @@ class CrewForm extends React.Component{
             return { rows:rows };
         });
     };
+    readXML=async()=>{
+        readXML();
+        await new Promise(r => setTimeout(r, 100));
+        this.setState(state=>{
+            return {rows:data.crew.rows}
+        })
+        // this.setState(rows = data.crew.rows)
+    }
+
     render() {
         console.log("rows ", this.state.rows);
         return (
@@ -111,7 +122,7 @@ class CrewForm extends React.Component{
                     <input type="file" id="xlsCrew" onChange={this.handleFileInput}/>
                 </div>
                 <input type="file" name="file" id="file"/>
-                <button onClick={readXML} name="submit">Upload File</button>
+                <button onClick={this.readXML} name="submit">Upload File</button>
                 <ReactDataGrid
                     columns={columns}
                     rowGetter={i => this.state.rows[i]}

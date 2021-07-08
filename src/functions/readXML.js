@@ -1,4 +1,5 @@
 import XMLParser from 'react-xml-parser';
+import CrewForm from "../components/crewFormComponent";
 
 export let readXML = () => {
     console.log("readXML")
@@ -99,6 +100,7 @@ export let readXML = () => {
                     crew.push(row)
                 }
                 data.crew.rows = crew;
+
                 console.log(data.crew)
 
 
