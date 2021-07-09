@@ -20,8 +20,11 @@ import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddIcon from '@material-ui/icons/Add';
 import {generateXML} from '../functions/generateXML'
-import {readXML} from '../functions/readXML'
 import {readXLSPort} from '../functions/readXLSPort'
+import {readXML} from '../functions/readXML'
+
+import ListOfPorts from './../config/consts/listOfPortsConst'
+
 import './portFormComponent.css'
 
 const useStyles = makeStyles((theme) => ({
@@ -40,163 +43,28 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const defaultDateTime = new Date();
-defaultDateTime.setHours(0);
-defaultDateTime.setMinutes(0);
 
-let port = {
-    arrivalDeparture: 'Departure',
-    voyageNumber: '1',
-    portOfCall: {
-        name: 'name',
-        CountryCode: 'CountryCode',
-        UNLoCode: 'UNLoCode',
-    },
-    portFacilityAtArrival: {
-        Facility: 'Facility'
-    },
-    ETAPortOfCall: 'ETAPortOfCall',
-    ETDPortOfCall: 'ETDPortOfCall',
-    ATAPortOfCall: 'ATAPortOfCall',
-    ATDPortOfCall: 'ATDPortOfCall',
-    portOfArrival: {
-        name: 'name',
-        CountryCode: 'CountryCode',
-        UNLoCode: 'UNLoCode',
-    },
-    lastPortOfCall: {
-        name: 'name',
-        CountryCode: 'CountryCode',
-        UNLoCode: 'UNLoCode',
-    },
-    nextPortOfCall: {
-        name: 'name',
-        CountryCode: 'CountryCode',
-        UNLoCode: 'UNLoCode',
-    },
-    callAnchorage: 'callAnchorage',
-    positionPortOfCall: {
-        latitude: 'latitude',
-        longitude: 'longitude',
-        time: 'time',
-    },
-    cargoDescription: 'cargoDescription',
-    nameMaster: {
-        familyName: 'familyName',
-        givenName: 'givenName',
-    },
-    purposesOfCall: [{
-        CallPurposeCode: 'CallPurposeCode',
-        CallPurposeText: 'CallPurposeCText',
-    }, {
-        CallPurposeCode: 'CallPurposeCode',
-        CallPurposeText: 'CallPurposeCText',
-    }, {
-        CallPurposeCode: 'CallPurposeCode',
-        CallPurposeText: 'CallPurposeCText',
-    }, {
-        CallPurposeCode: 'CallPurposeCode',
-        CallPurposeText: 'CallPurposeCText',
-    }, {
-        CallPurposeCode: 'CallPurposeCode',
-        CallPurposeText: 'CallPurposeCText',
-    }, {
-        CallPurposeCode: '',
-        CallPurposeText: '',
-    }, {
-        CallPurposeCode: '',
-        CallPurposeText: '',
-    }, {
-        CallPurposeCode: '',
-        CallPurposeText: '',
-    }, {
-        CallPurposeCode: '',
-        CallPurposeText: '',
-    },
-    ],
-    airDraught: 'airDraught',
-    arrivalDepartureDraught: {
-        foreDraught: 'foreDraught',
-        MidShipDraught: 'MidShipDraught',
-        AftDraught: 'AftDraught',
-    },
-    agent: {
-        name: 'name',
-        mobileTelephone: 'mobileTelephone',
-        businessTelephone: 'businessTelephone',
-        telefax: 'telefax',
-        email: 'email',
-    },
-    personsOnBoard: {
-        numberOfPersons: 'personsOnBoard',
-        numberOfCrew: 'numberOfCrew',
-        numberOfPassengers: 'numberOfPassengers',
-    },
-    Stowaways: 'Stowaways',
-    periodOfStay: 'periodOfStay'
-
-};
-
-
-function PortForm(props) {
+function PortForm({data, updateData}) {
 
     const classes = useStyles();
-    const [data, setData] = React.useState({
-        arrivalDeparture: '',
-        voyageNumber: '',
-        ETAPortOfCall: defaultDateTime,
-        ETDPortOfCall: defaultDateTime,
-        ATAPortOfCall: defaultDateTime,
-        ATDPortOfCall: defaultDateTime,
-        callAnchorage: '',
-        positionPortOfCall: '',
-        portFacilityArrival: '',
-        cargoDescription: '',
-        nameMaster: '',
-        airDraught: '',
-        purposesOfCall: [''],
-        portOfArrival: '',
-        lastPortOfCall: '',
-        nextPortOfCall: '',
-    });
-
-    let setDataProp = function (dataItem) {
-        // deep copy
-        let dataCopy = JSON.parse(JSON.stringify(data));
-
-        dataCopy = {...dataCopy, ...dataItem};
-
-        setData(dataCopy);
-    }
-
-    // const readXLS = readXLSPort();
-
-    // generateXML(port)
-    console.log('data: ', data);
+    console.log('THe data', data)
 
     return <>
         <Typography variant="h3" component="h3" gutterBottom>
             Port information
         </Typography>
-        <input type="file" name="file" id="file"/>
-        <button onClick={readXML} name="submit">Upload File</button>
-        <input type="file" name="xls" id="xls"/>
-        {/*<button onClick={readXLS} name="submit">Upload XLS</button>*/}
-
 
         <FormControl
             variant="outlined"
-            required
-            className={classes.formControl}
+            className={classes.formControlNoMargin}
         >
-
             <InputLabel id="departure-arrival-label">Departure / Arrival</InputLabel>
+
             <Select
                 labelId="departure-arrival-label"
-                id="arrival-departure"
                 value={data.arrivalDeparture}
                 onChange={(e) => {
-                    setDataProp({arrivalDeparture: e.target.value})
+                    updateData({arrivalDeparture: e.target.value})
                 }}
             >
                 <MenuItem value={'Arrival'}>Arrival</MenuItem>
@@ -213,7 +81,7 @@ function PortForm(props) {
             <TextField
                 label="Voyage Number:"
                 value={data.voyageNumber}
-                onChange={(e) => setDataProp({voyageNumber: e.target.value})}
+                onChange={(e) => updateData({voyageNumber: e.target.value})}
                 variant="outlined"
             />
         </FormControl>
@@ -227,62 +95,96 @@ function PortForm(props) {
         {/*Port of call and all time pickers*/}
         <div className={'flex-parent'}>
             <div className={'flex-item-40'}>
-                <TextField id="port-call-field" label="Port of call" margin={'normal'} fullWidth variant="outlined"/>
 
-                <TextField style={{marginTop: '15px'}} id="port-facility" label="Port facility at arrival"
-                           variant="outlined"/>
+                <FormControl
+                    variant="outlined"
+                    className={classes.formControlNoMargin}
+                    margin={"normal"}
+                >
+                    <InputLabel id="port-of-call-label">Port of call</InputLabel>
+
+                    <Select
+                        labelId="port-of-call-label"
+                        value={data.portOfCall}
+                        onChange={(e) => {
+                            updateData({portOfCall: e.target.value})
+                        }}
+                    >
+                        {ListOfPorts.map((port, index) =>
+                            <MenuItem value={`${port.code}`}>
+                                {`${port.code} - ${port.countryCode} - ${port.name}`}
+                            </MenuItem>
+                        )}
+                    </Select>
+                </FormControl>
+
+                <TextField
+                    style={{marginTop: '15px'}}
+                    id="port-facility"
+                    label="Port facility at arrival"
+                    variant="outlined"
+                    margin={"normal"}
+                />
             </div>
 
             <div className={'flex-item-60'}>
-                <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                    <Grid container justify="space-between">
-                        <KeyboardTimePicker
-                            margin="normal"
-                            id="ETA-port-of-call"
-                            label="ETA to port of call"
-                            value={data.ETAPortOfCall}
-                            onChange={(e) => setDataProp({ETAPortOfCall: e})}
-                            KeyboardButtonProps={{
-                                'aria-label': 'change time',
-                            }}
-                        />
-                        <KeyboardTimePicker
-                            margin="normal"
-                            id="ETD-port-of-call"
-                            label="ETD from port of call"
-                            value={data.ETDPortOfCall}
-                            onChange={(e) => setDataProp({...data, ...{ETDPortOfCall: e}})}
-                            KeyboardButtonProps={{
-                                'aria-label': 'change time',
-                            }}
-                        />
-                    </Grid>
+                <Grid container justify="space-between">
+                    <TextField
+                        label="ETA to port of call"
+                        type="datetime-local"
+                        variant={'outlined'}
+                        margin={"normal"}
+                        value={null}
+                        onChange={(e) =>
+                            updateData({ETAPortOfCall: e.target.value})}
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                        inputProps={{
+                            step: 300, // 5 min
+                        }}
+                    />
+                    <TextField
+                        label="ETD to port of call"
+                        type="datetime-local"
+                        variant={'outlined'}
+                        margin={"normal"}
+                        value={data.ETDPortOfCall}
+                        onChange={(e) =>
+                            updateData({ETDPortOfCall: e.target.value})}
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                    />
+                </Grid>
 
-                    <Grid container justify="space-between">
-                        <KeyboardTimePicker
-                            variant={'outlined'}
-                            margin="normal"
-                            id="ATA-port-of-call"
-                            label="ATA to port of call"
-                            value={data.ATAPortOfCall}
-                            onChange={(e) => setDataProp({...data, ...{ATAPortOfCall: e}})}
-                            KeyboardButtonProps={{
-                                'aria-label': 'change time',
-                            }}
-                        />
+                <Grid container justify="space-between">
+                    <TextField
+                        label="ATA to port of call"
+                        type="datetime-local"
+                        variant={'outlined'}
+                        margin={"normal"}
+                        value={data.ATAPortOfCall}
+                        onChange={(e) =>
+                            updateData({ATAPortOfCall: e.target.value})}
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                    />
 
-                        <KeyboardTimePicker
-                            margin="normal"
-                            id="ATD-port-of-call"
-                            label="ATD from port of call"
-                            value={data.ATDPortOfCall}
-                            onChange={(e) => setDataProp({ATDPortOfCall: e})}
-                            KeyboardButtonProps={{
-                                'aria-label': 'change time',
-                            }}
-                        />
-                    </Grid>
-                </MuiPickersUtilsProvider>
+                    <TextField
+                        label="ATD to port of call"
+                        type="datetime-local"
+                        variant={'outlined'}
+                        margin={"normal"}
+                        value={data.ATDPortOfCall}
+                        onChange={(e) =>
+                            updateData({ATDPortOfCall: e.target.value})}
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                    />
+                </Grid>
             </div>
         </div>
 
@@ -299,7 +201,7 @@ function PortForm(props) {
                     labelId="port-of-arrival-label"
                     value={data.portOfArrival}
                     onChange={(e) => {
-                        setDataProp({portOfArrival: e.target.value})
+                        updateData({portOfArrival: e.target.value})
                     }}
                 >
                     <MenuItem value={'port 1'}>Port 1</MenuItem>
@@ -318,7 +220,7 @@ function PortForm(props) {
                     labelId="last-port-call-label"
                     value={data.lastPortOfCall}
                     onChange={(e) => {
-                        setDataProp({lastPortOfCall: e.target.value})
+                        updateData({lastPortOfCall: e.target.value})
                     }}
                 >
                     <MenuItem value={'port 1'}>Port 1</MenuItem>
@@ -330,7 +232,7 @@ function PortForm(props) {
 
             <FormControl
                 variant="outlined"
-                required
+                // required
                 className={classes.formControlNoMargin}
             >
                 <InputLabel id="next-port-call-label">Next port of call</InputLabel>
@@ -338,7 +240,7 @@ function PortForm(props) {
                     labelId="next-port-call-label"
                     value={data.nextPortOfCall}
                     onChange={(e) => {
-                        setDataProp({nextPortOfCall: e.target.value})
+                        updateData({nextPortOfCall: e.target.value})
                     }}
                 >
                     <MenuItem value={'port 1'}>Port 1</MenuItem>
@@ -359,7 +261,7 @@ function PortForm(props) {
                 labelId="next-port-call-label"
                 value={data.nextPortOfCall}
                 onChange={(e) => {
-                    setDataProp({nextPortOfCall: e.target.value})
+                    updateData({nextPortOfCall: e.target.value})
                 }}
             >
                 <MenuItem value={'port 1'}>Port 1</MenuItem>
@@ -378,21 +280,21 @@ function PortForm(props) {
             <TextField
                 label="Latitude"
                 value={data.cargoDescription}
-                onChange={(e) => setDataProp({cargoDescription: e.target.value})}
+                onChange={(e) => updateData({cargoDescription: e.target.value})}
                 variant="outlined"
             />
 
             <TextField
                 label="Longtitude"
                 value={data.cargoDescription}
-                onChange={(e) => setDataProp({cargoDescription: e.target.value})}
+                onChange={(e) => updateData({cargoDescription: e.target.value})}
                 variant="outlined"
             />
 
             <TextField
                 label="Time"
                 value={data.cargoDescription}
-                onChange={(e) => setDataProp({cargoDescription: e.target.value})}
+                onChange={(e) => updateData({cargoDescription: e.target.value})}
                 variant="outlined"
             />
 
@@ -406,7 +308,7 @@ function PortForm(props) {
             fullWidth
             rowsMax={4}
             value={data.cargoDescription}
-            onChange={(e) => setDataProp({cargoDescription: e.target.value})}
+            onChange={(e) => updateData({cargoDescription: e.target.value})}
             variant="outlined"
         />
 
@@ -419,7 +321,7 @@ function PortForm(props) {
             <TextField
                 label="Family name"
                 value={data.cargoDescription}
-                onChange={(e) => setDataProp({cargoDescription: e.target.value})}
+                onChange={(e) => updateData({cargoDescription: e.target.value})}
                 variant="outlined"
             />
 
@@ -427,7 +329,7 @@ function PortForm(props) {
                 style={{marginLeft: '10%'}}
                 label="Given name"
                 value={data.cargoDescription}
-                onChange={(e) => setDataProp({cargoDescription: e.target.value})}
+                onChange={(e) => updateData({cargoDescription: e.target.value})}
                 variant="outlined"
             />
 
@@ -445,7 +347,7 @@ function PortForm(props) {
                     onChange={(e) => {
                         let purposeArr = data.purposesOfCall;
                         purposeArr[index] = e.target.value;
-                        setDataProp({purposesOfCall: purposeArr})
+                        updateData({purposesOfCall: purposeArr})
                     }}
                     variant="outlined"
                 />
@@ -460,11 +362,11 @@ function PortForm(props) {
                     variant={'outlined'}
                     onClick={() => {
                         if (index === 0 && data.purposesOfCall.length === 1) {
-                            setDataProp({purposesOfCall: ['']})
+                            updateData({purposesOfCall: ['']})
                         } else {
                             let slicedData = JSON.parse(JSON.stringify(data.purposesOfCall));
                             slicedData.splice(index, 1);
-                            setDataProp({purposesOfCall: slicedData})
+                            updateData({purposesOfCall: slicedData})
                         }
                     }}
                 >
@@ -479,7 +381,7 @@ function PortForm(props) {
                 color="primary"
                 disabled={data.purposesOfCall[data.purposesOfCall.length - 1] === ''}
                 className={classes.button}
-                onClick={() => setDataProp({purposeOfCall: data.purposesOfCall.push('')})}
+                onClick={() => updateData({purposeOfCall: data.purposesOfCall.push('')})}
                 startIcon={<AddIcon/>}
             >
                 Add new row
@@ -492,7 +394,7 @@ function PortForm(props) {
             id="air-draught-field"
             label="Air draught"
             value={data.airDraught}
-            onChange={(e) => setDataProp({airDraught: e.target.value})}
+            onChange={(e) => updateData({airDraught: e.target.value})}
             variant="outlined"
         />
 
@@ -519,7 +421,7 @@ function PortForm(props) {
                 multiline
                 rowsMax={2}
                 value={data.cargoDescription}
-                onChange={(e) => setDataProp({cargoDescription: e.target.value})}
+                onChange={(e) => updateData({cargoDescription: e.target.value})}
                 variant="outlined"
             />
 

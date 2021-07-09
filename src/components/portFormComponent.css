@@ -11,7 +11,7 @@
 
 .flex-item-40 {
     flex: 0 0 auto;
-    width: 35%;
+    width: 225px;
 }
 
 .flex-item-30 {
@@ -26,6 +26,6 @@
 
 .flex-item-60 {
     flex: 0 0 auto;
-    width: 60%;
-    margin-left: 5%;
+    width: 67%;
+    margin-left: 2%;
 }

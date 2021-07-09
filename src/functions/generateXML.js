@@ -1,5 +1,5 @@
 import xml from 'xml'
-import { Alert } from 'react-alert'
+// import { Alert } from 'react-alert'
 import React, {Component, useState} from 'react';
 import {render} from "@testing-library/react";
 let data = require("../data/data");

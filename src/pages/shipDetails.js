@@ -8,72 +8,21 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-
+import Grid from '@material-ui/core/Grid';
 import ShipForm from "../components/shipFormComponent";
 import PortForm from "../components/portFormComponent";
 import VoyageForm from "../components/voyageFormComponent";
 import CrewForm from "../components/crewFormComponent";
-
+import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
 import {config} from "../config/shipDetailsConfig";
-import {readXML} from "../functions/readXML";
+import SendIcon from '@material-ui/icons/Send';
+import defaultDataConst from "../config/consts/defaultDataConst";
+import listOfOptionsConst from "../config/consts/listOfOptionsConst";
 
-import {useForm} from "react-hook-form";
-import {yupResolver} from "@hookform/resolvers/yup";
-import * as yup from 'yup'
 import {makeStyles} from "@material-ui/core/styles";
 
-const schema = yup.object().shape({
-    port: yup.object().shape({
-        arrivalDeparture: yup.string(),
-        voyageNumber: yup.string().required(),
-        ETAPortOfCall: yup.string(),
-        ATAPortOfCall: yup.string(),
-        ETDPortOfCall: yup.string(),
-        ATDPortOfCall: yup.string(),
-        callAnchorage: yup.string(), //Yes or No
-        positionPortOfCall: yup.string(),
-    })
-})
-
-const listOfOptions = [
-    {
-        label: 'Port',
-        value: 'port'
-    }, {
-        label: 'Ship',
-        value: 'ship'
-    }, {
-        label: 'Crew',
-        value: 'crew'
-    }, {
-        label: 'Passengers',
-        value: 'passengers'
-    }, {
-        label: 'Voyage',
-        value: 'voyage'
-    }, {
-        label: 'Ship stores',
-        value: 'ship_stores'
-    }, {
-        label: 'Crew effects',
-        value: 'crew_effects'
-    }, {
-        label: 'Cargo',
-        value: 'cargo'
-    }, {
-        label: 'Health',
-        value: 'health'
-    }, {
-        label: 'Dangerous goods',
-        value: 'dangerous_goods'
-    }, {
-        label: 'Security',
-        value: 'security'
-    }, {
-        label: 'Waste',
-        value: 'waste'
-    }
-];
+const listOfOptions = listOfOptionsConst;
 
 const defaultOption = 'Port';
 
@@ -100,6 +49,9 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: 1,
         padding: theme.spacing(3),
     },
+    uploadFile: {
+        display: 'none'
+    }
 }));
 
 function ShipDetails() {
@@ -107,18 +59,54 @@ function ShipDetails() {
     const classes = useStyles();
     const [activeItem, setActiveItem] = useState(0);
 
-    const {register, handleSubmit, errors} = useForm({
-        resolver: yupResolver(schema)
-    })
-
+    const [data, setData] = useState(defaultDataConst);
+console.log("All the data!!", data);
     return (
         <div className={classes.root}>
             <CssBaseline/>
             <AppBar position="fixed" className={classes.appBar}>
                 <Toolbar>
-                    <Typography variant="h6" noWrap>
-                        Ship details
-                    </Typography>
+                    <Grid container justify={'space-between'}>
+                        <Typography variant="h6">
+                            Ship details
+                        </Typography>
+                        <div>
+                            <Grid container justify={'flex-start'}>
+                                <div style={{marginRight: '30px'}}>
+                                    <input
+                                        accept="image/*"
+                                        className={classes.uploadFile}
+                                        id="contained-button-file"
+                                        multiple
+                                        type="file"
+                                    />
+                                    <label htmlFor="contained-button-file">
+                                        <Button variant="contained" color="default" component="span">
+                                            Upload XML
+                                        </Button>
+                                    </label>
+                                </div>
+                                <div style={{marginRight: '30px'}}>
+                                    <input
+                                        className={classes.uploadFile}
+                                        id="contained-button-file"
+                                        multiple
+                                        type="file"
+                                    />
+                                    <label htmlFor="contained-button-file">
+                                        <Button variant="contained" color="default" component="span">
+                                            Upload Excel
+                                        </Button>
+                                    </label>
+                                </div>
+                                <div style={{marginTop: '6px'}}>
+                                    <IconButton color="secondary" size={'small'} aria-label="upload picture" component="span">
+                                        <SendIcon />
+                                    </IconButton>
+                                </div>
+                            </Grid>
+                        </div>
+                    </Grid>
                 </Toolbar>
             </AppBar>
 
@@ -151,24 +139,36 @@ function ShipDetails() {
             </Drawer>
             <main className={classes.content}>
                 <Toolbar/>
-                {getChildComponent(activeItem)}
+                {getChildComponent(activeItem, [data, setData])}
             </main>
         </div>
     )
 }
 
-function getChildComponent(activeItem) {
+function getChildComponent(activeItem, [data, setData]) {
     let selectedItem = listOfOptions[activeItem].value;
 
     switch (selectedItem) {
         case 'port':
-            return <PortForm/>
+            //@FIXME make it as a better function
+            return <PortForm data={data.port} updateData={(dataItem) => {
+                // deep copy
+                //@FIXME Fix it without using deep copy
+                let dataCopy = JSON.parse(JSON.stringify(data));
+                let portCopy = dataCopy.port;
+                dataCopy.port = {...portCopy, ...dataItem};
+
+                console.log("<<<>>>The data: ", dataCopy);
+
+                setData(dataCopy);
+            }}/>
         case 'ship':
             return <ShipForm/>
         case 'voyage':
             return <VoyageForm/>
         case 'passengers':
-        case 'crew':return <CrewForm/>
+        case 'crew':
+            return <CrewForm/>
         case 'ship_stores':
         case 'crew_effects':
         case 'cargo':
