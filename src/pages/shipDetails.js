@@ -14,15 +14,17 @@ import PortForm from "../components/portFormComponent";
 import VoyageForm from "../components/voyageFormComponent";
 import CrewForm from "../components/crewFormComponent";
 import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
 import {config} from "../config/shipDetailsConfig";
-import SendIcon from '@material-ui/icons/Send';
 import defaultDataConst from "../config/consts/defaultDataConst";
 import listOfOptionsConst from "../config/consts/listOfOptionsConst";
-
+import readXML from "../functions/readXML";
 import {makeStyles} from "@material-ui/core/styles";
-
+import readXLS from "../functions/readXLSParent";
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import GetAppIcon from '@material-ui/icons/GetApp';
+import createXML from "../functions/generateXML";
 const listOfOptions = listOfOptionsConst;
+
 
 const defaultOption = 'Port';
 
@@ -60,7 +62,7 @@ function ShipDetails() {
     const [activeItem, setActiveItem] = useState(0);
 
     const [data, setData] = useState(defaultDataConst);
-console.log("All the data!!", data);
+    console.log("All the data!!", data);
     return (
         <div className={classes.root}>
             <CssBaseline/>
@@ -74,14 +76,30 @@ console.log("All the data!!", data);
                             <Grid container justify={'flex-start'}>
                                 <div style={{marginRight: '30px'}}>
                                     <input
-                                        accept="image/*"
+                                        // accept="image/*"
                                         className={classes.uploadFile}
-                                        id="contained-button-file"
-                                        multiple
+                                        onChange={async () => {
+                                            console.log('On change suka')
+                                            const file = document.getElementById("read-xml-file").files[0];
+                                            const reader = new FileReader();
+                                            reader.onload = (() => {
+                                                    console.log('Reading all data suka bleat')
+                                                    let allData = readXML(reader.result);
+                                                    console.log("All suka blya data: ", allData);
+                                                    setData(allData);
+                                            })
+                                            reader.readAsText(file);
+                                        }}
+                                        id="read-xml-file"
                                         type="file"
                                     />
-                                    <label htmlFor="contained-button-file">
-                                        <Button variant="contained" color="default" component="span">
+                                    <label htmlFor="read-xml-file">
+                                        <Button
+                                            variant="contained"
+                                            color="default"
+                                            component="span"
+                                            startIcon={<CloudUploadIcon />}
+                                        >
                                             Upload XML
                                         </Button>
                                     </label>
@@ -89,21 +107,43 @@ console.log("All the data!!", data);
                                 <div style={{marginRight: '30px'}}>
                                     <input
                                         className={classes.uploadFile}
-                                        id="contained-button-file"
+                                        id="excel-file"
                                         multiple
+                                        onChange={ () => {
+                                            console.log('On change excel suka')
+                                            const files = document.getElementById("excel-file").files;
+                                            readXLS(files, (item) => {
+                                                let dataCopy = JSON.parse(JSON.stringify(data));
+                                                dataCopy = {...dataCopy, item}
+                                                console.log('The real data real: ', dataCopy)
+
+                                                setData(dataCopy)
+                                            });
+                                        }}
                                         type="file"
                                     />
-                                    <label htmlFor="contained-button-file">
-                                        <Button variant="contained" color="default" component="span">
+                                    <label htmlFor="excel-file">
+                                        <Button
+                                            variant="contained"
+                                            color="default"
+                                            component="span"
+                                            startIcon={<CloudUploadIcon />}
+                                        >
                                             Upload Excel
                                         </Button>
                                     </label>
                                 </div>
-                                <div style={{marginTop: '6px'}}>
-                                    <IconButton color="secondary" size={'small'} aria-label="upload picture" component="span">
-                                        <SendIcon />
-                                    </IconButton>
-                                </div>
+                                <Button
+                                    variant="contained"
+                                    color="default"
+                                    component="span"
+                                    onClick={() => {
+                                        createXML(data);
+                                    }}
+                                    startIcon={<GetAppIcon />}
+                                >
+                                    Generate XML file
+                                </Button>
                             </Grid>
                         </div>
                     </Grid>
@@ -157,18 +197,22 @@ function getChildComponent(activeItem, [data, setData]) {
                 let dataCopy = JSON.parse(JSON.stringify(data));
                 let portCopy = dataCopy.port;
                 dataCopy.port = {...portCopy, ...dataItem};
-
-                console.log("<<<>>>The data: ", dataCopy);
-
                 setData(dataCopy);
             }}/>
         case 'ship':
             return <ShipForm/>
         case 'voyage':
             return <VoyageForm/>
-        case 'passengers':
         case 'crew':
-            return <CrewForm/>
+            return <CrewForm data={data.crew} updateData={ (dataItem) => {
+                // deep copy
+                //@FIXME Fix it without using deep copy
+                let dataCopy = JSON.parse(JSON.stringify(data));
+                let portCopy = dataCopy.crew;
+                dataCopy.crew = {...portCopy, ...dataItem};
+                setData(dataCopy);
+            }}/>
+        case 'passengers':
         case 'ship_stores':
         case 'crew_effects':
         case 'cargo':

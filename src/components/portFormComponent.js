@@ -22,10 +22,12 @@ import AddIcon from '@material-ui/icons/Add';
 import {generateXML} from '../functions/generateXML'
 import {readXLSPort} from '../functions/readXLSPort'
 import {readXML} from '../functions/readXML'
+import ListOfPurposesOfCalls from './../config/consts/listOfPurposesOfCallsConst';
 
 import ListOfPorts from './../config/consts/listOfPortsConst'
 
 import './portFormComponent.css'
+import {func} from "prop-types";
 
 const useStyles = makeStyles((theme) => ({
     formControl: {
@@ -34,6 +36,9 @@ const useStyles = makeStyles((theme) => ({
     },
     formControlNoMargin: {
         minWidth: 200,
+    },
+    formControlNoMargin2: {
+        margin: theme.spacing(0)
     },
     selectEmpty: {
         marginTop: theme.spacing(2),
@@ -111,7 +116,7 @@ function PortForm({data, updateData}) {
                         }}
                     >
                         {ListOfPorts.map((port, index) =>
-                            <MenuItem value={`${port.code}`}>
+                            <MenuItem key={index} value={`${port.code}`}>
                                 {`${port.code} - ${port.countryCode} - ${port.name}`}
                             </MenuItem>
                         )}
@@ -120,7 +125,9 @@ function PortForm({data, updateData}) {
 
                 <TextField
                     style={{marginTop: '15px'}}
-                    id="port-facility"
+                    value={data.portFacilityAtArrival}
+                    onChange={(e) =>
+                        updateData({portFacilityAtArrival: e.target.value})}
                     label="Port facility at arrival"
                     variant="outlined"
                     margin={"normal"}
@@ -134,7 +141,7 @@ function PortForm({data, updateData}) {
                         type="datetime-local"
                         variant={'outlined'}
                         margin={"normal"}
-                        value={null}
+                        value={correctDateTime(data.ETAPortOfCall)}
                         onChange={(e) =>
                             updateData({ETAPortOfCall: e.target.value})}
                         InputLabelProps={{
@@ -149,7 +156,7 @@ function PortForm({data, updateData}) {
                         type="datetime-local"
                         variant={'outlined'}
                         margin={"normal"}
-                        value={data.ETDPortOfCall}
+                        value={correctDateTime(data.ETDPortOfCall)}
                         onChange={(e) =>
                             updateData({ETDPortOfCall: e.target.value})}
                         InputLabelProps={{
@@ -164,7 +171,7 @@ function PortForm({data, updateData}) {
                         type="datetime-local"
                         variant={'outlined'}
                         margin={"normal"}
-                        value={data.ATAPortOfCall}
+                        value={correctDateTime(data.ATAPortOfCall)}
                         onChange={(e) =>
                             updateData({ATAPortOfCall: e.target.value})}
                         InputLabelProps={{
@@ -177,7 +184,7 @@ function PortForm({data, updateData}) {
                         type="datetime-local"
                         variant={'outlined'}
                         margin={"normal"}
-                        value={data.ATDPortOfCall}
+                        value={correctDateTime(data.ATDPortOfCall)}
                         onChange={(e) =>
                             updateData({ATDPortOfCall: e.target.value})}
                         InputLabelProps={{
@@ -193,10 +200,10 @@ function PortForm({data, updateData}) {
 
             <FormControl
                 variant="outlined"
-                required
                 className={classes.formControlNoMargin}
             >
                 <InputLabel id="port-of-arrival-label">Port of arrival</InputLabel>
+
                 <Select
                     labelId="port-of-arrival-label"
                     value={data.portOfArrival}
@@ -204,15 +211,16 @@ function PortForm({data, updateData}) {
                         updateData({portOfArrival: e.target.value})
                     }}
                 >
-                    <MenuItem value={'port 1'}>Port 1</MenuItem>
-                    <MenuItem value={'port 2'}>Port 2</MenuItem>
-                    <MenuItem value={'default'}>Port default</MenuItem>
+                    {ListOfPorts.map((port, index) =>
+                        <MenuItem key={index} value={`${port.code}`}>
+                            {`${port.code} - ${port.countryCode} - ${port.name}`}
+                        </MenuItem>
+                    )}
                 </Select>
             </FormControl>
 
             <FormControl
                 variant="outlined"
-                required
                 className={classes.formControlNoMargin}
             >
                 <InputLabel id="last-port-call-label">Last port of call</InputLabel>
@@ -223,9 +231,11 @@ function PortForm({data, updateData}) {
                         updateData({lastPortOfCall: e.target.value})
                     }}
                 >
-                    <MenuItem value={'port 1'}>Port 1</MenuItem>
-                    <MenuItem value={'port 2'}>Port 2</MenuItem>
-                    <MenuItem value={'default'}>Port default</MenuItem>
+                    {ListOfPorts.map((port, index) =>
+                        <MenuItem key={index} value={`${port.code}`}>
+                            {`${port.code} - ${port.countryCode} - ${port.name}`}
+                        </MenuItem>
+                    )}
                 </Select>
             </FormControl>
 
@@ -243,9 +253,11 @@ function PortForm({data, updateData}) {
                         updateData({nextPortOfCall: e.target.value})
                     }}
                 >
-                    <MenuItem value={'port 1'}>Port 1</MenuItem>
-                    <MenuItem value={'port 2'}>Port 2</MenuItem>
-                    <MenuItem value={'default'}>Port default</MenuItem>
+                    {ListOfPorts.map((port, index) =>
+                        <MenuItem key={index} value={`${port.code}`}>
+                            {`${port.code} - ${port.countryCode} - ${port.name}`}
+                        </MenuItem>
+                    )}
                 </Select>
             </FormControl>
         </Grid>
@@ -259,14 +271,13 @@ function PortForm({data, updateData}) {
             <InputLabel id="next-port-call-label">Call at anchorage</InputLabel>
             <Select
                 labelId="next-port-call-label"
-                value={data.nextPortOfCall}
+                value={data.callAnchorage}
                 onChange={(e) => {
-                    updateData({nextPortOfCall: e.target.value})
+                    updateData({callAnchorage: e.target.value})
                 }}
             >
-                <MenuItem value={'port 1'}>Port 1</MenuItem>
-                <MenuItem value={'port 2'}>Port 2</MenuItem>
-                <MenuItem value={'default'}>Port default</MenuItem>
+                <MenuItem value={'yes'}>Yes</MenuItem>
+                <MenuItem value={'no'}>No</MenuItem>
             </Select>
         </FormControl>
 
@@ -279,23 +290,42 @@ function PortForm({data, updateData}) {
 
             <TextField
                 label="Latitude"
-                value={data.cargoDescription}
-                onChange={(e) => updateData({cargoDescription: e.target.value})}
+                value={data.position.latitude}
+                onChange={(e) => {
+                    let latitude = e.target.value;
+                    let position = data.position;
+                    updateData({position: {...position, latitude}})
+                }}
                 variant="outlined"
             />
 
             <TextField
-                label="Longtitude"
-                value={data.cargoDescription}
-                onChange={(e) => updateData({cargoDescription: e.target.value})}
+                label="Longitude"
+                value={data.position.longitude}
+                onChange={(e) => {
+                    let longitude = e.target.value;
+                    let position = data.position;
+                    updateData({position: {...position, longitude}})
+                }}
                 variant="outlined"
             />
 
             <TextField
                 label="Time"
-                value={data.cargoDescription}
-                onChange={(e) => updateData({cargoDescription: e.target.value})}
-                variant="outlined"
+                type="datetime-local"
+                variant={'outlined'}
+                value={correctDateTime(data.position.time)}
+                onChange={(e) => {
+                    let time = e.target.value;
+                    let position = {...data.position, time};
+                    updateData({position})
+                }}
+                InputLabelProps={{
+                    shrink: true,
+                }}
+                inputProps={{
+                    step: 300, // 5 min
+                }}
             />
 
         </Grid>
@@ -320,16 +350,24 @@ function PortForm({data, updateData}) {
 
             <TextField
                 label="Family name"
-                value={data.cargoDescription}
-                onChange={(e) => updateData({cargoDescription: e.target.value})}
+                value={data.nameOfMaster.familyName}
+                onChange={(e) => {
+                    let familyName = e.target.value;
+                    let nameOfMaster = {...data.nameOfMaster, familyName};
+                    updateData({nameOfMaster})
+                }}
                 variant="outlined"
             />
 
             <TextField
                 style={{marginLeft: '10%'}}
                 label="Given name"
-                value={data.cargoDescription}
-                onChange={(e) => updateData({cargoDescription: e.target.value})}
+                value={data.nameOfMaster.givenName}
+                onChange={(e) => {
+                    let givenName = e.target.value;
+                    let nameOfMaster = {...data.nameOfMaster, givenName};
+                    updateData({nameOfMaster})
+                }}
                 variant="outlined"
             />
 
@@ -339,18 +377,35 @@ function PortForm({data, updateData}) {
             Purpose of call
         </Typography>
         <div style={{marginTop: "20px"}}>
-            {data.purposesOfCall.map((item, index) => <div key={index}>
-                <TextField
-                    id={`purpose-of-call-${index}`}
-                    label={index === 0 ? 'Call purpose' : `Call purpose (${index})`}
-                    value={item}
-                    onChange={(e) => {
-                        let purposeArr = data.purposesOfCall;
-                        purposeArr[index] = e.target.value;
-                        updateData({purposesOfCall: purposeArr})
-                    }}
+            {data.callPurpose.map((item, index) => <div key={index}>
+
+                <FormControl
+                    key={index}
                     variant="outlined"
-                />
+                    className={classes.formControlNoMargin}
+
+                >
+
+                    <InputLabel id={`purpose-of-call-label${index}`}>
+                        {index === 0 ? 'Call purpose' : `Call purpose (${index})`}
+                    </InputLabel>
+
+                    <Select
+                        labelId={`purpose-of-call-label${index}`}
+                        value={data.callPurpose[index]}
+                        onChange={(e) => {
+                            let purposeArr = data.callPurpose;
+                            purposeArr[index] = e.target.value;
+                            updateData({callPurpose: purposeArr})
+                        }}
+                    >
+                        {ListOfPurposesOfCalls.map((purpose, index) => {
+                            return <MenuItem key={index} value={purpose.callPurposeCode}>
+                                {`${purpose.callPurposeText}(${purpose.callPurposeCode})`}
+                            </MenuItem>
+                        })}
+                    </Select>
+                </FormControl>
 
                 <IconButton
                     style={{
@@ -361,12 +416,12 @@ function PortForm({data, updateData}) {
                     aria-label="delete"
                     variant={'outlined'}
                     onClick={() => {
-                        if (index === 0 && data.purposesOfCall.length === 1) {
-                            updateData({purposesOfCall: ['']})
+                        if (index === 0 && data.callPurpose.length === 1) {
+                            updateData({callPurpose: ['']})
                         } else {
-                            let slicedData = JSON.parse(JSON.stringify(data.purposesOfCall));
+                            let slicedData = JSON.parse(JSON.stringify(data.callPurpose));
                             slicedData.splice(index, 1);
-                            updateData({purposesOfCall: slicedData})
+                            updateData({callPurpose: slicedData})
                         }
                     }}
                 >
@@ -379,9 +434,9 @@ function PortForm({data, updateData}) {
                 style={{marginTop: '15px'}}
                 variant="outlined"
                 color="primary"
-                disabled={data.purposesOfCall[data.purposesOfCall.length - 1] === ''}
+                disabled={data.callPurpose[data.callPurpose.length - 1] === ''}
                 className={classes.button}
-                onClick={() => updateData({purposeOfCall: data.purposesOfCall.push('')})}
+                onClick={() => updateData({purposeOfCall: data.callPurpose.push('')})}
                 startIcon={<AddIcon/>}
             >
                 Add new row
@@ -400,13 +455,45 @@ function PortForm({data, updateData}) {
 
 
         <Typography variant="h5" component="h5" style={{marginTop: '30px'}} gutterBottom>
-            {data.arrivalDeparture} draught
+            {data.arrivalDeparture ? data.arrivalDeparture : 'Departure'} draught
         </Typography>
 
         <Grid container justify={'space-between'}>
-            <TextField id="port-call-field" label="Fore draught" margin={'normal'} variant="outlined"/>
-            <TextField id="port-call-field" label="Mid-ship draught" margin={'normal'} variant="outlined"/>
-            <TextField id="port-call-field" label="Aft draught" margin={'normal'} variant="outlined"/>
+            <TextField
+                label="Fore draught"
+                value={data.arrivalDraught.foreDraught}
+                onChange={(e) => {
+                    let foreDraught = e.target.value;
+                    let arrivalDraught = {...data.arrivalDraught, foreDraught};
+                    updateData({arrivalDraught})
+                }}
+                margin={'normal'}
+                variant="outlined"
+            />
+
+            <TextField
+                label="Mid-ship draught"
+                value={data.arrivalDraught.midShipDraught}
+                onChange={(e) => {
+                    let midShipDraught = e.target.value;
+                    let arrivalDraught = {...data.arrivalDraught, midShipDraught};
+                    updateData({arrivalDraught})
+                }}
+                margin={'normal'}
+                variant="outlined"
+            />
+
+            <TextField
+                label="Aft draught"
+                value={data.arrivalDraught.aftDraught}
+                onChange={(e) => {
+                    let aftDraught = e.target.value;
+                    let arrivalDraught = {...data.arrivalDraught, aftDraught};
+                    updateData({arrivalDraught})
+                }}
+                margin={'normal'}
+                variant="outlined"
+            />
         </Grid>
 
 
@@ -420,18 +507,67 @@ function PortForm({data, updateData}) {
                 label="Name"
                 multiline
                 rowsMax={2}
-                value={data.cargoDescription}
-                onChange={(e) => updateData({cargoDescription: e.target.value})}
+                value={data.agent.company}
+                onChange={(e) => {
+                    let company = e.target.value;
+                    let agent = {...data.agent, company};
+                    updateData({agent})
+                }}
                 variant="outlined"
             />
 
-            <TextField label="Mobile telephone" variant="outlined"/>
+            <TextField
+                label="Mobile telephone"
+                variant="outlined"
+                value={data.agent.contactNumbers.mobileTelephone}
+                onChange={(e) => {
+                    let mobileTelephone = e.target.value;
+                    let contactNumbers = {...data.agent.contactNumbers, mobileTelephone};
+                    let agent = {...data.agent, contactNumbers};
+                    updateData({agent})
+                }}
+            />
         </Grid>
 
         <Grid container justify={'space-between'}>
-            <TextField id="port-call-field" label="Business telephone" margin={'normal'} variant="outlined"/>
-            <TextField id="port-call-field" label="Telefax" margin={'normal'} variant="outlined"/>
-            <TextField id="port-call-field" label="Email" margin={'normal'} variant="outlined"/>
+            <TextField
+                label="Business telephone"
+                margin={'normal'}
+                value={data.agent.contactNumbers.businessTelephone}
+                onChange={(e) => {
+                    let businessTelephone = e.target.value;
+                    let contactNumbers = {...data.agent.contactNumbers, businessTelephone};
+                    let agent = {...data.agent, contactNumbers};
+                    updateData({agent})
+                }}
+                variant="outlined"
+            />
+
+            <TextField
+                label="Telefax"
+                margin={'normal'}
+                value={data.agent.contactNumbers.telefax}
+                onChange={(e) => {
+                    let telefax = e.target.value;
+                    let contactNumbers = {...data.agent.contactNumbers, telefax};
+                    let agent = {...data.agent, contactNumbers};
+                    updateData({agent})
+                }}
+                variant="outlined"
+            />
+
+            <TextField
+                label="Email"
+                margin={'normal'}
+                value={data.agent.contactNumbers.EMail}
+                onChange={(e) => {
+                    let EMail = e.target.value;
+                    let contactNumbers = {...data.agent.contactNumbers, EMail};
+                    let agent = {...data.agent, contactNumbers};
+                    updateData({agent})
+                }}
+                variant="outlined"
+            />
         </Grid>
 
         <Typography variant="h5" component="h5" style={{marginTop: '30px'}} gutterBottom>
@@ -439,13 +575,103 @@ function PortForm({data, updateData}) {
         </Typography>
 
         <Grid container justify={'space-between'}>
-            <TextField label="Number of persons" margin={'normal'} variant="outlined"/>
-            <TextField label="Number of crew" margin={'normal'} variant="outlined"/>
-            <TextField label="Number of passengers" margin={'normal'} variant="outlined"/>
+            <TextField
+                label="Number of persons"
+                margin={'normal'}
+                value={data.personsOnBoard.numberOfPersonsOnBoard}
+                onChange={(e) => {
+                    let numberOfPersonsOnBoard = e.target.value;
+                    let personsOnBoard = {...data.personsOnBoard, numberOfPersonsOnBoard};
+                    updateData({personsOnBoard});
+                }}
+                variant="outlined"
+            />
+
+            <TextField
+                label="Number of crew"
+                margin={'normal'}
+                value={data.personsOnBoard.crew}
+                onChange={(e) => {
+                    let crew = e.target.value;
+                    let personsOnBoard = {...data.personsOnBoard, crew};
+                    updateData({personsOnBoard});
+                }}
+                variant="outlined"
+            />
+
+            <TextField
+                label="Number of passengers"
+                margin={'normal'}
+                value={data.personsOnBoard.passengers}
+                onChange={(e) => {
+                    let passengers = e.target.value;
+                    let personsOnBoard = {...data.personsOnBoard, passengers};
+                    updateData({personsOnBoard});
+                }}
+                variant="outlined"
+            />
+
         </Grid>
-        <TextField label="Have any stowaways been found on boards" margin={'normal'} variant="outlined"/> <br/>
-        <TextField label="Period of stay" margin={'normal'} variant="outlined"/>
+
+        <FormControl
+            variant="outlined"
+            className={classes.formControlNoMargin}
+            margin={"normal"}
+        >
+            <InputLabel id="stowaways-label">Have any stowaways been found on boards</InputLabel>
+
+            <Select
+                labelId="stowaways-label"
+                value={data.stowaways}
+                onChange={(e) => updateData({stowaways: e.target.value})}
+            >
+                <MenuItem value={'yes'}>Yes</MenuItem>
+                <MenuItem value={'no'}>No</MenuItem>
+            </Select>
+        </FormControl>
+
+        <TextField
+            label="Period of stay"
+            margin={'normal'}
+            style={{marginLeft: '30px'}}
+            variant="outlined"
+            value={data.periodOfStay}
+            onChange={(e) =>
+                updateData({periodOfStay: e.target.value})
+            }
+        />
     </>
+}
+
+function correctDateTime(date) {
+    date = "" + date;
+    return date.substr(0,16);
+
+    // try {
+        // will break here if it's a not normal format
+        // let realDate = new Date(date);
+        // let month = realDate.getMonth();
+        // month++;
+        // month = month < 10 ? "0"+month : month;
+        //
+        // let date = realDate.getDate();
+        // date++;
+        // date = date < 10 ? "0"+date : date;
+        //
+        // let hours = realDate.getHours();
+        // hours = hours < 10 ? "0" + hours : hours;
+        //
+        // let minutes = realDate.getMinutes();
+        // minutes = minutes < 10? "0" + minutes : minutes;
+        // let fuckFormat = `${realDate.getFullYear()}-${month}-${date}T${hours}:${minutes}`;
+        // return date;
+    // } catch (e) {
+    //     return date;
+    // }
+}
+
+function setDate(date) {
+    return Date.parse(date)
 }
 
 export default PortForm;

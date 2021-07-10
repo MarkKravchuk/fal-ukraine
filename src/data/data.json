@@ -30,7 +30,7 @@
         "UNLoCode":""
       },
       "callAnchorage": "",
-      "positionPortOfCall": {
+      "position": {
         "latitude":"",
         "longitude":"",
         "time":""
@@ -93,10 +93,6 @@
     },
   "crew": {
     "rows": [
-      { "NR": 1 },
-      { "NR": 2 },
-      { "NR": 3 },
-      { "NR": 4 },
-      { "NR": 5 }
+      { "NR": 1 }
     ]
   }}
