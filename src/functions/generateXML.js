@@ -6,6 +6,7 @@ function createXML(data) {
     if (dataCheck(data) === true) {
         let port = data.port;
         let crew = data.crew.rows;
+
         console.log("generatexmldata ", data);
         let ArrivalDepartureDraught;
         let CrewList = [];
@@ -47,18 +48,18 @@ function createXML(data) {
         if (port.arrivalDeparture == 'Arrival') {
             ArrivalDepartureDraught = {
                 ArrivalDraught: [
-                    {ForeDraught: port.arrivalDepartureDraught.foreDraught},
-                    {MidShipDraught: port.arrivalDepartureDraught.MidShipDraught},
-                    {Time: port.arrivalDepartureDraught.AftDraught},
+                    {ForeDraught: port.arrivalDraught.foreDraught},
+                    {MidShipDraught: port.arrivalDraught.midShipDraught},
+                    {Time: port.arrivalDraught.aftDraught},
                 ]
             }
 
         } else {
             ArrivalDepartureDraught = {
                 DepartureDraught: [
-                    {ForeDraught: port.arrivalDepartureDraught.foreDraught},
-                    {MidShipDraught: port.arrivalDepartureDraught.MidShipDraught},
-                    {Time: port.arrivalDepartureDraught.AftDraught},
+                    {ForeDraught: port.arrivalDraught.foreDraught},
+                    {MidShipDraught: port.arrivalDraught.midShipDraught},
+                    {Time: port.arrivalDraught.aftDraught},
                 ]
             }
         }
@@ -117,9 +118,9 @@ function createXML(data) {
                             EntryPosition: [
                                 {
                                     Position: [
-                                        {Latitude: port.positionPortOfCall.latitude},
-                                        {Longitude: port.positionPortOfCall.longitude},
-                                        {Time: port.positionPortOfCall.time}
+                                        {Latitude: port.position.latitude},
+                                        {Longitude: port.position.longitude},
+                                        {Time: port.position.time}
                                     ]
                                 }]
                         },

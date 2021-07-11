@@ -276,8 +276,8 @@ function PortForm({data, updateData}) {
                     updateData({callAnchorage: e.target.value})
                 }}
             >
-                <MenuItem value={'yes'}>Yes</MenuItem>
-                <MenuItem value={'no'}>No</MenuItem>
+                <MenuItem value={'Yes'}>Yes</MenuItem>
+                <MenuItem value={'No'}>No</MenuItem>
             </Select>
         </FormControl>
 
@@ -625,8 +625,8 @@ function PortForm({data, updateData}) {
                 value={data.stowaways}
                 onChange={(e) => updateData({stowaways: e.target.value})}
             >
-                <MenuItem value={'yes'}>Yes</MenuItem>
-                <MenuItem value={'no'}>No</MenuItem>
+                <MenuItem value={'Yes'}>Yes</MenuItem>
+                <MenuItem value={'No'}>No</MenuItem>
             </Select>
         </FormControl>
 

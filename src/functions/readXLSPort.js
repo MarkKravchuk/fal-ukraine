@@ -1,7 +1,7 @@
 import readXlsxFile from 'read-excel-file'
 import data from './../config/consts/defaultDataConst'
 
- let readXLSPort = (file, onSave) => {
+let readXLSPort = (file, onSave) => {
     let port = data.port
     readXlsxFile(file).then((rows) => {
         // `rows` is an array of rows
@@ -40,9 +40,17 @@ import data from './../config/consts/defaultDataConst'
         port.cargoDescription = Row10[2];
         port.nameOfMaster.familyName = Row13[2];
         port.nameOfMaster.givenName = Row14[2];
-        port.callPurpose = Row13[4];
-        port.callPurpose = Row14[4];
-        port.callPurpose = Row15[4];
+        port.callPurpose = [];
+        port.callPurpose.push(Row13[4]);
+        port.callPurpose.push(Row14[4]);
+        port.callPurpose.push(Row15[4]);
+        port.callPurpose.filter( el => el && el.length !== 0);
+        for (let i = 0; i < port.callPurpose.length; i++) {
+            let purpose = port.callPurpose[i];
+            try {
+                port.callPurpose[i] = purpose.split('(')[1].split(')')[0];
+            } catch (e) {}
+        }
         port.airDraught = Row15[2];
         port.arrivalDraught.foreDraught = Row17[2];
         port.arrivalDraught.midShipDraught = Row17[4];
@@ -50,7 +58,7 @@ import data from './../config/consts/defaultDataConst'
         port.agent.company = Row20[2];
         port.agent.contactNumbers.mobileTelephone = Row20[4];
         port.agent.contactNumbers.telefax = Row21[4];
-        port.agent.contactNumbers.email = Row20[6];
+        port.agent.contactNumbers.EMail = Row20[6];
         port.personsOnBoard.numberOfPersonsOnBoard = Row24[2];
         port.personsOnBoard.crew = Row24[4];
         port.personsOnBoard.passengers = Row24[6];
