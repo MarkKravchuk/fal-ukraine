@@ -12,9 +12,15 @@ function readXML (fileContent) {
     port.ETDPortOfCall = xml.getElementsByTagName('ETDPortOfCall')[0].value;
     port.ATAPortOfCall = xml.getElementsByTagName('ATAPortOfCall')[0].value;
     port.ATDPortOfCall = xml.getElementsByTagName('ATDPortOfCall')[0].value;
-    port.portOfArrival = xml.getElementsByTagName('PortOfArrival')[0].children[2].value;
-    port.lastPortOfCall = xml.getElementsByTagName('LastPortOfCall')[0].children[2].value;
-    port.nextPortOfCall = xml.getElementsByTagName('NextPortOfCall')[0].children[2].value;
+    if (xml.getElementsByTagName('PortOfArrival')[0]){
+        port.portOfArrival = xml.getElementsByTagName('PortOfArrival')[0].children[2].value;
+    }
+    if (xml.getElementsByTagName('LastPortOfCall')[0]){
+        port.lastPortOfCall = xml.getElementsByTagName('LastPortOfCall')[0].children[2].value;
+    }
+    if(xml.getElementsByTagName('NextPortOfCall')[0]){
+        port.nextPortOfCall = xml.getElementsByTagName('NextPortOfCall')[0].children[2].value;
+    }
     port.callAnchorage = xml.getElementsByTagName('Anchorage')[0].value;
     port.position.latitude = xml.getElementsByTagName('EntryPosition')[0].children[0].children[0].value;
     port.position.longitude = xml.getElementsByTagName('EntryPosition')[0].children[0].children[1].value;

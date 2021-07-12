@@ -276,8 +276,8 @@ function PortForm({data, updateData}) {
                     updateData({callAnchorage: e.target.value})
                 }}
             >
-                <MenuItem value={'Yes'}>Yes</MenuItem>
-                <MenuItem value={'No'}>No</MenuItem>
+                <MenuItem value={'yes'}>Yes</MenuItem>
+                <MenuItem value={'no'}>No</MenuItem>
             </Select>
         </FormControl>
 
