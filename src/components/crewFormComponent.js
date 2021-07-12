@@ -3,17 +3,13 @@ import ReactDataGrid from 'react-data-grid';
 import {withStyles} from '@material-ui/core/styles';
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
-import {Editors, Formatters} from 'react-data-grid-addons';
+import {Editors} from 'react-data-grid-addons';
 import dateOfBirthPicker from "./dateOfBirthPicker";
 import expiryDatePicker from "./expiryDatePicker";
 import issuingDatePicker from "./issuingDatePicker";
 import countryCodes from "../functions/countryCodes";
-
 let data = require("../data/data");
-const editJsonFile = require("edit-json-file");
-let file = editJsonFile("src/data/dafta.json");
 const {DropDownEditor} = Editors;
-const {DropDownFormatter} = Formatters;
 
 const styles = (theme) => ({
     root: {
@@ -33,7 +29,7 @@ const IDTypesEditor = <DropDownEditor options={idTypes}/>;
 const RanksOfRating = ["(...)", 'AbleSeaman', 'Agent', 'AsstFoodBevMngr', 'BarManager', 'BarService', 'Bosun', 'Cadet', 'Captain', 'CargoTechnician', 'CasinoStaff', 'ChiefCook', 'ChiefElectrician', 'ChiefHousekeeper', 'ChiefEngineer', 'ChiefMaster', 'ChiefMate', 'ChiefOfficer', 'ChiefPurser', 'ChiefSteward', 'ClassSurveyor', 'CSO', 'Cook', 'CraneOperator', 'CrewMember', 'CruiseDirector', 'CruiseStaff', 'DeckApprentice', 'DeckFitter', 'DeckOfficer', 'Deckhand', 'Doctor', 'Donkeyman', 'ElectricalEngineer', 'ElectricalOfficer', 'Electrician', 'EngineerCadet', 'EngineeringCrew', 'EngineFitter', 'Entertainment', 'FacilitiesCrew', 'FacilitiesManager', 'FirstAsstEngineer', 'FirstEngineer', 'FirstMate', 'FirstOfficer', 'Fitter', 'FourthOfficer', 'FoodBevMngr', 'FoodService', 'FourthAsstEngineer', 'Greaser', 'Hospitality', 'HotelDirector', 'HotelStaff', 'HousekeepingStaff', 'InformationTechnology', 'JuniorEngineer', 'LaundryMaster', 'Lifeboatman', 'Maitred', 'MarineCrew', 'MarketingRevenueMngr', 'Master', 'MasterFirstClassPilot', 'MateFirstClassPilot', 'Mechanic', 'MedicalStaff', 'Messman', 'Motorman', 'Oiler', 'Operator', 'OrdinarySeaman', 'Owner', 'Painter', 'Porter', 'Provision', 'ProvisionMaster', 'Pumpman', 'QMED', 'RadioOfficer', 'Reeferman', 'Repairman', 'RiddingCrew', 'SafetyAndSecurity', 'SecondAsstEngineer', 'SecondMate', 'SecondOfficer', 'SSO', 'StaffCaptain', 'Steward', 'Superintendent', 'Tankerman', 'ThirdAsstEngineer', 'ThirdMate', 'ThirdOfficer', 'ThirdParty', 'TruckMechanic', 'Tunnelman', 'UtilityPerson', 'VettingInspector', 'Welder', 'Wiper', 'YardPersonnel', 'Other']
 const RanksOfRatingEditor = <DropDownEditor options={RanksOfRating}/>;
 
-const countryCodesList = countryCodes.getCountryCodes();
+const countryCodesList = countryCodes.getCountriesWithCodes();
 countryCodesList.unshift("(...)")
 const CountryCodesEditor = <DropDownEditor options={countryCodesList}/>;
 
