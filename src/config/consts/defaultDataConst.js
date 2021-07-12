@@ -1,21 +1,25 @@
-const defaultDateTime = new Date();
-defaultDateTime.setHours(0);
-defaultDateTime.setMinutes(0);
-
-defaultDateTime.getFullYear()
-defaultDateTime.getMonth()
-defaultDateTime.getDate()
-defaultDateTime.getHours();
-defaultDateTime.getMinutes()
+// const defaultDateTime = new Date();
+// defaultDateTime.setHours(0);
+// defaultDateTime.setMinutes(0);
+//
+// defaultDateTime.getFullYear()
+// defaultDateTime.getMonth()
+// defaultDateTime.getDate()
+// defaultDateTime.getHours();
+// defaultDateTime.getMinutes()
 
 export default {
     port: {
         arrivalDeparture: '',
         voyageNumber: '',
-        ETAPortOfCall: defaultDateTime,
-        ETDPortOfCall: defaultDateTime,
-        ATAPortOfCall: defaultDateTime,
-        ATDPortOfCall: defaultDateTime,
+        ETAPortOfCall: '',
+        // ETAPortOfCall: defaultDateTime,
+        ETDPortOfCall: '',
+        // ETDPortOfCall: defaultDateTime,
+        ATAPortOfCall: '',
+        // ATAPortOfCall: defaultDateTime,
+        ATDPortOfCall: '',
+        // ATDPortOfCall: defaultDateTime,
         callAnchorage: '',
         portOfCall: '',
         positionPortOfCall: '',
@@ -29,7 +33,8 @@ export default {
         position: {
             latitude: '',
             longitude: '',
-            time: defaultDateTime
+            time: ''
+            // time: defaultDateTime
         },
         nameOfMaster: {
             givenName: '',
@@ -62,5 +67,29 @@ export default {
         rows: [
             { "NR": 1 }
         ]
+    },
+    ship: {
+        name: '',
+        iMOnumber: '',
+        otherInfo: '',
+        callSign: '',
+        mmsiNumner: '',
+        flagState: '',
+        shipType: '',
+        grossTonnage: '',
+        netTonnage: '',
+        port: '',
+        issueDate: '',
+        certificateNumber: '',
+        companyName: '',
+        iMOCompany: '',
+        phone: '',
+        fax: '',
+        email: '',
+        builtYear: '',
+        deadWeight: '',
+        length: '',
+        beam: '',
+        summerDraught: ''
     }
 }

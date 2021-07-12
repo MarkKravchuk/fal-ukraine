@@ -4,14 +4,14 @@ import {withStyles} from '@material-ui/core/styles';
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import {Editors, Formatters} from 'react-data-grid-addons';
-import dateOfBirthPicker from "./dateOfBirthPicker";
-import expiryDatePicker from "./expiryDatePicker";
-import issuingDatePicker from "./issuingDatePicker";
-import countryCodes from "../functions/countryCodes";
+import dateOfBirthPicker from "../pickers/dateOfBirthPicker";
+import expiryDatePicker from "../pickers/expiryDatePicker";
+import issuingDatePicker from "../pickers/issuingDatePicker";
+import countryCodes from "../../functions/countryCodes";
 
-let data = require("../data/data");
+let data = require("../../data/data.json");
 const editJsonFile = require("edit-json-file");
-let file = editJsonFile("src/data/dafta.json");
+let file = editJsonFile("src/data/data.json");
 const {DropDownEditor} = Editors;
 const {DropDownFormatter} = Formatters;
 

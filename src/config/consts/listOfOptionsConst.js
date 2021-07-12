@@ -3,8 +3,8 @@ export default [
         label: 'Port',
         value: 'port'
     }, {
-        label: 'Ship',
-        value: 'ship'
+        label: 'Ships',
+        value: 'ships'
     }, {
         label: 'Crew',
         value: 'crew'

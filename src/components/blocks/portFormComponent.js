@@ -4,30 +4,19 @@ import {makeStyles} from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select'
 import '@date-io/date-fns';
 import Grid from '@material-ui/core/Grid';
-import DateFnsUtils from '@date-io/date-fns';
-import {
-    MuiPickersUtilsProvider,
-    KeyboardTimePicker,
-    KeyboardDatePicker,
-} from '@material-ui/pickers';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddIcon from '@material-ui/icons/Add';
-import {generateXML} from '../functions/generateXML'
-import {readXLSPort} from '../functions/readXLSPort'
-import {readXML} from '../functions/readXML'
-import ListOfPurposesOfCalls from './../config/consts/listOfPurposesOfCallsConst';
+import ListOfPurposesOfCalls from '../../config/consts/listOfPurposesOfCallsConst';
 
-import ListOfPorts from './../config/consts/listOfPortsConst'
+import ListOfPorts from '../../config/consts/listOfPortsConst'
 
 import './portFormComponent.css'
-import {func} from "prop-types";
 
 const useStyles = makeStyles((theme) => ({
     formControl: {
@@ -135,7 +124,7 @@ function PortForm({data, updateData}) {
             </div>
 
             <div className={'flex-item-60'}>
-                <Grid container justify="space-between">
+                <Grid container justify="space-around">
                     <TextField
                         label="ETA to port of call"
                         type="datetime-local"
@@ -165,7 +154,7 @@ function PortForm({data, updateData}) {
                     />
                 </Grid>
 
-                <Grid container justify="space-between">
+                <Grid container justify="space-around">
                     <TextField
                         label="ATA to port of call"
                         type="datetime-local"
@@ -646,28 +635,6 @@ function PortForm({data, updateData}) {
 function correctDateTime(date) {
     date = "" + date;
     return date.substr(0,16);
-
-    // try {
-        // will break here if it's a not normal format
-        // let realDate = new Date(date);
-        // let month = realDate.getMonth();
-        // month++;
-        // month = month < 10 ? "0"+month : month;
-        //
-        // let date = realDate.getDate();
-        // date++;
-        // date = date < 10 ? "0"+date : date;
-        //
-        // let hours = realDate.getHours();
-        // hours = hours < 10 ? "0" + hours : hours;
-        //
-        // let minutes = realDate.getMinutes();
-        // minutes = minutes < 10? "0" + minutes : minutes;
-        // let fuckFormat = `${realDate.getFullYear()}-${month}-${date}T${hours}:${minutes}`;
-        // return date;
-    // } catch (e) {
-    //     return date;
-    // }
 }
 
 function setDate(date) {
