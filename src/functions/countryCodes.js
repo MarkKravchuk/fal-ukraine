@@ -18,7 +18,7 @@ export function getCountriesWithCodes() {
 }
 
 export function getCountryWithCodeByCode(countryCode) {
-    if (countryCode!=''){
+    if (countryCode!=''&&countryCode!=null){
         let countryWithCode = countryCodes[countryCode]+' - '+countryCode;
         return countryWithCode;
     }

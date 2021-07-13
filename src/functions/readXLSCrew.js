@@ -1,11 +1,11 @@
 import readXlsxFile from 'read-excel-file'
 import moment from "moment";
-
-// let data = require("../data/data");
+import data from './../config/consts/defaultDataConst'
+import countryCodes from "./countryCodes";
 
 function readXLSCrew(file, onSave) {
-    let crew = {};
-    crew.rows = [];
+    data.crew.rows = [];
+    let crew = data.crew;
     readXlsxFile(file).then((rows) => {
         console.log("crew ", rows);
         for (let i = 4; i < rows.length; i++) {
@@ -26,8 +26,8 @@ function readXLSCrew(file, onSave) {
                 Family_name: rows[i][2],
                 Given_name: rows[i][3],
                 Rank_of_rating: rows[i][4],
-                Nationality: rows[i][5],
-                Country_of_birth: rows[i][6],
+                Nationality: countryCodes.getCountryWithCodeByCode(rows[i][5]),
+                Country_of_birth:countryCodes.getCountryWithCodeByCode( rows[i][6]),
                 Place_of_birth: rows[i][7],
                 date_of_birth: dateOfBirth,
                 ID_type: rows[i][9],

@@ -243,49 +243,49 @@ let downloadXMLfile = (xmlValue) => {
 let dataCheck = (data) => {
     let port = data.port;
     let crew = data.crew;
-    if (port.arrivalDeparture==''){
+    if (port.arrivalDeparture=='' || port.arrivalDeparture==null ){
         alert("Please, fill in the required field 'Departure/Arrival' in Port infomation")
         return false
     }
-    if (port.portOfCall==''){
+    if (port.portOfCall=='' || port.portOfCall==null){
         alert("Please, fill in the required field 'Departure/Arrival' in Port infomation")
         return false
     }
     for (let i = 0; i < crew.rows.length; i++) {
         let row = data.crew.rows[i]
-        if (row.Family_name == '') {
+        if (row.Family_name == '' || row.Family_name ==null) {
             alert("Please, fill in the required field 'Family name' in Crew list")
             return false
         }
-        if (row.Given_name == '') {
+        if (row.Given_name == '' || row.Given_name ==null) {
             alert("Please, fill in the required field 'Given name' in Crew list")
             return false
         }
-        if (row.Rank_of_rating == '') {
+        if (row.Rank_of_rating == '' || row.Rank_of_rating ==null ) {
             alert("Please, fill in the required field 'Rank of rating' in Crew list")
             return false
         }
-        if (row.Nationality == '') {
+        if (row.Nationality == '' || row.Nationality ==null) {
             alert("Please, fill in the required field 'Nationality' in Crew list")
             return false
         }
-        if (row.Country_of_birth == '') {
+        if (row.Country_of_birth == '' || row.Country_of_birth==null) {
             alert("Please, fill in the required field 'Country of birth' in Crew list")
             return false
         }
-        if (row.Place_of_birth == '') {
+        if (row.Place_of_birth == ''|| row.Place_of_birth ==null) {
             alert("Please, fill in the required field 'Place of birth' in Crew list")
             return false
         }
-        if (row.date_of_birth == '') {
+        if (row.date_of_birth == '' || row.date_of_birth==null) {
             alert("Please, fill in the required field 'date of birth' in Crew list")
             return false
         }
-        if (row.ID_type == '') {
+        if (row.ID_type == '' || row.ID_type ==null) {
             alert("Please, fill in the required field 'ID type' in Crew list")
             return false
         }
-        if (row.ID_document_number == '') {
+        if (row.ID_document_number == '' || row.ID_document_number ==null) {
             alert("Please, fill in the required field 'ID document number' in Crew list")
             return false
         }

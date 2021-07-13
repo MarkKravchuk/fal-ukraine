@@ -8,7 +8,6 @@ import dateOfBirthPicker from "./dateOfBirthPicker";
 import expiryDatePicker from "./expiryDatePicker";
 import issuingDatePicker from "./issuingDatePicker";
 import countryCodes from "../functions/countryCodes";
-let data = require("../data/data");
 const {DropDownEditor} = Editors;
 
 const styles = (theme) => ({
