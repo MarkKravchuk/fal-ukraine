@@ -4,9 +4,7 @@ import {withStyles} from '@material-ui/core/styles';
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import {Editors} from 'react-data-grid-addons';
-import dateOfBirthPicker from "../pickers/dateOfBirthPicker";
-import expiryDatePicker from "../pickers/expiryDatePicker";
-import issuingDatePicker from "../pickers/issuingDatePicker";
+import datePicker from "../pickers/datePicker";
 import countryCodes from "../../functions/countryCodes";
 const {DropDownEditor} = Editors;
 
@@ -42,21 +40,21 @@ const columns = [
     {key: "Nationality", name: "Nationality", editable: true, editor: CountryCodesEditor, width: 100},
     {key: "Country_of_birth", name: "Country of birth", editable: true, editor: CountryCodesEditor, width: 120},
     {key: "Place_of_birth", name: "Place of birth", editable: true, width: 120},
-    {key: "date_of_birth", name: "Date of birth", editable: true, editor: dateOfBirthPicker, width: 120},
+    {key: "date_of_birth", name: "Date of birth", editable: true, editor: datePicker, width: 120},
     {key: "ID_type", name: "ID type", editable: true, width: 80, editor: IDTypesEditor},
     {key: "ID_document_number", name: "ID document number", editable: true, width: 150},
     {
         key: "Issuing_state_of_identity_document",
         name: "Issuing state of identity document",
         editable: true,
-        editor: issuingDatePicker,
+        editor: datePicker,
         width: 250
     },
     {
         key: "Expiry_date_of_identity_document",
         name: "Expiry date of identity document",
         editable: true,
-        editor: expiryDatePicker,
+        editor: datePicker,
         width: 250
     },
     {key: "Visa_Residence_permit_number", name: "Visa/Residence permit number", editable: true, width: 250},

@@ -3,14 +3,15 @@ import ReactDOM from "react-dom";
 import DatePicker from "react-datepicker";
 import moment from "moment";
 import "react-datepicker/dist/react-datepicker.css";
-class dateOfBirthPicker extends React.Component {
+class datePicker extends React.Component {
     constructor(props) {
         super(props);
         this.state = { color: new Date() };
     }
 
+
     getValue() {
-        return { date_of_birth: moment(this.state.color).format("MM/DD/YYYY") };
+        return { [this.props.column.key]: moment(this.state.color).format("MM/DD/YYYY") };
     }
 
     getInputNode() {
@@ -24,4 +25,4 @@ class dateOfBirthPicker extends React.Component {
         return <DatePicker selected={this.state.color} onChange={this.onChange} />;
     }
 }
-export default dateOfBirthPicker;
+export default datePicker;
