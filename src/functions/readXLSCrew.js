@@ -1,10 +1,11 @@
 import readXlsxFile from 'read-excel-file'
 import moment from "moment";
 
-let data = require("../data/data");
+// let data = require("../data/data");
 
 function readXLSCrew(file, onSave) {
-    let crew = [];
+    let crew = {};
+    crew.rows = [];
     readXlsxFile(file).then((rows) => {
         console.log("crew ", rows);
         for (let i = 4; i < rows.length; i++) {
@@ -36,15 +37,15 @@ function readXLSCrew(file, onSave) {
                 Visa_Residence_permit_number: rows[i][11],
                 Gender: rows[i][14]
             }
-            crew.push(row)
+            crew.rows.push(row)
         }
 
         console.log('Crew from Excel: ', crew);
         onSave({crew});
 
     })
-    data.crew.rows = crew;
-    return {crew};
+    // data.crew.rows = crew;
+    return crew;
 }
 
 export default readXLSCrew;

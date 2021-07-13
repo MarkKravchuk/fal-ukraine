@@ -61,7 +61,8 @@ function readXML (fileContent) {
     console.log("Port ", port);
 
     let crewList = xml.getElementsByTagName('CrewList');
-    let crew = [];
+    data.crew.rows = [];
+    let crew = data.crew;
     if (crewList.length > 0) {
         console.log("crewList ",crewList[0].children);
         for (let i = 0; i <crewList[0].children.length; i++) {
@@ -73,7 +74,7 @@ function readXML (fileContent) {
                 Issuing_state_of_identity_document:CreMemberData.children[0].children[2].value, Expiry_date_of_identity_document: CreMemberData.children[0].children[3].value,
                 Visa_Residence_permit_number:CreMemberData.children[8].value
             }
-            crew.push(row)
+            crew.rows.push(row)
         }
     }
 
