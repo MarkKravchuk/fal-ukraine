@@ -91,5 +91,10 @@ export default {
         length: '',
         beam: '',
         summerDraught: ''
-    }
+    },
+    passengers: {
+        rows: [
+            { "NR": 1 }
+        ]
+    },
 }

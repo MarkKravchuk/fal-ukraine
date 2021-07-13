@@ -8,6 +8,7 @@ import dateOfBirthPicker from "../pickers/dateOfBirthPicker";
 import expiryDatePicker from "../pickers/expiryDatePicker";
 import issuingDatePicker from "../pickers/issuingDatePicker";
 import countryCodes from "../../functions/countryCodes";
+import ListOfPorts from '../../config/consts/listOfPortsConst'
 const {DropDownEditor} = Editors;
 
 const styles = (theme) => ({
@@ -31,6 +32,15 @@ const RanksOfRatingEditor = <DropDownEditor options={RanksOfRating}/>;
 const countryCodesList = countryCodes.getCountriesWithCodes();
 countryCodesList.unshift("(...)")
 const CountryCodesEditor = <DropDownEditor options={countryCodesList}/>;
+
+const yesNo = ["(...)", 'yes', 'no']
+const TransitEditor = <DropDownEditor options={yesNo}/>;
+
+const ports = ["(...)"];
+ListOfPorts.map((port, index) =>
+        ports.push( port.code + ' - ' + port.countryCode + ' - ' + port.name)
+    );
+const PortEditor = <DropDownEditor options={ports}/>;
 
 
 const columns = [
@@ -59,26 +69,23 @@ const columns = [
         editor: expiryDatePicker,
         width: 250
     },
+    {key: "Port_of_embarkation", name: "Port of embarkation", editable: true, width: 150,editor:PortEditor},
+    {key: "Port_of_disembarkation", name: "Port of disembarkation", editable: true, width: 170,editor:PortEditor},
+    {key: "Transit", name: "Transit", editable: true, width: 80, editor:TransitEditor},
     {key: "Visa_Residence_permit_number", name: "Visa/Residence permit number", editable: true, width: 250},
 ];
 
-// let rows = data.crew.rows;
-
-function CrewForm({data, updateData}) {
-    // state = {rows: data.crew.rows};
-   function addRow() {
-        console.log("adding row");
+function PassengersForm({data, updateData}) {
+    function addRow() {
         let number = data.rows.length + 1
         let row = {NR: number}
-        // const rows = data.rows;
-       data.rows.push(row);
+        data.rows.push(row);
         updateData(data)
-        // this.setState(rows = data.crew.rows)
     }
 
     function deleteRow() {
-    data.rows.pop();
-    updateData(data)
+        data.rows.pop();
+        updateData(data)
     }
 
 
@@ -90,32 +97,28 @@ function CrewForm({data, updateData}) {
             rows[i] = {...rows[i], ...updated};
         }
         data.rows = rows
-       updateData(data)
+        updateData(data)
     };
 
 
-        // let {rows} = this.props.data;
-
-        // console.log("Crew rows:", rows);
-
-        return (
-            <div>
-                <Typography variant="h3" component="h3" gutterBottom>
-                    Crew list
-                </Typography>
-                <ReactDataGrid
-                    columns={columns}
-                    rowGetter={i => data.rows[i]}
-                    rowsCount={data.rows.length}
-                    onGridRowsUpdated={onGridRowsUpdated}
-                    enableCellSelect={true}
-                />
-                <Button variant="primary" onClick={addRow}>Add row</Button>
-                <Button variant="primary" onClick={deleteRow}>Delete row</Button>
-            </div>
-        );
+    return (
+        <div>
+            <Typography variant="h3" component="h3" gutterBottom>
+                Passenger list
+            </Typography>
+            <ReactDataGrid
+                columns={columns}
+                rowGetter={i => data.rows[i]}
+                rowsCount={data.rows.length}
+                onGridRowsUpdated={onGridRowsUpdated}
+                enableCellSelect={true}
+            />
+            <Button variant="primary" onClick={addRow}>Add row</Button>
+            <Button variant="primary" onClick={deleteRow}>Delete row</Button>
+        </div>
+    );
 
 }
 
 
-export default withStyles(styles)(CrewForm);
+export default withStyles(styles)(PassengersForm);
