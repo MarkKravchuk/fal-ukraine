@@ -27,44 +27,50 @@ function createXML(data) {
             return element.code === port.nextPortOfCall;
         });
 
+
         console.log("generatexmldata ", data);
         let ArrivalDepartureDraught;
-        // let CrewList = [];
-        // for (let i = 0; i < crew.length; i++) {
-        //     let CrewMemberData = [];
-        //     console.log("id type ", crew[i].ID_type);
-        //     let RankOfRatingCode = "";
-        //     if (crew[i].Rank_of_rating != null) {
-        //         RankOfRatingCode = RanksOfRating.indexOf(crew[i].Rank_of_rating) + 1;
-        //     }
-        //     CrewMemberData.push({
-        //         CrewIdDocument: [
-        //             {IdDocument: crew[i].ID_type},
-        //             {IdNumber: crew[i].ID_document_number},
-        //             {IssueDate: crew[i].Issuing_state_of_identity_document},
-        //             {ExpirationDate: crew[i].Expiry_date_of_identity_document},
-        //         ]
-        //     });
-        //     CrewMemberData.push({
-        //         Name: [
-        //             {GivenName: crew[i].Given_name},
-        //             {FamilyName: crew[i].Family_name},
-        //         ]
-        //     });
-        //     CrewMemberData.push({Gender: crew[i].Gender});
-        //     CrewMemberData.push({
-        //         Duty: [
-        //             {Code: RankOfRatingCode},
-        //             {Text: crew[i].Rank_of_rating}
-        //         ]
-        //     });
-        //     CrewMemberData.push({DateOfBirth: crew[i].date_of_birth});
-        //     CrewMemberData.push({PlaceOfBirth: crew[i].Place_of_birth});
-        //     CrewMemberData.push({CountryOfBirth: crew[i].Country_of_birth});
-        //     CrewMemberData.push({Nationality: crew[i].Nationality});
-        //     CrewMemberData.push({VisaNumber: crew[i].Visa_Residence_permit_number});
-        //     CrewList.push({CrewMemberData});
-        // }
+        let CrewList = [];
+        for (let i = 0; i < crew.length; i++) {
+            let CrewMemberData = [];
+            console.log("id type ", crew[i].ID_type);
+            let RankOfRatingCode = "";
+            if (crew[i].Rank_of_rating != '') {
+                RankOfRatingCode = RanksOfRating.indexOf(crew[i].Rank_of_rating) + 1;
+            }
+
+            let nationality = crew[i].Nationality.split(' ');
+            let nationalityCode = nationality[3];
+            let countryOfBirth = crew[i].Country_of_birth.split(' ');
+            let countryOfBirthCode = countryOfBirth[3];
+                CrewMemberData.push({
+                CrewIdDocument: [
+                    {IdDocument: crew[i].ID_type},
+                    {IdNumber: crew[i].ID_document_number},
+                    {IssueDate: crew[i].Issuing_state_of_identity_document},
+                    {ExpirationDate: crew[i].Expiry_date_of_identity_document},
+                ]
+            });
+            CrewMemberData.push({
+                Name: [
+                    {GivenName: crew[i].Given_name},
+                    {FamilyName: crew[i].Family_name},
+                ]
+            });
+            CrewMemberData.push({Gender: crew[i].Gender});
+            CrewMemberData.push({
+                Duty: [
+                    {Code: RankOfRatingCode},
+                    {Text: crew[i].Rank_of_rating}
+                ]
+            });
+            CrewMemberData.push({DateOfBirth: crew[i].date_of_birth});
+            CrewMemberData.push({PlaceOfBirth: crew[i].Place_of_birth});
+            CrewMemberData.push({CountryOfBirth: countryOfBirthCode});
+            CrewMemberData.push({Nationality: nationalityCode});
+            CrewMemberData.push({VisaNumber: crew[i].Visa_Residence_permit_number});
+            CrewList.push({CrewMemberData});
+        }
         if (port.arrivalDeparture == 'Arrival') {
             ArrivalDepartureDraught = {
                 ArrivalDraught: [
@@ -197,7 +203,7 @@ function createXML(data) {
         });
         EPCRequestBody.push( {Stowaways: port.stowaways});
         EPCRequestBody.push({PeriodOfStay: port.periodOfStay});
-        // EPCRequestBody.push( {CrewList: CrewList})
+        EPCRequestBody.push( {CrewList: CrewList})
 
         console.log("POC ",port.portOfCall)
         let xmlValue = xml([{
@@ -235,7 +241,8 @@ let downloadXMLfile = (xmlValue) => {
 }
 
 let dataCheck = (data) => {
-    let port = data.port
+    let port = data.port;
+    let crew = data.crew;
     if (port.arrivalDeparture==''){
         alert("Please, fill in the required field 'Departure/Arrival' in Port infomation")
         return false
@@ -244,45 +251,45 @@ let dataCheck = (data) => {
         alert("Please, fill in the required field 'Departure/Arrival' in Port infomation")
         return false
     }
-    // for (let i = 0; i < data.crew.rows.length; i++) {
-    //     let row = data.crew.rows[i]
-    //     if (row.Family_name == null) {
-    //         alert("Please, fill in the required field 'Family name' in Crew list")
-    //         return false
-    //     }
-    //     if (row.Given_name == null) {
-    //         alert("Please, fill in the required field 'Given name' in Crew list")
-    //         return false
-    //     }
-    //     if (row.Rank_of_rating == null) {
-    //         alert("Please, fill in the required field 'Rank of rating' in Crew list")
-    //         return false
-    //     }
-    //     if (row.Nationality == null) {
-    //         alert("Please, fill in the required field 'Nationality' in Crew list")
-    //         return false
-    //     }
-    //     if (row.Country_of_birth == null) {
-    //         alert("Please, fill in the required field 'Country of birth' in Crew list")
-    //         return false
-    //     }
-    //     if (row.Place_of_birth == null) {
-    //         alert("Please, fill in the required field 'Place of birth' in Crew list")
-    //         return false
-    //     }
-    //     if (row.date_of_birth == null) {
-    //         alert("Please, fill in the required field 'date of birth' in Crew list")
-    //         return false
-    //     }
-    //     if (row.ID_type == null) {
-    //         alert("Please, fill in the required field 'ID type' in Crew list")
-    //         return false
-    //     }
-    //     if (row.ID_document_number == null) {
-    //         alert("Please, fill in the required field 'ID document number' in Crew list")
-    //         return false
-    //     }
-    // }
+    for (let i = 0; i < crew.rows.length; i++) {
+        let row = data.crew.rows[i]
+        if (row.Family_name == '') {
+            alert("Please, fill in the required field 'Family name' in Crew list")
+            return false
+        }
+        if (row.Given_name == '') {
+            alert("Please, fill in the required field 'Given name' in Crew list")
+            return false
+        }
+        if (row.Rank_of_rating == '') {
+            alert("Please, fill in the required field 'Rank of rating' in Crew list")
+            return false
+        }
+        if (row.Nationality == '') {
+            alert("Please, fill in the required field 'Nationality' in Crew list")
+            return false
+        }
+        if (row.Country_of_birth == '') {
+            alert("Please, fill in the required field 'Country of birth' in Crew list")
+            return false
+        }
+        if (row.Place_of_birth == '') {
+            alert("Please, fill in the required field 'Place of birth' in Crew list")
+            return false
+        }
+        if (row.date_of_birth == '') {
+            alert("Please, fill in the required field 'date of birth' in Crew list")
+            return false
+        }
+        if (row.ID_type == '') {
+            alert("Please, fill in the required field 'ID type' in Crew list")
+            return false
+        }
+        if (row.ID_document_number == '') {
+            alert("Please, fill in the required field 'ID document number' in Crew list")
+            return false
+        }
+    }
     return true
 }
 
