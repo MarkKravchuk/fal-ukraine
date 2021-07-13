@@ -9,10 +9,10 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Grid from '@material-ui/core/Grid';
-import ShipForm from "../components/shipFormComponent";
-import PortForm from "../components/portFormComponent";
-import VoyageForm from "../components/voyageFormComponent";
-import CrewForm from "../components/crewFormComponent";
+import ShipInfo from "../components/blocks/shipInfo";
+import PortForm from "../components/blocks/portFormComponent";
+import VoyageForm from "../components/blocks/voyageFormComponent";
+import CrewForm from "../components/blocks/crewFormComponent";
 import Button from '@material-ui/core/Button';
 import {config} from "../config/shipDetailsConfig";
 import defaultDataConst from "../config/consts/defaultDataConst";
@@ -26,7 +26,7 @@ import createXML from "../functions/generateXML";
 const listOfOptions = listOfOptionsConst;
 
 
-const defaultOption = 'Port';
+const defaultOption = 'Ships';
 
 const drawerWidth = config.showDrawerIcons ? 240 : 180;
 
@@ -59,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
 function ShipDetails() {
 
     const classes = useStyles();
-    const [activeItem, setActiveItem] = useState(0);
+    const [activeItem, setActiveItem] = useState(listOfOptions.indexOf(listOfOptions.find( el => el.label === defaultOption)));
 
     const [data, setData] = useState(defaultDataConst);
     console.log("All the data!!", data);
@@ -76,10 +76,8 @@ function ShipDetails() {
                             <Grid container justify={'flex-start'}>
                                 <div style={{marginRight: '30px'}}>
                                     <input
-                                        // accept="image/*"
                                         className={classes.uploadFile}
-                                        onChange={async () => {
-                                            console.log('On change suka')
+                                        onChange={() => {
                                             const file = document.getElementById("read-xml-file").files[0];
                                             const reader = new FileReader();
                                             reader.onload = (() => {
@@ -199,8 +197,15 @@ function getChildComponent(activeItem, [data, setData]) {
                 dataCopy.port = {...portCopy, ...dataItem};
                 setData(dataCopy);
             }}/>
-        case 'ship':
-            return <ShipForm/>
+        case 'ships':
+            return <ShipInfo data={data.ship} updateData={ (dataItem) => {
+                // deep copy
+                //@FIXME Fix it without using deep copy
+                let dataCopy = JSON.parse(JSON.stringify(data));
+                let portCopy = dataCopy.ship;
+                dataCopy.ship = {...portCopy, ...dataItem};
+                setData(dataCopy);
+            }}/>
         case 'voyage':
             return <VoyageForm/>
         case 'crew':
