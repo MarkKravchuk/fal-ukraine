@@ -77,6 +77,11 @@ function CrewForm({data, updateData}) {
         // this.setState(rows = data.crew.rows)
     }
 
+    function deleteRow() {
+    data.rows.pop();
+    updateData(data)
+    }
+
 
 
     function onGridRowsUpdated({fromRow, toRow, updated}){
@@ -107,6 +112,7 @@ function CrewForm({data, updateData}) {
                     enableCellSelect={true}
                 />
                 <Button variant="primary" onClick={addRow}>Add row</Button>
+                <Button variant="primary" onClick={deleteRow}>Delete row</Button>
             </div>
         );
 
