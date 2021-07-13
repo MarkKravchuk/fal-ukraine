@@ -65,34 +65,34 @@ const columns = [
 
 // let rows = data.crew.rows;
 
-class CrewForm extends React.Component {
+function CrewForm({data, updateData}) {
     // state = {rows: data.crew.rows};
-    addRow = () => {
+   function addRow() {
         console.log("adding row");
-        let number = data.crew.rows.length + 1
+        let number = data.rows.length + 1
         let row = {NR: number}
-        const rows = this.props.data.rows;
-        rows.push(row);
-        this.props.updateData({rows})
+        // const rows = data.rows;
+       data.rows.push(row);
+        updateData(data)
         // this.setState(rows = data.crew.rows)
     }
 
 
-    handleFileInput = async () => {
-    }
-    onGridRowsUpdated = ({fromRow, toRow, updated}) => {
 
-        const rows = this.props.data.rows.slice();
+    function onGridRowsUpdated({fromRow, toRow, updated}){
+
+        const rows = data.rows.slice();
         for (let i = fromRow; i <= toRow; i++) {
             rows[i] = {...rows[i], ...updated};
         }
-        this.props.updateData({rows})
+        data.rows = rows
+       updateData(data)
     };
 
-    render() {
-        let {rows} = this.props.data;
 
-        console.log("Crew rows:", rows);
+        // let {rows} = this.props.data;
+
+        // console.log("Crew rows:", rows);
 
         return (
             <div>
@@ -101,15 +101,15 @@ class CrewForm extends React.Component {
                 </Typography>
                 <ReactDataGrid
                     columns={columns}
-                    rowGetter={i => rows[i]}
-                    rowsCount={rows.length}
-                    onGridRowsUpdated={this.onGridRowsUpdated}
+                    rowGetter={i => data.rows[i]}
+                    rowsCount={data.rows.length}
+                    onGridRowsUpdated={onGridRowsUpdated}
                     enableCellSelect={true}
                 />
-                <Button variant="primary" onClick={this.addRow}>Add row</Button>
+                <Button variant="primary" onClick={addRow}>Add row</Button>
             </div>
         );
-    }
+
 }
 
 
