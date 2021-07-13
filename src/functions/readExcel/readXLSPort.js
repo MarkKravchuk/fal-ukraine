@@ -1,5 +1,5 @@
 import readXlsxFile from 'read-excel-file'
-import data from './../config/consts/defaultDataConst'
+import data from '../../config/consts/defaultDataConst'
 
 let readXLSPort = (file, onSave) => {
     let port = data.port

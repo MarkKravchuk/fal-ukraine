@@ -4,10 +4,11 @@ import {withStyles} from '@material-ui/core/styles';
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import {Editors} from 'react-data-grid-addons';
-import dateOfBirthPicker from "./dateOfBirthPicker";
-import expiryDatePicker from "./expiryDatePicker";
-import issuingDatePicker from "./issuingDatePicker";
-import countryCodes from "../functions/countryCodes";
+import dateOfBirthPicker from "./../pickers/dateOfBirthPicker";
+import expiryDatePicker from "./../pickers/expiryDatePicker";
+import issuingDatePicker from "./../pickers/issuingDatePicker";
+import countryCodes from "./../../functions/countryCodes";
+
 const {DropDownEditor} = Editors;
 
 const styles = (theme) => ({
@@ -66,54 +67,53 @@ const columns = [
 
 function CrewForm({data, updateData}) {
     // state = {rows: data.crew.rows};
-   function addRow() {
+    function addRow() {
         console.log("adding row");
         let number = data.rows.length + 1
         let row = {NR: number}
         // const rows = data.rows;
-       data.rows.push(row);
+        data.rows.push(row);
         updateData(data)
         // this.setState(rows = data.crew.rows)
     }
 
     function deleteRow() {
-    data.rows.pop();
-    updateData(data)
+        data.rows.pop();
+        updateData(data)
     }
 
 
-
-    function onGridRowsUpdated({fromRow, toRow, updated}){
+    function onGridRowsUpdated({fromRow, toRow, updated}) {
 
         const rows = data.rows.slice();
         for (let i = fromRow; i <= toRow; i++) {
             rows[i] = {...rows[i], ...updated};
         }
         data.rows = rows
-       updateData(data)
+        updateData(data)
     };
 
 
-        // let {rows} = this.props.data;
+    // let {rows} = this.props.data;
 
-        // console.log("Crew rows:", rows);
+    // console.log("Crew rows:", rows);
 
-        return (
-            <div>
-                <Typography variant="h3" component="h3" gutterBottom>
-                    Crew list
-                </Typography>
-                <ReactDataGrid
-                    columns={columns}
-                    rowGetter={i => data.rows[i]}
-                    rowsCount={data.rows.length}
-                    onGridRowsUpdated={onGridRowsUpdated}
-                    enableCellSelect={true}
-                />
-                <Button variant="primary" onClick={addRow}>Add row</Button>
-                <Button variant="primary" onClick={deleteRow}>Delete row</Button>
-            </div>
-        );
+    return (
+        <div>
+            <Typography variant="h3" component="h3" gutterBottom>
+                Crew list
+            </Typography>
+            <ReactDataGrid
+                columns={columns}
+                rowGetter={i => data.rows[i]}
+                rowsCount={data.rows.length}
+                onGridRowsUpdated={onGridRowsUpdated}
+                enableCellSelect={true}
+            />
+            <Button variant="primary" onClick={addRow}>Add row</Button>
+            <Button variant="primary" onClick={deleteRow}>Delete row</Button>
+        </div>
+    );
 
 }
 

@@ -17,11 +17,11 @@ export default [
         name: "Izmir"
     }, {
         code: "UAILK",
-        countryCode: "BG",
+        countryCode: "UA",
         name: "Chornomorsk"
     }, {
         code: "UAODS",
-        countryCode: "BG",
+        countryCode: "UA",
         name: "Odessa"
     }, {
         code: "UAOCT",
@@ -31,5 +31,9 @@ export default [
         code: "UAYUZ",
         countryCode: "UA",
         name: "Yuzhnyy"
-    }
+    }, {
+        code: "",
+        countryCode: "TEST",
+        name: "TEST"
+    },
 ]
