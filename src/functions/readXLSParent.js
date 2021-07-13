@@ -1,6 +1,7 @@
 import readXlsxFile from 'read-excel-file'
 import readXLSPort from "./readXLSPort";
 import readXLSCrew from "./readXLSCrew";
+import readXLSPassengers from "./readXLSPassengers"
 
 function readXLS(files, onSave) {
 
@@ -17,6 +18,8 @@ function readXLS(files, onSave) {
                 readXLSPort(files[i], onSave)
             } else if (name === "crew list") {
                 readXLSCrew(files[i], onSave);
+            }else if (name === "passenger list"){
+                readXLSPassengers(files[i], onSave);
             }
         });
     }

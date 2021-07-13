@@ -26,14 +26,11 @@ const GendersEditor = <DropDownEditor options={genders}/>;
 const idTypes = ["(...)", 'Musterbook', 'Passport', 'Residential permit', 'Picture id', 'Others']
 const IDTypesEditor = <DropDownEditor options={idTypes}/>;
 
-const RanksOfRating = ["(...)", 'AbleSeaman', 'Agent', 'AsstFoodBevMngr', 'BarManager', 'BarService', 'Bosun', 'Cadet', 'Captain', 'CargoTechnician', 'CasinoStaff', 'ChiefCook', 'ChiefElectrician', 'ChiefHousekeeper', 'ChiefEngineer', 'ChiefMaster', 'ChiefMate', 'ChiefOfficer', 'ChiefPurser', 'ChiefSteward', 'ClassSurveyor', 'CSO', 'Cook', 'CraneOperator', 'CrewMember', 'CruiseDirector', 'CruiseStaff', 'DeckApprentice', 'DeckFitter', 'DeckOfficer', 'Deckhand', 'Doctor', 'Donkeyman', 'ElectricalEngineer', 'ElectricalOfficer', 'Electrician', 'EngineerCadet', 'EngineeringCrew', 'EngineFitter', 'Entertainment', 'FacilitiesCrew', 'FacilitiesManager', 'FirstAsstEngineer', 'FirstEngineer', 'FirstMate', 'FirstOfficer', 'Fitter', 'FourthOfficer', 'FoodBevMngr', 'FoodService', 'FourthAsstEngineer', 'Greaser', 'Hospitality', 'HotelDirector', 'HotelStaff', 'HousekeepingStaff', 'InformationTechnology', 'JuniorEngineer', 'LaundryMaster', 'Lifeboatman', 'Maitred', 'MarineCrew', 'MarketingRevenueMngr', 'Master', 'MasterFirstClassPilot', 'MateFirstClassPilot', 'Mechanic', 'MedicalStaff', 'Messman', 'Motorman', 'Oiler', 'Operator', 'OrdinarySeaman', 'Owner', 'Painter', 'Porter', 'Provision', 'ProvisionMaster', 'Pumpman', 'QMED', 'RadioOfficer', 'Reeferman', 'Repairman', 'RiddingCrew', 'SafetyAndSecurity', 'SecondAsstEngineer', 'SecondMate', 'SecondOfficer', 'SSO', 'StaffCaptain', 'Steward', 'Superintendent', 'Tankerman', 'ThirdAsstEngineer', 'ThirdMate', 'ThirdOfficer', 'ThirdParty', 'TruckMechanic', 'Tunnelman', 'UtilityPerson', 'VettingInspector', 'Welder', 'Wiper', 'YardPersonnel', 'Other']
-const RanksOfRatingEditor = <DropDownEditor options={RanksOfRating}/>;
-
 const countryCodesList = countryCodes.getCountriesWithCodes();
 countryCodesList.unshift("(...)")
 const CountryCodesEditor = <DropDownEditor options={countryCodesList}/>;
 
-const yesNo = ["(...)", 'yes', 'no']
+const yesNo = ["(...)", 'Yes', 'No']
 const TransitEditor = <DropDownEditor options={yesNo}/>;
 
 const ports = ["(...)"];
@@ -48,7 +45,6 @@ const columns = [
     {key: "Family_name", name: "Family name", editable: true, width: 120},
     {key: "Given_name", name: "Given name", editable: true, width: 120},
     {key: "Gender", name: "Gender", editable: true, width: 80, editor: GendersEditor},
-    {key: "Rank_of_rating", name: "Rank of rating", editable: true, editor: RanksOfRatingEditor, width: 120},
     {key: "Nationality", name: "Nationality", editable: true, editor: CountryCodesEditor, width: 100},
     {key: "Country_of_birth", name: "Country of birth", editable: true, editor: CountryCodesEditor, width: 120},
     {key: "Place_of_birth", name: "Place of birth", editable: true, width: 120},
