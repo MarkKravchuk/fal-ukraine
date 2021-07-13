@@ -97,4 +97,9 @@ export default {
             { "NR": 1 }
         ]
     },
+    voyage: {
+        rows: [
+            { "NR": 1 }
+        ]
+    },
 }

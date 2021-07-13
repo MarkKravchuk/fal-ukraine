@@ -60,18 +60,13 @@ const columns = [
     {key: "Visa_Residence_permit_number", name: "Visa/Residence permit number", editable: true, width: 250},
 ];
 
-// let rows = data.crew.rows;
-
 function CrewForm({data, updateData}) {
-    // state = {rows: data.crew.rows};
    function addRow() {
         console.log("adding row");
         let number = data.rows.length + 1
         let row = {NR: number}
-        // const rows = data.rows;
        data.rows.push(row);
         updateData(data)
-        // this.setState(rows = data.crew.rows)
     }
 
     function deleteRow() {
@@ -90,12 +85,6 @@ function CrewForm({data, updateData}) {
         data.rows = rows
        updateData(data)
     };
-
-
-        // let {rows} = this.props.data;
-
-        // console.log("Crew rows:", rows);
-
         return (
             <div>
                 <Typography variant="h3" component="h3" gutterBottom>

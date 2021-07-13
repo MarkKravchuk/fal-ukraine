@@ -208,7 +208,14 @@ function getChildComponent(activeItem, [data, setData]) {
                 setData(dataCopy);
             }}/>
         case 'voyage':
-            return <VoyageForm/>
+            return <VoyageForm data={data.voyage} updateData={ (dataItem) => {
+                // deep copy
+                //@FIXME Fix it without using deep copy
+                let dataCopy = JSON.parse(JSON.stringify(data));
+                let voyageCopy = dataCopy.voyage;
+                dataCopy.voyage = {...voyageCopy, ...dataItem};
+                setData(dataCopy);
+            }}/>
         case 'crew':
             return <CrewForm data={data.crew} updateData={ (dataItem) => {
                 // deep copy
