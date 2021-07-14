@@ -22,6 +22,7 @@ import {makeStyles} from "@material-ui/core/styles";
 import readXLS from "../functions/readExcel/readXLSParent";
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import GetAppIcon from '@material-ui/icons/GetApp';
+import PassengersForm from "../components/blocks/passengersFormComponent";
 import createXML from "../functions/generateXML/generateXML";
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -65,7 +66,7 @@ const useStyles = makeStyles((theme) => ({
 function ShipDetails() {
 
     const classes = useStyles();
-    const [activeItem, setActiveItem] = useState(listOfOptions.indexOf(listOfOptions.find(el => el.label === defaultOption)));
+    const [activeItem, setActiveItem] = useState(listOfOptions.indexOf(listOfOptions.find( el => el.label === defaultOption)));
 
     const [data, setData] = useState(defaultDataConst);
     const [openErrorDialog, setOpenErrorDialog] = useState({open: false, error: {}});
@@ -86,15 +87,15 @@ function ShipDetails() {
                                     <input
                                         className={classes.uploadFile}
                                         onChange={() => {
-
                                             const file = document.getElementById("read-xml-file").files[0];
                                             const reader = new FileReader();
                                             reader.onload = (() => {
+                                                    let {port, crew, ship, passengers} = readXML(reader.result);
                                                 try {
-                                                    let {port, crew, ship} = readXML(reader.result);
+                                                    let {port, crew, ship, passengers} = readXML(reader.result);
                                                     let dataCopy = JSON.parse(JSON.stringify(data));
 
-                                                    setData({...dataCopy, ...{port, crew, ship}});
+                                                    setData({...dataCopy, ...{port, crew, ship, passengers}});
                                                 } catch (e) {
                                                     console.log('Error triggered');
                                                     setOpenErrorDialog({
@@ -105,10 +106,7 @@ function ShipDetails() {
                                                     })
                                                     console.error(e);
                                                 }
-                                            })
                                             reader.readAsText(file);
-
-
                                         }}
                                         id="read-xml-file"
                                         type="file"
@@ -252,7 +250,7 @@ function getChildComponent(activeItem, [data, setData]) {
                 setData(dataCopy);
             }}/>
         case 'ships':
-            return <ShipFormComponent data={data.ship} updateData={(dataItem) => {
+            return <ShipInfo data={data.ship} updateData={ (dataItem) => {
                 // deep copy
                 //@FIXME Fix it without using deep copy
                 let dataCopy = JSON.parse(JSON.stringify(data));
@@ -261,9 +259,16 @@ function getChildComponent(activeItem, [data, setData]) {
                 setData(dataCopy);
             }}/>
         case 'voyage':
-            return <VoyageForm/>
+            return <VoyageForm data={data.voyage} updateData={ (dataItem) => {
+                // deep copy
+                //@FIXME Fix it without using deep copy
+                let dataCopy = JSON.parse(JSON.stringify(data));
+                let voyageCopy = dataCopy.voyage;
+                dataCopy.voyage = {...voyageCopy, ...dataItem};
+                setData(dataCopy);
+            }}/>
         case 'crew':
-            return <CrewForm data={data.crew} updateData={(dataItem) => {
+            return <CrewForm data={data.crew} updateData={ (dataItem) => {
                 // deep copy
                 //@FIXME Fix it without using deep copy
                 let dataCopy = JSON.parse(JSON.stringify(data));
@@ -271,7 +276,15 @@ function getChildComponent(activeItem, [data, setData]) {
                 dataCopy.crew = {...portCopy, ...dataItem};
                 setData(dataCopy);
             }}/>
-        case 'passengers':
+        case 'passengers':return <PassengersForm data={data.passengers} updateData={ (dataItem) => {
+            // deep copy
+            //@FIXME Fix it without using deep copy
+            let dataCopy = JSON.parse(JSON.stringify(data));
+            let passengersCopy = dataCopy.passengers;
+            dataCopy.passengers = {...passengersCopy, ...dataItem};
+            console.log("data copy ", dataCopy)
+            setData(dataCopy);
+        }}/>
         case 'ship_stores':
         case 'crew_effects':
         case 'cargo':
