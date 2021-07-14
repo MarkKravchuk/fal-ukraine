@@ -67,6 +67,7 @@ export default (passengers, EPCRequestBody) => {
                     {UNLoCode:disembarkationPort.code},
                 ]})
         }
+        PassengerData.push({Transit: rows[i].Transit});
         PassengerData.push({VisaNumber: rows[i].Visa_Residence_permit_number});
         PassengerList.push({PassengerData});
     }

@@ -82,10 +82,10 @@ function ShipDetails() {
                                             const file = document.getElementById("read-xml-file").files[0];
                                             const reader = new FileReader();
                                             reader.onload = (() => {
-                                                    let {port, crew, ship} = readXML(reader.result);
+                                                    let {port, crew, ship, passengers} = readXML(reader.result);
                                                     let dataCopy = JSON.parse(JSON.stringify(data));
 
-                                                    setData({...dataCopy, ...{port, crew, ship}});
+                                                    setData({...dataCopy, ...{port, crew, ship,passengers}});
                                             })
                                             reader.readAsText(file);
                                         }}
