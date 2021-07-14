@@ -230,7 +230,8 @@ function getChildComponent(activeItem, [data, setData]) {
             //@FIXME Fix it without using deep copy
             let dataCopy = JSON.parse(JSON.stringify(data));
             let passengersCopy = dataCopy.passengers;
-            dataCopy.crew = {...passengersCopy, ...dataItem};
+            dataCopy.passengers = {...passengersCopy, ...dataItem};
+            console.log("data copy ", dataCopy)
             setData(dataCopy);
         }}/>
         case 'ship_stores':

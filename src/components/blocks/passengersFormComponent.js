@@ -90,7 +90,7 @@ function PassengersForm({data, updateData}) {
         for (let i = fromRow; i <= toRow; i++) {
             rows[i] = {...rows[i], ...updated};
         }
-        data.rows = rows
+        data.rows = rows;
         updateData(data)
     };
 
