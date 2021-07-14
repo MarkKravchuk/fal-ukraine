@@ -21,6 +21,7 @@ export default (ship, xml) => {
         ship.issueDate = xml.getElementsByTagName('IssueDate')[0].value;
         ship.certificateNumber = xml.getElementsByTagName('Number')[0].value;
     }
+    ship.shipType = xml.getElementsByTagName('ShipTypeContent')[0].value;
     ship.builtYear = xml.getElementsByTagName('YearOfBuilt')[0].value;
     ship.deadWeight = xml.getElementsByTagName('DeadWeight')[0].value;
     ship.beam = xml.getElementsByTagName('Beam')[0].value;

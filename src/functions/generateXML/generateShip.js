@@ -19,6 +19,7 @@ export default (ship, EPCRequestBody) => {
     EPCRequestBody.push({LengthOverall: ship.length})
     EPCRequestBody.push({GrossTonnage: ship.grossTonnage})
     EPCRequestBody.push({NetTonnage: ship.netTonnage})
+    EPCRequestBody.push({ShipTypeContent: ship.shipType})
     EPCRequestBody.push({SummerDraught: ship.summerDraught})
     EPCRequestBody.push({
             RegistryCertificate: [

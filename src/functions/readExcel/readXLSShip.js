@@ -25,6 +25,8 @@ export default (file, onSave) => {
         ship.length = rows[20][2];
         ship.beam = rows[20][4];
         ship.summerDraught = rows[20][6];
+        let shipType = rows[7][4];
+        if (shipType) ship.shipType = shipType.split('(')[1].split(')')[0];
 
         console.log("Port read from Excel: ", ship);
         onSave({ship});

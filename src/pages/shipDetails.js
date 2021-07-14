@@ -9,7 +9,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Grid from '@material-ui/core/Grid';
-import ShipInfo from "../components/blocks/shipInfo";
+import ShipFormComponent from "../components/blocks/shipFormComponent";
 import PortForm from "../components/blocks/portFormComponent";
 import VoyageForm from "../components/blocks/voyageFormComponent";
 import CrewForm from "../components/blocks/crewFormComponent";
@@ -23,6 +23,12 @@ import readXLS from "../functions/readExcel/readXLSParent";
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import GetAppIcon from '@material-ui/icons/GetApp';
 import createXML from "../functions/generateXML/generateXML";
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+
 const listOfOptions = listOfOptionsConst;
 
 
@@ -59,9 +65,11 @@ const useStyles = makeStyles((theme) => ({
 function ShipDetails() {
 
     const classes = useStyles();
-    const [activeItem, setActiveItem] = useState(listOfOptions.indexOf(listOfOptions.find( el => el.label === defaultOption)));
+    const [activeItem, setActiveItem] = useState(listOfOptions.indexOf(listOfOptions.find(el => el.label === defaultOption)));
 
     const [data, setData] = useState(defaultDataConst);
+    const [openErrorDialog, setOpenErrorDialog] = useState({open: false, error: {}});
+
     console.log("All the data FROM PARENT!!", data);
     return (
         <div className={classes.root}>
@@ -78,15 +86,29 @@ function ShipDetails() {
                                     <input
                                         className={classes.uploadFile}
                                         onChange={() => {
+
                                             const file = document.getElementById("read-xml-file").files[0];
                                             const reader = new FileReader();
                                             reader.onload = (() => {
+                                                try {
                                                     let {port, crew, ship} = readXML(reader.result);
                                                     let dataCopy = JSON.parse(JSON.stringify(data));
 
                                                     setData({...dataCopy, ...{port, crew, ship}});
+                                                } catch (e) {
+                                                    console.log('Error triggered');
+                                                    setOpenErrorDialog({
+                                                        open: true, error: {
+                                                            title: 'Error while reading XML',
+                                                            text: e
+                                                        }
+                                                    })
+                                                    console.error(e);
+                                                }
                                             })
                                             reader.readAsText(file);
+
+
                                         }}
                                         id="read-xml-file"
                                         type="file"
@@ -96,7 +118,7 @@ function ShipDetails() {
                                             variant="contained"
                                             color="default"
                                             component="span"
-                                            startIcon={<CloudUploadIcon />}
+                                            startIcon={<CloudUploadIcon/>}
                                         >
                                             Upload XML
                                         </Button>
@@ -107,16 +129,18 @@ function ShipDetails() {
                                         className={classes.uploadFile}
                                         id="excel-file"
                                         multiple
-                                        onChange={ () => {
+                                        onChange={() => {
                                             console.log('On change excel suka')
                                             const files = document.getElementById("excel-file").files;
-                                            readXLS(files, (item) => {
-                                                let dataCopy = JSON.parse(JSON.stringify(data));
-                                                dataCopy = {...dataCopy, ...{item}}
-                                                console.log('The real data real: ', dataCopy)
 
-                                                setData(dataCopy)
-                                            });
+                                                readXLS(files, setOpenErrorDialog, (item) => {
+                                                    let dataCopy = JSON.parse(JSON.stringify(data));
+                                                    dataCopy = {...dataCopy, ...{item}}
+                                                    console.log('The real data real: ', dataCopy)
+
+                                                    setData(dataCopy)
+                                                });
+
                                         }}
                                         type="file"
                                     />
@@ -125,7 +149,7 @@ function ShipDetails() {
                                             variant="contained"
                                             color="default"
                                             component="span"
-                                            startIcon={<CloudUploadIcon />}
+                                            startIcon={<CloudUploadIcon/>}
                                         >
                                             Upload Excel
                                         </Button>
@@ -138,7 +162,7 @@ function ShipDetails() {
                                     onClick={() => {
                                         createXML(data);
                                     }}
-                                    startIcon={<GetAppIcon />}
+                                    startIcon={<GetAppIcon/>}
                                 >
                                     Generate XML file
                                 </Button>
@@ -179,6 +203,36 @@ function ShipDetails() {
                 <Toolbar/>
                 {getChildComponent(activeItem, [data, setData])}
             </main>
+
+            <Dialog
+                open={openErrorDialog.open}
+                onClose={() => setOpenErrorDialog({
+                    open: false,
+                    error: {}
+                })}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                <DialogTitle id="alert-dialog-title">{openErrorDialog.error.title}</DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                        {"" + openErrorDialog.error.text}
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    {/*<Button onClick={handleClose} color="primary">*/}
+                    {/*    Disagree*/}
+                    {/*</Button>*/}
+                    <Button
+                        onClick={() => setOpenErrorDialog({
+                            open: false,
+                            error: {}
+                        })}
+                        color="primary" autoFocus>
+                        Understood
+                    </Button>
+                </DialogActions>
+            </Dialog>
         </div>
     )
 }
@@ -198,7 +252,7 @@ function getChildComponent(activeItem, [data, setData]) {
                 setData(dataCopy);
             }}/>
         case 'ships':
-            return <ShipInfo data={data.ship} updateData={ (dataItem) => {
+            return <ShipFormComponent data={data.ship} updateData={(dataItem) => {
                 // deep copy
                 //@FIXME Fix it without using deep copy
                 let dataCopy = JSON.parse(JSON.stringify(data));
@@ -209,7 +263,7 @@ function getChildComponent(activeItem, [data, setData]) {
         case 'voyage':
             return <VoyageForm/>
         case 'crew':
-            return <CrewForm data={data.crew} updateData={ (dataItem) => {
+            return <CrewForm data={data.crew} updateData={(dataItem) => {
                 // deep copy
                 //@FIXME Fix it without using deep copy
                 let dataCopy = JSON.parse(JSON.stringify(data));
