@@ -2,45 +2,57 @@ const RanksOfRating = ['AbleSeaman', 'Agent', 'AsstFoodBevMngr', 'BarManager', '
 
 export default (crew, EPCRequestBody) => {
 
+    let rows = crew.rows;
     let CrewList = [];
-    for (let i = 0; i < crew.length; i++) {
+    for (let i = 0; i < rows.length; i++) {
         let CrewMemberData = [];
-        console.log("id type ", crew[i].ID_type);
+        console.log("id type ", rows[i].ID_type);
         let RankOfRatingCode = "";
-        if (crew[i].Rank_of_rating !== '') {
-            RankOfRatingCode = RanksOfRating.indexOf(crew[i].Rank_of_rating) + 1;
+        if (rows[i].Rank_of_rating  && rows[i].Rank_of_rating !== '' ) {
+            RankOfRatingCode = RanksOfRating.indexOf(rows[i].Rank_of_rating) + 1;
+        }
+        if (RankOfRatingCode == 0){
+            RankOfRatingCode = "";
+        }
+        let nationalityCode = '';
+        let countryOfBirthCode = '';
+        if(rows[i].Nationality && rows[i].Nationality !== ''){
+            let nationality = rows[i].Nationality.split('- ');
+            nationalityCode = nationality[1];
+        }
+        if (rows[i].Country_of_birth && rows[i].Country_of_birth !== ''){
+            let countryOfBirth = rows[i].Country_of_birth.split('- ');
+            countryOfBirthCode = countryOfBirth[1];
         }
 
-        let nationality = crew[i].Nationality.split(' ');
-        let nationalityCode = nationality[3];
-        let countryOfBirth = crew[i].Country_of_birth.split(' ');
-        let countryOfBirthCode = countryOfBirth[3];
+
+
         CrewMemberData.push({
             CrewIdDocument: [
-                {IdDocument: crew[i].ID_type},
-                {IdNumber: crew[i].ID_document_number},
-                {IssueDate: crew[i].Issuing_state_of_identity_document},
-                {ExpirationDate: crew[i].Expiry_date_of_identity_document},
+                {IdDocument: rows[i].ID_type},
+                {IdNumber: rows[i].ID_document_number},
+                {IssueDate: rows[i].Issuing_state_of_identity_document},
+                {ExpirationDate: rows[i].Expiry_date_of_identity_document},
             ]
         });
         CrewMemberData.push({
             Name: [
-                {GivenName: crew[i].Given_name},
-                {FamilyName: crew[i].Family_name},
+                {GivenName: rows[i].Given_name},
+                {FamilyName: rows[i].Family_name},
             ]
         });
-        CrewMemberData.push({Gender: crew[i].Gender});
+        CrewMemberData.push({Gender: rows[i].Gender});
         CrewMemberData.push({
             Duty: [
                 {Code: RankOfRatingCode},
-                {Text: crew[i].Rank_of_rating}
+                {Text: rows[i].Rank_of_rating}
             ]
         });
-        CrewMemberData.push({DateOfBirth: crew[i].date_of_birth});
-        CrewMemberData.push({PlaceOfBirth: crew[i].Place_of_birth});
+        CrewMemberData.push({DateOfBirth: rows[i].date_of_birth});
+        CrewMemberData.push({PlaceOfBirth: rows[i].Place_of_birth});
         CrewMemberData.push({CountryOfBirth: countryOfBirthCode});
         CrewMemberData.push({Nationality: nationalityCode});
-        CrewMemberData.push({VisaNumber: crew[i].Visa_Residence_permit_number});
+        CrewMemberData.push({VisaNumber: rows[i].Visa_Residence_permit_number});
         CrewList.push({CrewMemberData});
     }
 

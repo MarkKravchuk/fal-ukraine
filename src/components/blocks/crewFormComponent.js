@@ -83,6 +83,7 @@ function CrewForm({data, updateData}) {
             rows[i] = {...rows[i], ...updated};
         }
         data.rows = rows
+        console.log("rows ", data.rows)
        updateData(data)
     };
         return (

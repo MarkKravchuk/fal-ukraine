@@ -22,7 +22,6 @@ import {makeStyles} from "@material-ui/core/styles";
 import readXLS from "../functions/readExcel/readXLSParent";
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import GetAppIcon from '@material-ui/icons/GetApp';
-import createXML from "../functions/generateXML";
 import PassengersForm from "../components/blocks/passengersFormComponent";
 import createXML from "../functions/generateXML/generateXML";
 const listOfOptions = listOfOptionsConst;
