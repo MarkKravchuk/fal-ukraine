@@ -26,10 +26,10 @@ const PortEditor = <DropDownEditor options={ports}/>;
 
 const columns = [
     {key: "NR", name: "NR", editable: true, width: 50},
-    {key: "date_of_arrival", name: "Date of arrival", editable: true, editor: datePicker, width: 120},
-    {key: "date_of_departure", name: "Date of departure", editable: true, editor: datePicker, width: 130},
-    {key: "port", name: "Port(Locode)", editable: true, editor: PortEditor, width: 110},
-    {key: "port_facility", name: "Port facility(GISIS)", editable: true, width: 140},
+    {key: "date_of_arrival", name: "Date of arrival", editable: true, editor: datePicker},
+    {key: "date_of_departure", name: "Date of departure", editable: true, editor: datePicker},
+    {key: "port", name: "Port(Locode)", editable: true, editor: PortEditor},
+    {key: "port_facility", name: "Port facility(GISIS)", editable: true},
 
 ];
 
@@ -70,6 +70,8 @@ function VoyageForm({data, updateData}) {
                 rowsCount={data.rows.length}
                 onGridRowsUpdated={onGridRowsUpdated}
                 enableCellSelect={true}
+                columnAutoWidth="true"
+
             />
             <Button variant="primary" onClick={addRow}>Add row</Button>
             <Button variant="primary" onClick={deleteRow}>Delete row</Button>

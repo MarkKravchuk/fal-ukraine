@@ -97,6 +97,7 @@ function CrewForm({data, updateData}) {
                     rowsCount={data.rows.length}
                     onGridRowsUpdated={onGridRowsUpdated}
                     enableCellSelect={true}
+
                 />
                 <Button variant="primary" onClick={addRow}>Add row</Button>
                 <Button variant="primary" onClick={deleteRow}>Delete row</Button>
