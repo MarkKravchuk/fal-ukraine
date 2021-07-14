@@ -8,7 +8,7 @@ import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 
-import countryList from "./../../lists/countryList"
+import countryList from "../../functions/countryList"
 import ListOfPorts from "../../config/consts/listOfPortsConst";
 
 const useStyles = makeStyles((theme) => ({

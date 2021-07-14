@@ -17,13 +17,14 @@ import Button from '@material-ui/core/Button';
 import {config} from "../config/shipDetailsConfig";
 import defaultDataConst from "../config/consts/defaultDataConst";
 import listOfOptionsConst from "../config/consts/listOfOptionsConst";
-import readXML from "../functions/readXML";
+import readXML from "../functions/readXML/readXML";
 import {makeStyles} from "@material-ui/core/styles";
-import readXLS from "../functions/readXLSParent";
+import readXLS from "../functions/readExcel/readXLSParent";
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import GetAppIcon from '@material-ui/icons/GetApp';
 import createXML from "../functions/generateXML";
 import PassengersForm from "../components/blocks/passengersFormComponent";
+import createXML from "../functions/generateXML/generateXML";
 const listOfOptions = listOfOptionsConst;
 
 
@@ -63,7 +64,7 @@ function ShipDetails() {
     const [activeItem, setActiveItem] = useState(listOfOptions.indexOf(listOfOptions.find( el => el.label === defaultOption)));
 
     const [data, setData] = useState(defaultDataConst);
-    console.log("All the data!!", data);
+    console.log("All the data FROM PARENT!!", data);
     return (
         <div className={classes.root}>
             <CssBaseline/>
@@ -82,10 +83,10 @@ function ShipDetails() {
                                             const file = document.getElementById("read-xml-file").files[0];
                                             const reader = new FileReader();
                                             reader.onload = (() => {
-                                                    console.log('Reading all data suka bleat')
-                                                    let allData = readXML(reader.result);
-                                                    console.log("All suka blya data: ", allData);
-                                                    setData(allData);
+                                                    let {port, crew, ship} = readXML(reader.result);
+                                                    let dataCopy = JSON.parse(JSON.stringify(data));
+
+                                                    setData({...dataCopy, ...{port, crew, ship}});
                                             })
                                             reader.readAsText(file);
                                         }}
@@ -113,7 +114,7 @@ function ShipDetails() {
                                             const files = document.getElementById("excel-file").files;
                                             readXLS(files, (item) => {
                                                 let dataCopy = JSON.parse(JSON.stringify(data));
-                                                dataCopy = {...dataCopy, item}
+                                                dataCopy = {...dataCopy, ...{item}}
                                                 console.log('The real data real: ', dataCopy)
 
                                                 setData(dataCopy)

@@ -31,5 +31,9 @@ export default [
         code: "UAYUZ",
         countryCode: "UA",
         name: "Yuzhnyy"
-    }
+    }, {
+        code: "",
+        countryCode: "TEST",
+        name: "TEST"
+    },
 ]

@@ -2,6 +2,7 @@ import readXlsxFile from 'read-excel-file'
 import readXLSPort from "./readXLSPort";
 import readXLSCrew from "./readXLSCrew";
 import readXLSPassengers from "./readXLSPassengers"
+import readXLSShip from "./readXLSShip";
 
 function readXLS(files, onSave) {
 
@@ -20,7 +21,10 @@ function readXLS(files, onSave) {
                 readXLSCrew(files[i], onSave);
             }else if (name === "passenger list"){
                 readXLSPassengers(files[i], onSave);
+            } else if (name === "ship information") {
+                readXLSShip(files[i], onSave);
             }
+
         });
     }
 }
