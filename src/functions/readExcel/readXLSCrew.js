@@ -11,15 +11,15 @@ function readXLSCrew(file, onSave) {
         for (let i = 4; i < rows.length; i++) {
             let dateOfBirth = "";
             if (rows[i][8] != null) {
-                dateOfBirth = moment(rows[i][8]).format("MM/DD/YYYY")
+                dateOfBirth = moment(rows[i][8]).format("DD/MM/YYYY")
             }
             let expiryDate = "";
             if (rows[i][13] != null) {
-                expiryDate = moment(rows[i][13]).format("MM/DD/YYYY")
+                expiryDate = moment(rows[i][13]).format("DD/MM/YYYY")
             }
             let Issuing_state_of_identity_document = "";
             if (rows[i][12] != null) {
-                Issuing_state_of_identity_document = moment(rows[i][13]).format("MM/DD/YYYY")
+                Issuing_state_of_identity_document = moment(rows[i][13]).format("DD/MM/YYYY")
             }
             let row = {
                 NR: rows[i][1],
