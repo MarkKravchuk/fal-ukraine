@@ -102,4 +102,19 @@ export default {
             { "NR": 1 }
         ]
     },
+    health: {
+        enum1: '',
+        enum2: '',
+        enum3: '',
+        enum4: '',
+        enum5: '',
+        enum6: '',
+        enum7: '',
+        enum8: '',
+        enum9: '',
+        nrOfDeath: '',
+        nrOfIll: '',
+        sanitaryMeasures: [ {}],
+        joinedStowaways: '',
+    }
 }

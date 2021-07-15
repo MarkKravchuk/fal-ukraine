@@ -29,11 +29,12 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import HealthFormComponent from "../components/blocks/healthFormComponent";
 
 const listOfOptions = listOfOptionsConst;
 
 
-const defaultOption = 'Ships';
+const defaultOption = 'Health';
 
 const drawerWidth = config.showDrawerIcons ? 240 : 180;
 
@@ -107,7 +108,7 @@ function ShipDetails() {
                                                     console.error(e);
                                                 }
                                             reader.readAsText(file);
-                                        }}
+                                        })}}
                                         id="read-xml-file"
                                         type="file"
                                     />
@@ -250,7 +251,7 @@ function getChildComponent(activeItem, [data, setData]) {
                 setData(dataCopy);
             }}/>
         case 'ships':
-            return <ShipInfo data={data.ship} updateData={ (dataItem) => {
+            return <ShipFormComponent data={data.ship} updateData={ (dataItem) => {
                 // deep copy
                 //@FIXME Fix it without using deep copy
                 let dataCopy = JSON.parse(JSON.stringify(data));
@@ -289,6 +290,15 @@ function getChildComponent(activeItem, [data, setData]) {
         case 'crew_effects':
         case 'cargo':
         case 'health':
+            return <HealthFormComponent data={data.health} updateData={(dataItem) => {
+                // deep copy
+                //@FIXME Fix it without using deep copy
+                let dataCopy = JSON.parse(JSON.stringify(data));
+                let health = dataCopy.health;
+                dataCopy.health = {...health, ...dataItem};
+                console.log("data copy ", dataCopy)
+                setData(dataCopy);
+            }}/>
         case 'dangerous_goods':
         case 'security':
         case 'waste':
