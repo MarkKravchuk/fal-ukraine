@@ -3,6 +3,7 @@ import generatePort from "./generatePort";
 import generateCrew from "./generateCrew";
 import generateShip from "./generateShip";
 import generatePassengers from "./generatePasssengers";
+import generateVoyage from "./generateVoyage";
 
 function createXML(data) {
     // @FIXME The required fields are not verified yet :(
@@ -10,9 +11,10 @@ function createXML(data) {
     console.log("Generating XML data structure ", data);
 
     generatePort(data.port, EPCRequestBody);
-    generateCrew(data.crew, EPCRequestBody)
-    generateShip(data.ship, EPCRequestBody)
-    generatePassengers(data.passengers, EPCRequestBody)
+    generateCrew(data.crew, EPCRequestBody);
+    generateShip(data.ship, EPCRequestBody);
+    generatePassengers(data.passengers, EPCRequestBody);
+    generateVoyage(data.voyage,EPCRequestBody);
 
     let xmlValue = xml([{
         EPCMessage: [{

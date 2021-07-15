@@ -5,6 +5,7 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import {Editors} from 'react-data-grid-addons';
 import datePicker from "../pickers/datePicker";
+import dateTimePicker from "../pickers/dateTimePicker";
 import countryCodes from "../../functions/countryCodes";
 import ListOfPorts from "../../config/consts/listOfPortsConst";
 const {DropDownEditor} = Editors;
@@ -28,8 +29,8 @@ const SecurityEditor = <DropDownEditor options={securityLevels}/>;
 
 const columns = [
     {key: "NR", name: "NR", editable: true, width: 50},
-    {key: "date_of_arrival", name: "Date of arrival", editable: true, editor: datePicker},
-    {key: "date_of_departure", name: "Date of departure", editable: true, editor: datePicker},
+    {key: "date_of_arrival", name: "Date of arrival", editable: true, editor: dateTimePicker},
+    {key: "date_of_departure", name: "Date of departure", editable: true, editor: dateTimePicker},
     {key: "port", name: "Port(Locode)", editable: true, editor: PortEditor},
     {key: "port_facility", name: "Port facility(GISIS)", editable: true},
     {key: "security_level", name: "Security level", editable: true, editor:SecurityEditor},
