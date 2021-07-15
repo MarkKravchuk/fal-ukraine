@@ -3,6 +3,7 @@ import readXLSPort from "./readXLSPort";
 import readXLSCrew from "./readXLSCrew";
 import readXLSPassengers from "./readXLSPassengers"
 import readXLSShip from "./readXLSShip";
+import readXLSVoyage from "./readXLSVoyage";
 
 function readXLS(files, onSave) {
 
@@ -19,10 +20,12 @@ function readXLS(files, onSave) {
                 readXLSPort(files[i], onSave)
             } else if (name === "crew list") {
                 readXLSCrew(files[i], onSave);
-            }else if (name === "passenger list"){
+            } else if (name === "passenger list") {
                 readXLSPassengers(files[i], onSave);
             } else if (name === "ship information") {
                 readXLSShip(files[i], onSave);
+            } else if (name === "voyage information") {
+                readXLSVoyage(files[i], onSave);
             }
 
         });
