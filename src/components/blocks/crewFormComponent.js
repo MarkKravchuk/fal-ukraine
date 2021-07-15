@@ -6,6 +6,7 @@ import Button from "@material-ui/core/Button";
 import {Editors} from 'react-data-grid-addons';
 import datePicker from "../pickers/datePicker";
 import countryCodes from "../../functions/countryCodes";
+
 const {DropDownEditor} = Editors;
 
 const styles = (theme) => ({
@@ -61,22 +62,21 @@ const columns = [
 ];
 
 function CrewForm({data, updateData}) {
-   function addRow() {
+    function addRow() {
         console.log("adding row");
         let number = data.rows.length + 1
         let row = {NR: number}
-       data.rows.push(row);
+        data.rows.push(row);
         updateData(data)
     }
 
     function deleteRow() {
-    data.rows.pop();
-    updateData(data)
+        data.rows.pop();
+        updateData(data)
     }
 
 
-
-    function onGridRowsUpdated({fromRow, toRow, updated}){
+    function onGridRowsUpdated({fromRow, toRow, updated}) {
 
         const rows = data.rows.slice();
         for (let i = fromRow; i <= toRow; i++) {
@@ -84,25 +84,25 @@ function CrewForm({data, updateData}) {
         }
         data.rows = rows
         console.log("rows ", data.rows)
-       updateData(data)
+        updateData(data)
     };
-        return (
-            <div>
-                <Typography variant="h3" component="h3" gutterBottom>
-                    Crew list
-                </Typography>
-                <ReactDataGrid
-                    columns={columns}
-                    rowGetter={i => data.rows[i]}
-                    rowsCount={data.rows.length}
-                    onGridRowsUpdated={onGridRowsUpdated}
-                    enableCellSelect={true}
+    return (
+        <div>
+            <Typography variant="h3" component="h3" gutterBottom>
+                Crew list
+            </Typography>
+            <ReactDataGrid
+                columns={columns}
+                rowGetter={i => data.rows[i]}
+                rowsCount={data.rows.length}
+                onGridRowsUpdated={onGridRowsUpdated}
+                enableCellSelect={true}
 
-                />
-                <Button variant="primary" onClick={addRow}>Add row</Button>
-                <Button variant="primary" onClick={deleteRow}>Delete row</Button>
-            </div>
-        );
+            />
+            <Button variant="primary" onClick={addRow}>Add row</Button>
+            <Button variant="primary" onClick={deleteRow}>Delete row</Button>
+        </div>
+    );
 
 }
 

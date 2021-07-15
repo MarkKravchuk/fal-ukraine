@@ -7,7 +7,7 @@ export default (voyage, EPCRequestBody) => {
     for (let i = 0; i < rows.length; i++) {
         let PortCall = [];
         let port = {};
-        if(rows[i].Port && rows[i].Port!=''){
+        if (rows[i].Port && rows[i].Port != '') {
             let PortCode = rows[i].Port.split(' -')[0]
             port = listOfPortsConst.find(function (element) {
                 return element.code === PortCode;
@@ -16,7 +16,7 @@ export default (voyage, EPCRequestBody) => {
 
         PortCall.push({FromDateTime: rows[i].Date_of_arrival});
         PortCall.push({ToDateTime: rows[i].Date_of_departure});
-        if (port){
+        if (port) {
             PortCall.push({
                 Port: [
                     {Name: port.name},
@@ -33,5 +33,5 @@ export default (voyage, EPCRequestBody) => {
         PortCalls.push({PortCall});
     }
 
-    EPCRequestBody.push( {PortCalls: PortCalls})
+    EPCRequestBody.push({PortCalls: PortCalls})
 }
