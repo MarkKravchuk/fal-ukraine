@@ -3,15 +3,18 @@ import ReactDOM from "react-dom";
 import DatePicker from "react-datepicker";
 import moment from "moment";
 import "react-datepicker/dist/react-datepicker.css";
+let startDate = new Date();
 class dateTimePicker extends React.Component {
+
     constructor(props) {
-        super(props);
+
+            super(props);
         this.state = { color:new Date() };
     }
 
 
     getValue() {
-        return { [this.props.column.key]: moment(this.state.color).format("DD/MM/YYYY, h:mm") };
+        return { [this.props.column.key]: moment(startDate).format("DD/MM/YYYY, h:mm") };
     }
 
     getInputNode() {
@@ -26,11 +29,11 @@ class dateTimePicker extends React.Component {
     //     return this.setState({ color: date }, () => this.props.onCommit());
     // };
     onChange = date => {
-        console.log("changing")
-        return this.setState({ color: date }, () => this.props.onCommit());
+       startDate = date;
+       this.forceUpdate()
     };;
     render() {
-        return <DatePicker selected={this.state.color}  onDateChange={this.onChange} showTimeSelect timeIntervals={1} />;
+        return <DatePicker selected={startDate}  onChange={this.onChange} showTimeSelect timeIntervals={1} />;
     }
 }
 export default dateTimePicker;
