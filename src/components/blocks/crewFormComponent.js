@@ -47,7 +47,7 @@ const columns = [
         key: "Issuing_state_of_identity_document",
         name: "Issuing state of identity document",
         editable: true,
-        editor: datePicker,
+        editor: CountryCodesEditor,
         width: 250
     },
     {
