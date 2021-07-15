@@ -29,12 +29,12 @@ const SecurityEditor = <DropDownEditor options={securityLevels}/>;
 
 const columns = [
     {key: "NR", name: "NR", editable: true, width: 50},
-    {key: "date_of_arrival", name: "Date of arrival", editable: true, editor: dateTimePicker},
-    {key: "date_of_departure", name: "Date of departure", editable: true, editor: dateTimePicker},
-    {key: "port", name: "Port(Locode)", editable: true, editor: PortEditor},
-    {key: "port_facility", name: "Port facility(GISIS)", editable: true},
-    {key: "security_level", name: "Security level", editable: true, editor:SecurityEditor},
-    {key: "security_measures", name: "Special or additional security measures taken by the ship", editable: true, width: 400}
+    {key: "Date_of_arrival", name: "Date of arrival", editable: true, editor: dateTimePicker},
+    {key: "Date_of_departure", name: "Date of departure", editable: true, editor: dateTimePicker},
+    {key: "Port", name: "Port(Locode)", editable: true, editor: PortEditor},
+    {key: "Port_facility", name: "Port facility(GISIS)", editable: true},
+    {key: "Security_level", name: "Security level", editable: true, editor:SecurityEditor},
+    {key: "Security_measures", name: "Special or additional security measures taken by the ship", editable: true, width: 400}
 ];
 
 
