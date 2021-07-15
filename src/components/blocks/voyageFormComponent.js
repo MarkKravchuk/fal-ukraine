@@ -23,6 +23,8 @@ ListOfPorts.map((port, index) =>
     ports.push( port.code + ' - ' + port.countryCode + ' - ' + port.name)
 );
 const PortEditor = <DropDownEditor options={ports}/>;
+const securityLevels = ["(...)","Security level 1","Security level 2","Security level 3"];
+const SecurityEditor = <DropDownEditor options={securityLevels}/>;
 
 const columns = [
     {key: "NR", name: "NR", editable: true, width: 50},
@@ -30,7 +32,8 @@ const columns = [
     {key: "date_of_departure", name: "Date of departure", editable: true, editor: datePicker},
     {key: "port", name: "Port(Locode)", editable: true, editor: PortEditor},
     {key: "port_facility", name: "Port facility(GISIS)", editable: true},
-
+    {key: "security_level", name: "Security level", editable: true, editor:SecurityEditor},
+    {key: "security_measures", name: "Special or additional security measures taken by the ship", editable: true, width: 400}
 ];
 
 
