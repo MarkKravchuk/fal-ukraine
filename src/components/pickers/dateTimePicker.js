@@ -33,7 +33,7 @@ class dateTimePicker extends React.Component {
        this.forceUpdate()
     };;
     render() {
-        return <DatePicker selected={startDate}  onChange={this.onChange} showTimeSelect timeIntervals={1} />;
+        return <DatePicker selected={startDate}  onChange={this.onChange} showTimeSelect timeIntervals={1} dateFormat="dd/MM/yyyy h:mm"/>;
     }
 }
 export default dateTimePicker;
