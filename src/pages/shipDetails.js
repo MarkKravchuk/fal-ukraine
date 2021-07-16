@@ -84,10 +84,10 @@ function ShipDetails() {
                                             const file = document.getElementById("read-xml-file").files[0];
                                             const reader = new FileReader();
                                             reader.onload = (() => {
-                                                let {port, crew, ship, passengers,voyage} = readXML(reader.result);
+                                                let {port, crew, ship, passengers,voyage,shipStores} = readXML(reader.result);
                                                 let dataCopy = JSON.parse(JSON.stringify(data));
 
-                                                setData({...dataCopy, ...{port, crew, ship, passengers,voyage}});
+                                                setData({...dataCopy, ...{port, crew, ship, passengers,voyage,shipStores}});
                                             })
                                             reader.readAsText(file);
                                         }}
@@ -238,12 +238,12 @@ function getChildComponent(activeItem, [data, setData]) {
                 setData(dataCopy);
             }}/>
         case 'ship_stores':
-            return <ShipStoresForm data={data.ship_stores} updateData={(dataItem) => {
+            return <ShipStoresForm data={data.shipStores} updateData={(dataItem) => {
                 // deep copy
                 //@FIXME Fix it without using deep copy
                 let dataCopy = JSON.parse(JSON.stringify(data));
-                let shipStoresCopy = dataCopy.ship_stores;
-                dataCopy.ship_stores = {...shipStoresCopy, ...dataItem};
+                let shipStoresCopy = dataCopy.shipStores;
+                dataCopy.shipStores = {...shipStoresCopy, ...dataItem};
                 console.log("data copy ", dataCopy)
                 setData(dataCopy);
             }}/>

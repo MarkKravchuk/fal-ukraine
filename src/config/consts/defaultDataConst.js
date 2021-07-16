@@ -102,7 +102,7 @@ export default {
             { "NR": 1 }
         ]
     },
-    ship_stores: {
+    shipStores: {
         rows: [
             { "NR": 1 }
         ]

@@ -10,11 +10,11 @@ export default (shipStores, EPCRequestBody) => {
         StoreItem.push({Description: rows[i].Name_of_article});
         StoreItem.push({LocationOfStorage: rows[i].Location_on_board});
         StoreItem.push({
-                Measurement: [
-                    {Content: rows[i].Quantity},
-                    {UnitCode: rows[i].Unit}
-                ]
-            });
+            Measurement: [
+                {Content: rows[i].Quantity},
+                {UnitCode: rows[i].Unit}
+            ]
+        });
 
 
         ShipStore.push({StoreItem: StoreItem});
