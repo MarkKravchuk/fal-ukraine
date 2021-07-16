@@ -23,7 +23,7 @@ function readXLSCrew(file, onSave) {
                 Given_name: rows[i][3],
                 Rank_of_rating: rows[i][4],
                 Nationality: countryCodes.getCountryWithCodeByCode(rows[i][5]),
-                Country_of_birth:countryCodes.getCountryWithCodeByCode( rows[i][6]),
+                Country_of_birth: countryCodes.getCountryWithCodeByCode(rows[i][6]),
                 Place_of_birth: rows[i][7],
                 date_of_birth: dateOfBirth,
                 ID_type: rows[i][9],

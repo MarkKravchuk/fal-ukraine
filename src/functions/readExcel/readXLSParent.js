@@ -4,6 +4,7 @@ import readXLSCrew from "./readXLSCrew";
 import readXLSPassengers from "./readXLSPassengers"
 import readXLSShip from "./readXLSShip";
 import readXLSVoyage from "./readXLSVoyage";
+import readXLSShipStores from "./readXLSShipStores";
 
 function readXLS(files, onSave) {
 
@@ -26,6 +27,8 @@ function readXLS(files, onSave) {
                 readXLSShip(files[i], onSave);
             } else if (name === "voyage information") {
                 readXLSVoyage(files[i], onSave);
+            } else if (name === "ship stores") {
+                readXLSShipStores(files[i], onSave)
             }
 
         });
