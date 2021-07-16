@@ -102,4 +102,9 @@ export default {
             { "NR": 1 }
         ]
     },
+    ship_stores: {
+        rows: [
+            { "NR": 1 }
+        ]
+    },
 }

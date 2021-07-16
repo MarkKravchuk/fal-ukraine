@@ -24,6 +24,7 @@ import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import GetAppIcon from '@material-ui/icons/GetApp';
 import PassengersForm from "../components/blocks/passengersFormComponent";
 import createXML from "../functions/generateXML/generateXML";
+import ShipStoresForm from "../components/blocks/shipStoresFormComponent";
 
 const listOfOptions = listOfOptionsConst;
 
@@ -237,6 +238,15 @@ function getChildComponent(activeItem, [data, setData]) {
                 setData(dataCopy);
             }}/>
         case 'ship_stores':
+            return <ShipStoresForm data={data.ship_stores} updateData={(dataItem) => {
+                // deep copy
+                //@FIXME Fix it without using deep copy
+                let dataCopy = JSON.parse(JSON.stringify(data));
+                let shipStoresCopy = dataCopy.ship_stores;
+                dataCopy.ship_stores = {...shipStoresCopy, ...dataItem};
+                console.log("data copy ", dataCopy)
+                setData(dataCopy);
+            }}/>
         case 'crew_effects':
         case 'cargo':
         case 'health':
