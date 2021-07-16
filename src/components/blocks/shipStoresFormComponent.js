@@ -24,7 +24,7 @@ const columns = [
     {key: "Name_of_article", name: "Name of article", editable: true},
     {key: "Quantity", name: "Quantity", editable: true},
     {key: "Unit", name: "Unit", editable: true, editor: UnitEditor},
-    {key: "Location_on_board", name: "Location_on_board", editable: true},
+    {key: "Location_on_board", name: "Location on board", editable: true},
 ];
 
 
