@@ -5,6 +5,7 @@ import generateShip from "./generateShip";
 import generatePassengers from "./generatePasssengers";
 import generateVoyage from "./generateVoyage";
 import generateShipStores from "./generateShipStores";
+import generateCrewEffects from "./generateCrewEffects";
 
 function createXML(data) {
     // @FIXME The required fields are not verified yet :(
@@ -16,7 +17,9 @@ function createXML(data) {
     generateShip(data.ship, EPCRequestBody);
     generatePassengers(data.passengers, EPCRequestBody);
     generateVoyage(data.voyage, EPCRequestBody);
-    generateShipStores(data.shipStores,EPCRequestBody);
+    generateShipStores(data.shipStores, EPCRequestBody);
+    generateCrewEffects(data.crewEffects, EPCRequestBody);
+
 
     let xmlValue = xml([{
         EPCMessage: [{

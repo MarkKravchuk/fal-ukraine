@@ -25,7 +25,6 @@ const units = ["[Unit]", "KGM", "TNE"];
 const UnitEditor = <DropDownEditor options={units}/>;
 
 
-
 const columns = [
     {key: "NR", name: "NR", editable: true},
     {key: "Family_name", name: "Family name", editable: true},
