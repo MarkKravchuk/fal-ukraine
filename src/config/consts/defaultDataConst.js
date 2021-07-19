@@ -99,6 +99,11 @@ export default {
             { "NR": 1 }
         ]
     },
+    crewEffects: {
+        rows: [
+            { "NR": 1 }
+        ]
+    },
     health: {
         enum1: '',
         enum2: '',

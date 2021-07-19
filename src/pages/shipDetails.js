@@ -31,6 +31,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import HealthFormComponent from "../components/blocks/healthFormComponent";
 import ShipStoresForm from "../components/blocks/shipStoresFormComponent";
+import CrewEffectsForm from "../components/blocks/crewEffectsFormComponent";
 
 const listOfOptions = listOfOptionsConst;
 
@@ -306,6 +307,14 @@ function ShipDetails() {
                                             setData(dataCopy);
                                             }}/>
                                             case 'crew_effects':
+                                                return <CrewEffectsForm data={data.crewEffects} updateData={(dataItem) => {
+                                                    // deep copy
+                                                    //@FIXME Fix it without using deep copy
+                                                    let dataCopy = JSON.parse(JSON.stringify(data));
+                                                    let crewEffectsCopy = dataCopy.crewEffects;
+                                                    dataCopy.crew = {...crewEffectsCopy, ...dataItem};
+                                                    setData(dataCopy);
+                                                }}/>
                                             case 'cargo':
                                             case 'health':
                                             return <HealthFormComponent
