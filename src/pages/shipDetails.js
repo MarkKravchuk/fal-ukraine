@@ -92,10 +92,10 @@ function ShipDetails() {
                                             const reader = new FileReader();
                                             reader.onload = (() => {
                                                 try {
-                                                    let {port, crew, ship, passengers} = readXML(reader.result);
+                                                    let {port, crew, ship, passengers, voyage} = readXML(reader.result);
                                                     let dataCopy = JSON.parse(JSON.stringify(data));
 
-                                                    setData({...dataCopy, ...{port, crew, ship, passengers}});
+                                                    setData({...dataCopy, ...{port, crew, ship, passengers, voyage}});
                                                 } catch (e) {
                                                     setOpenErrorDialog({
                                                         open: true, error: {
@@ -217,9 +217,6 @@ function ShipDetails() {
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    {/*<Button onClick={handleClose} color="primary">*/}
-                    {/*    Disagree*/}
-                    {/*</Button>*/}
                     <Button
                         onClick={() => setOpenErrorDialog({
                             open: false,

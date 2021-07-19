@@ -12,7 +12,7 @@ export default (crew, xml) => {
                     Gender:CreMemberData.children[2].value, Rank_of_rating:CreMemberData.children[3].children[1].value, Nationality:countryCodes.getCountryWithCodeByCode(CreMemberData.children[7].value),
                     Country_of_birth:countryCodes.getCountryWithCodeByCode(CreMemberData.children[6].value), Place_of_birth:CreMemberData.children[5].value,date_of_birth:CreMemberData.children[4].value,
                     ID_type:CreMemberData.children[0].children[0].value, ID_document_number:CreMemberData.children[0].children[1].value,
-                    Issuing_state_of_identity_document:CreMemberData.children[0].children[2].value, Expiry_date_of_identity_document: CreMemberData.children[0].children[3].value,
+                    Issuing_state_of_identity_document:countryCodes.getCountryWithCodeByCode(CreMemberData.children[0].children[2].value), Expiry_date_of_identity_document: CreMemberData.children[0].children[3].value,
                     Visa_Residence_permit_number:CreMemberData.children[8].value
                 }
                 crew.rows.push(row)

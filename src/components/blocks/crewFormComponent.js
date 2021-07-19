@@ -48,7 +48,7 @@ const columns = [
         key: "Issuing_state_of_identity_document",
         name: "Issuing state of identity document",
         editable: true,
-        editor: datePicker,
+        editor: CountryCodesEditor,
         width: 250
     },
     {
@@ -75,6 +75,7 @@ function CrewForm({data, updateData}) {
         updateData(data)
     }
 
+
     function onGridRowsUpdated({fromRow, toRow, updated}) {
 
         const rows = data.rows.slice();
@@ -96,6 +97,7 @@ function CrewForm({data, updateData}) {
                 rowsCount={data.rows.length}
                 onGridRowsUpdated={onGridRowsUpdated}
                 enableCellSelect={true}
+
             />
             <Button variant="primary" onClick={addRow}>Add row</Button>
             <Button variant="primary" onClick={deleteRow}>Delete row</Button>

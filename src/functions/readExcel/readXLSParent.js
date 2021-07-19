@@ -3,6 +3,7 @@ import readXLSPort from "./readXLSPort";
 import readXLSCrew from "./readXLSCrew";
 import readXLSPassengers from "./readXLSPassengers"
 import readXLSShip from "./readXLSShip";
+import readXLSVoyage from "./readXLSVoyage";
 
 function readXLS(files, setOpenErrorDialog, onSave) {
 
@@ -23,6 +24,8 @@ function readXLS(files, setOpenErrorDialog, onSave) {
                     readXLSShip(files[i], onSave);
                 } else if (name === "passenger list") {
                     readXLSPassengers(files[i], onSave);
+                } else if (name === "voyage information") {
+                    readXLSVoyage(files[i], onSave);
                 }
             } catch (e) {
                 setOpenErrorDialog({

@@ -634,7 +634,7 @@ function PortForm({data, updateData}) {
 
 function correctDateTime(date) {
     date = "" + date;
-    return date.substr(0,16);
+    return date.substr(0, 16);
 }
 
 function setDate(date) {

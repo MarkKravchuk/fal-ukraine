@@ -16,6 +16,7 @@ export default (crew, EPCRequestBody) => {
         }
         let nationalityCode = '';
         let countryOfBirthCode = '';
+        let IssuingCode = '';
         if(rows[i].Nationality && rows[i].Nationality !== ''){
             let nationality = rows[i].Nationality.split('- ');
             nationalityCode = nationality[1];
@@ -25,13 +26,18 @@ export default (crew, EPCRequestBody) => {
             countryOfBirthCode = countryOfBirth[1];
         }
 
+        if (rows[i].Issuing_state_of_identity_document && rows[i].Issuing_state_of_identity_document !== ''){
+            let Issuing_state_of_identity_document = rows[i].Issuing_state_of_identity_document.split('- ');
+            IssuingCode = Issuing_state_of_identity_document[1];
+        }
+
 
 
         CrewMemberData.push({
             CrewIdDocument: [
                 {IdDocument: rows[i].ID_type},
                 {IdNumber: rows[i].ID_document_number},
-                {IssueDate: rows[i].Issuing_state_of_identity_document},
+                {IssuingCountry: IssuingCode},
                 {ExpirationDate: rows[i].Expiry_date_of_identity_document},
             ]
         });

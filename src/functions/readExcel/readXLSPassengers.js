@@ -22,13 +22,13 @@ function readXLSPassengers(file, onSave) {
             if (rows[i][15] != null) {
                 Issuing_state_of_identity_document = moment(rows[i][15]).format("MM/DD/YYYY")
             }
-            let Port_of_embarkation = listOfPortsConst.find(function(element) {
+            let Port_of_embarkation = listOfPortsConst.find(function (element) {
                 return element.code === rows[i][10];
             });
 
             let Port_of_embarkation_formatted = Port_of_embarkation.code + ' - ' + Port_of_embarkation.countryCode + ' - ' + Port_of_embarkation.name;
 
-            let Port_of_disembarkation = listOfPortsConst.find(function(element) {
+            let Port_of_disembarkation = listOfPortsConst.find(function (element) {
                 return element.code === rows[i][11];
             });
 
@@ -40,15 +40,15 @@ function readXLSPassengers(file, onSave) {
                 Family_name: rows[i][2],
                 Given_name: rows[i][3],
                 Nationality: countryCodes.getCountryWithCodeByCode(rows[i][4]),
-                Country_of_birth:countryCodes.getCountryWithCodeByCode( rows[i][5]),
+                Country_of_birth: countryCodes.getCountryWithCodeByCode(rows[i][5]),
                 Place_of_birth: rows[i][6],
                 date_of_birth: dateOfBirth,
                 ID_type: rows[i][8],
                 ID_document_number: rows[i][9],
                 Issuing_state_of_identity_document: Issuing_state_of_identity_document,
                 Expiry_date_of_identity_document: expiryDate,
-                Port_of_embarkation:Port_of_embarkation_formatted,
-                Port_of_disembarkation:Port_of_disembarkation_formatted,
+                Port_of_embarkation: Port_of_embarkation_formatted,
+                Port_of_disembarkation: Port_of_disembarkation_formatted,
                 Transit: rows[i][12],
                 Visa_Residence_permit_number: rows[i][13],
                 Gender: rows[i][16]

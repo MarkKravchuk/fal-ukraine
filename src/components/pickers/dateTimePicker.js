@@ -6,15 +6,17 @@ import "react-datepicker/dist/react-datepicker.css";
 
 let startDate = new Date();
 
-class datePicker extends React.Component {
+class dateTimePicker extends React.Component {
+
     constructor(props) {
+
         super(props);
         this.state = {color: new Date()};
     }
 
 
     getValue() {
-        return {[this.props.column.key]: moment(startDate).format("DD/MM/YYYY")};
+        return {[this.props.column.key]: moment(startDate).format("DD/MM/YYYY, h:mm")};
     }
 
     getInputNode() {
@@ -22,31 +24,22 @@ class datePicker extends React.Component {
     }
 
     onSelect = date => {
+
         return this.setState({color: date}, () => this.props.onCommit());
     };
     // onChange = date => {
     //     return this.setState({ color: date }, () => this.props.onCommit());
     // };
-    // onChange = date => {
-    //
-    //     console.log("")
-    //     if (moment(date,"DD/MM/YYYY").isValid()){
-    //         return this.setState({ color: date }, () => this.props.onCommit());
-    //     }
-    //
-    //
-    //
-    // };;
-
     onChange = date => {
         startDate = date;
         this.forceUpdate()
     };
-    ;
+
 
     render() {
-        return <DatePicker selected={startDate} onChange={this.onChange} dateFormat="dd/MM/yyyy"/>;
+        return <DatePicker selected={startDate} onChange={this.onChange} showTimeSelect timeIntervals={1}
+                           dateFormat="dd/MM/yyyy h:mm"/>;
     }
 }
 
-export default datePicker;
+export default dateTimePicker;
