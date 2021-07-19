@@ -6,6 +6,7 @@ import readShipXML from "./readShipXML";
 import readPassengersXML from "./readPassengersXML";
 import readVoyageXML from "./readVoyageXML";
 import readShipStoresXML from "./readShipStoresXML";
+import readHealthXML from "./readHealthXML";
 import readCrewEffectsXML from "./readCrewEffectsXML";
 
 function readXML(fileContent) {
@@ -18,13 +19,37 @@ function readXML(fileContent) {
     readCrewXML(data.crew, xml);
     readPassengersXML(data.passengers, xml);
     readVoyageXML(data.voyage, xml);
-    readShipStoresXML(data.shipStores,xml);
+    readShipStoresXML(data.shipStores,xml)
+    readHealthXML(data.health, xml);
     readCrewEffectsXML(data.crewEffects,xml);
 
-
     console.log("Read from XML data: ", data);
-
+    makeReferences(data);
     return data;
+}
+
+// A function to assign the references on different elements
+function makeReferences (data) {
+    data.health.illList.map (el => {
+        let {NR, crewPassenger} = el;
+        if (crewPassenger === 'Crew') {
+            let crewItem = data.crew.rows.find( item => item.NR === NR);
+            if (!crewItem) {
+                return el;
+            }
+            el.firstName = crewItem.Given_name;
+            el.familyName = crewItem.Family_name;
+        } else if (crewPassenger === 'Passenger') {
+            let passengerItem = data.passengers.rows.find( item => item.NR === NR);
+            if (!passengerItem) {
+                return el;
+            }
+            el.firstName = passengerItem.Given_name;
+            el.familyName = passengerItem.Family_name;
+        }
+
+        return el;
+    })
 }
 
 export default readXML

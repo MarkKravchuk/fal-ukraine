@@ -5,6 +5,7 @@ import generateShip from "./generateShip";
 import generatePassengers from "./generatePasssengers";
 import generateVoyage from "./generateVoyage";
 import generateShipStores from "./generateShipStores";
+import generateHealth from "./generateHealth";
 import generateCrewEffects from "./generateCrewEffects";
 
 function createXML(data) {
@@ -17,7 +18,8 @@ function createXML(data) {
     generateShip(data.ship, EPCRequestBody);
     generatePassengers(data.passengers, EPCRequestBody);
     generateVoyage(data.voyage, EPCRequestBody);
-    generateShipStores(data.shipStores, EPCRequestBody);
+    generateShipStores(data.shipStores,EPCRequestBody);
+    generateHealth(data.health, EPCRequestBody);
     generateCrewEffects(data.crewEffects, EPCRequestBody);
 
 

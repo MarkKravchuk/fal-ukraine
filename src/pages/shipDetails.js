@@ -100,9 +100,10 @@ function ShipDetails() {
                                                         ship,
                                                         passengers,
                                                         voyage,
-                                                        shipStores
+                                                        shipStores,
+                                                        health,
+                                                        crewEffects
                                                     } = readXML(reader.result);
-                                                    let {port, crew, ship, passengers, voyage, shipStores, crewEffects} = readXML(reader.result);
                                                     let dataCopy = JSON.parse(JSON.stringify(data));
 
                                                     setData({
@@ -113,6 +114,7 @@ function ShipDetails() {
                                                             passengers,
                                                             voyage,
                                                             shipStores,
+                                                            health,
                                                             crewEffects
                                                         }
                                                     });
@@ -125,7 +127,6 @@ function ShipDetails() {
                                                     })
                                                     console.error(e);
                                                 }
-
                                             })
                                             reader.readAsText(file);
                                         }}
@@ -156,7 +157,7 @@ function ShipDetails() {
                                                 dataCopy = {...dataCopy, ...{item}}
                                                 console.log('The real data real: ', dataCopy)
 
-                                            setData(dataCopy)
+                                                setData(dataCopy)
                                             });
 
                                         }}
@@ -314,6 +315,8 @@ function getChildComponent(activeItem, [data, setData]) {
                 setData(dataCopy);
             }}/>
         case 'crew_effects':
+            return <CrewEffectsForm data={data.crewEffects} updateData={() => {
+            }}/>
         case 'cargo':
             return null;
         case 'health':

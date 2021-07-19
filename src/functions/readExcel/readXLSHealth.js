@@ -38,7 +38,7 @@ const readXLSHealth = (file, onSave) => {
             let state = rows[i][10];
             let caseDisposal = rows[i][11];
             let location = rows[i][12];
-            let treatment = rows[i][13]
+            let treatment = rows[i][13];
             let comments = rows[i][14];
             health.illList.push({
                 NR,
