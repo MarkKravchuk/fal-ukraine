@@ -27,6 +27,7 @@ const generateCrewEffects = (crewEffects, EPCRequestBody) => {
                 {Text: rows[i].Rank_of_rating}
             ]
         });
+        CrewEffectItem.push({EffectDescription: rows[i].Effects_description});
         CrewEffectItem.push({
             Measurement: [
                 {Content: rows[i].Quantity},

@@ -95,7 +95,7 @@ function ShipDetails() {
                                             const reader = new FileReader();
                                             reader.onload = (() => {
                                                 try {
-                                                    let {port, crew, ship, passengers, voyage, shipStores} = readXML(reader.result);
+                                                    let {port, crew, ship, passengers, voyage, shipStores, crewEffects} = readXML(reader.result);
                                                     let dataCopy = JSON.parse(JSON.stringify(data));
 
                                                     setData({
@@ -105,7 +105,8 @@ function ShipDetails() {
                                                             ship,
                                                             passengers,
                                                             voyage,
-                                                            shipStores
+                                                            shipStores,
+                                                            crewEffects
                                                         }
                                                     });
                                                 } catch (e) {
@@ -121,221 +122,221 @@ function ShipDetails() {
                                             })
                                             reader.readAsText(file);
                                         }}
-                                            id="read-xml-file"
-                                            type="file"
-                                            />
-                                            <label htmlFor="read-xml-file">
-                                            <Button
+                                        id="read-xml-file"
+                                        type="file"
+                                    />
+                                    <label htmlFor="read-xml-file">
+                                        <Button
                                             variant="contained"
                                             color="default"
                                             component="span"
                                             startIcon={<CloudUploadIcon/>}
-                                            >
+                                        >
                                             Upload XML
-                                            </Button>
-                                            </label>
-                                            </div>
-                                            <div style={{marginRight: '30px'}}>
-                                            <input
-                                            className={classes.uploadFile}
-                                            id="excel-file"
-                                            multiple
-                                            onChange={() => {
+                                        </Button>
+                                    </label>
+                                </div>
+                                <div style={{marginRight: '30px'}}>
+                                    <input
+                                        className={classes.uploadFile}
+                                        id="excel-file"
+                                        multiple
+                                        onChange={() => {
                                             console.log('On change excel suka')
                                             const files = document.getElementById("excel-file").files;
 
                                             readXLS(files, setOpenErrorDialog, (item) => {
-                                            let dataCopy = JSON.parse(JSON.stringify(data));
-                                            dataCopy = {...dataCopy, ...{item}}
-                                            console.log('The real data real: ', dataCopy)
+                                                let dataCopy = JSON.parse(JSON.stringify(data));
+                                                dataCopy = {...dataCopy, ...{item}}
+                                                console.log('The real data real: ', dataCopy)
 
-                                            setData(dataCopy)
+                                                setData(dataCopy)
                                             });
 
-                                            }}
-                                            type="file"
-                                            />
-                                            <label htmlFor="excel-file">
-                                            <Button
+                                        }}
+                                        type="file"
+                                    />
+                                    <label htmlFor="excel-file">
+                                        <Button
                                             variant="contained"
                                             color="default"
                                             component="span"
                                             startIcon={<CloudUploadIcon/>}
-                                            >
+                                        >
                                             Upload Excel
-                                            </Button>
-                                            </label>
-                                            </div>
-                                            <Button
-                                            variant="contained"
-                                            color="default"
-                                            component="span"
-                                            onClick={() => {
-                                            createXML(data);
-                                            }}
-                                            startIcon={<GetAppIcon/>}
-                                            >
-                                            Generate XML file
-                                            </Button>
-                                            </Grid>
-                                            </div>
-                                            </Grid>
-                                            </Toolbar>
-                                            </AppBar>
+                                        </Button>
+                                    </label>
+                                </div>
+                                <Button
+                                    variant="contained"
+                                    color="default"
+                                    component="span"
+                                    onClick={() => {
+                                        createXML(data);
+                                    }}
+                                    startIcon={<GetAppIcon/>}
+                                >
+                                    Generate XML file
+                                </Button>
+                            </Grid>
+                        </div>
+                    </Grid>
+                </Toolbar>
+            </AppBar>
 
-                                            <Drawer
-                                            className={classes.drawer}
-                                            variant="permanent"
-                                            classes={{
-                                            paper: classes.drawerPaper,
-                                            }}
-                                            >
-                                            <Toolbar/>
-                                            <div className={classes.drawerContainer}>
-                                            <List>
-                                            {listOfOptions.map((item, index) => (
-                                            <ListItem
-                                            key={index}
-                                            button
-                                            selected={activeItem === index}
-                                            onClick={() => {
-                                            setActiveItem(index)
-                                            }}>
+            <Drawer
+                className={classes.drawer}
+                variant="permanent"
+                classes={{
+                    paper: classes.drawerPaper,
+                }}
+            >
+                <Toolbar/>
+                <div className={classes.drawerContainer}>
+                    <List>
+                        {listOfOptions.map((item, index) => (
+                            <ListItem
+                                key={index}
+                                button
+                                selected={activeItem === index}
+                                onClick={() => {
+                                    setActiveItem(index)
+                                }}>
 
-                                            {config.showDrawerIcons && <ListItemIcon><i>icon</i></ListItemIcon>}
-                                            <ListItemText primary={item.label}/>
+                                {config.showDrawerIcons && <ListItemIcon><i>icon</i></ListItemIcon>}
+                                <ListItemText primary={item.label}/>
 
-                                            </ListItem>
-                                            ))}
-                                            </List>
-                                            </div>
-                                            </Drawer>
-                                            <main className={classes.content}>
-                                            <Toolbar/>
-                                            {getChildComponent(activeItem, [data, setData])}
-                                            </main>
+                            </ListItem>
+                        ))}
+                    </List>
+                </div>
+            </Drawer>
+            <main className={classes.content}>
+                <Toolbar/>
+                {getChildComponent(activeItem, [data, setData])}
+            </main>
 
-                                            <Dialog
-                                            open={openErrorDialog.open}
-                                            onClose={() => setOpenErrorDialog({
-                                            open: false,
-                                            error: {}
-                                            })}
-                                            aria-labelledby="alert-dialog-title"
-                                            aria-describedby="alert-dialog-description"
-                                            >
-                                            <DialogTitle id="alert-dialog-title">{openErrorDialog.error.title}</DialogTitle>
-                                            <DialogContent>
-                                            <DialogContentText id="alert-dialog-description">
-                                            {"" + openErrorDialog.error.text}
-                                            </DialogContentText>
-                                            </DialogContent>
-                                            <DialogActions>
-                                            <Button
-                                            onClick={() => setOpenErrorDialog({
-                                            open: false,
-                                            error: {}
-                                            })}
-                                            color="primary" autoFocus>
-                                            Understood
-                                            </Button>
-                                            </DialogActions>
-                                            </Dialog>
-                                            </div>
-                                            )
-                                            }
+            <Dialog
+                open={openErrorDialog.open}
+                onClose={() => setOpenErrorDialog({
+                    open: false,
+                    error: {}
+                })}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                <DialogTitle id="alert-dialog-title">{openErrorDialog.error.title}</DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                        {"" + openErrorDialog.error.text}
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button
+                        onClick={() => setOpenErrorDialog({
+                            open: false,
+                            error: {}
+                        })}
+                        color="primary" autoFocus>
+                        Understood
+                    </Button>
+                </DialogActions>
+            </Dialog>
+        </div>
+    )
+}
 
-                                            function getChildComponent(activeItem, [data, setData]) {
-                                            let selectedItem = listOfOptions[activeItem].value;
+function getChildComponent(activeItem, [data, setData]) {
+    let selectedItem = listOfOptions[activeItem].value;
 
-                                            switch (selectedItem) {
-                                            case 'port':
-                                            //@FIXME make it as a better function
-                                            return <PortForm data={data.port} updateData={(dataItem) => {
-                                            // deep copy
-                                            //@FIXME Fix it without using deep copy
-                                            let dataCopy = JSON.parse(JSON.stringify(data));
-                                            let portCopy = dataCopy.port;
-                                            dataCopy.port = {...portCopy, ...dataItem};
-                                            setData(dataCopy);
-                                            }}/>
-                                            case 'ships':
-                                            return <ShipFormComponent data={data.ship} updateData={(dataItem) => {
-                                            // deep copy
-                                            //@FIXME Fix it without using deep copy
-                                            let dataCopy = JSON.parse(JSON.stringify(data));
-                                            let portCopy = dataCopy.ship;
-                                            dataCopy.ship = {...portCopy, ...dataItem};
-                                            setData(dataCopy);
-                                            }}/>
-                                            case 'voyage':
-                                            return <VoyageForm data={data.voyage} updateData={(dataItem) => {
-                                            // deep copy
-                                            //@FIXME Fix it without using deep copy
-                                            let dataCopy = JSON.parse(JSON.stringify(data));
-                                            let voyageCopy = dataCopy.voyage;
-                                            dataCopy.voyage = {...voyageCopy, ...dataItem};
-                                            setData(dataCopy);
-                                            }}/>
-                                            case 'crew':
-                                            return <CrewForm data={data.crew} updateData={(dataItem) => {
-                                            // deep copy
-                                            //@FIXME Fix it without using deep copy
-                                            let dataCopy = JSON.parse(JSON.stringify(data));
-                                            let portCopy = dataCopy.crew;
-                                            dataCopy.crew = {...portCopy, ...dataItem};
-                                            setData(dataCopy);
-                                            }}/>
-                                            case 'passengers':
-                                            return <PassengersForm data={data.passengers} updateData={(dataItem) => {
-                                            // deep copy
-                                            //@FIXME Fix it without using deep copy
-                                            let dataCopy = JSON.parse(JSON.stringify(data));
-                                            let passengersCopy = dataCopy.passengers;
-                                            dataCopy.passengers = {...passengersCopy, ...dataItem};
-                                            console.log("data copy ", dataCopy)
-                                            setData(dataCopy);
-                                            }}/>
-                                            case 'ship_stores':
-                                            return <ShipStoresForm data={data.shipStores} updateData={(dataItem) => {
-                                            // deep copy
-                                            //@FIXME Fix it without using deep copy
-                                            let dataCopy = JSON.parse(JSON.stringify(data));
-                                            let shipStoresCopy = dataCopy.shipStores;
-                                            dataCopy.passengers = {...shipStoresCopy, ...dataItem};
-                                            console.log("data copy ", dataCopy)
-                                            setData(dataCopy);
-                                            }}/>
-                                            case 'crew_effects':
-                                                return <CrewEffectsForm data={data.crewEffects} updateData={(dataItem) => {
-                                                    // deep copy
-                                                    //@FIXME Fix it without using deep copy
-                                                    let dataCopy = JSON.parse(JSON.stringify(data));
-                                                    let crewEffectsCopy = dataCopy.crewEffects;
-                                                    dataCopy.crew = {...crewEffectsCopy, ...dataItem};
-                                                    setData(dataCopy);
-                                                }}/>
-                                            case 'cargo':
-                                            case 'health':
-                                            return <HealthFormComponent
-                                            data={data.health}
-                                            crewData={data.crew}
-                                            passengerData={data.passengers}
-                                            updateData={(dataItem) => {
-                                            // deep copy
-                                            //@FIXME Fix it without using deep copy
-                                            let dataCopy = JSON.parse(JSON.stringify(data));
-                                            let health = dataCopy.health;
-                                            dataCopy.health = {...health, ...dataItem};
-                                            console.log("data copy ", dataCopy)
-                                            setData(dataCopy);
-                                            }}/>
-                                            case 'dangerous_goods':
-                                            case 'security':
-                                            case 'waste':
-                                            default:
-                                            return <h1>Not supported yet</h1>
-                                            }
-                                            }
+    switch (selectedItem) {
+        case 'port':
+            //@FIXME make it as a better function
+            return <PortForm data={data.port} updateData={(dataItem) => {
+                // deep copy
+                //@FIXME Fix it without using deep copy
+                let dataCopy = JSON.parse(JSON.stringify(data));
+                let portCopy = dataCopy.port;
+                dataCopy.port = {...portCopy, ...dataItem};
+                setData(dataCopy);
+            }}/>
+        case 'ships':
+            return <ShipFormComponent data={data.ship} updateData={(dataItem) => {
+                // deep copy
+                //@FIXME Fix it without using deep copy
+                let dataCopy = JSON.parse(JSON.stringify(data));
+                let portCopy = dataCopy.ship;
+                dataCopy.ship = {...portCopy, ...dataItem};
+                setData(dataCopy);
+            }}/>
+        case 'voyage':
+            return <VoyageForm data={data.voyage} updateData={(dataItem) => {
+                // deep copy
+                //@FIXME Fix it without using deep copy
+                let dataCopy = JSON.parse(JSON.stringify(data));
+                let voyageCopy = dataCopy.voyage;
+                dataCopy.voyage = {...voyageCopy, ...dataItem};
+                setData(dataCopy);
+            }}/>
+        case 'crew':
+            return <CrewForm data={data.crew} updateData={(dataItem) => {
+                // deep copy
+                //@FIXME Fix it without using deep copy
+                let dataCopy = JSON.parse(JSON.stringify(data));
+                let portCopy = dataCopy.crew;
+                dataCopy.crew = {...portCopy, ...dataItem};
+                setData(dataCopy);
+            }}/>
+        case 'passengers':
+            return <PassengersForm data={data.passengers} updateData={(dataItem) => {
+                // deep copy
+                //@FIXME Fix it without using deep copy
+                let dataCopy = JSON.parse(JSON.stringify(data));
+                let passengersCopy = dataCopy.passengers;
+                dataCopy.passengers = {...passengersCopy, ...dataItem};
+                console.log("data copy ", dataCopy)
+                setData(dataCopy);
+            }}/>
+        case 'ship_stores':
+            return <ShipStoresForm data={data.shipStores} updateData={(dataItem) => {
+                // deep copy
+                //@FIXME Fix it without using deep copy
+                let dataCopy = JSON.parse(JSON.stringify(data));
+                let shipStoresCopy = dataCopy.shipStores;
+                dataCopy.passengers = {...shipStoresCopy, ...dataItem};
+                console.log("data copy ", dataCopy)
+                setData(dataCopy);
+            }}/>
+        case 'crew_effects':
+            return <CrewEffectsForm data={data.crewEffects} updateData={(dataItem) => {
+                // deep copy
+                //@FIXME Fix it without using deep copy
+                let dataCopy = JSON.parse(JSON.stringify(data));
+                let crewEffectsCopy = dataCopy.crewEffects;
+                dataCopy.crew = {...crewEffectsCopy, ...dataItem};
+                setData(dataCopy);
+            }}/>
+        case 'cargo':
+        case 'health':
+            return <HealthFormComponent
+                data={data.health}
+                crewData={data.crew}
+                passengerData={data.passengers}
+                updateData={(dataItem) => {
+                    // deep copy
+                    //@FIXME Fix it without using deep copy
+                    let dataCopy = JSON.parse(JSON.stringify(data));
+                    let health = dataCopy.health;
+                    dataCopy.health = {...health, ...dataItem};
+                    console.log("data copy ", dataCopy)
+                    setData(dataCopy);
+                }}/>
+        case 'dangerous_goods':
+        case 'security':
+        case 'waste':
+        default:
+            return <h1>Not supported yet</h1>
+    }
+}
 
-                                            export default ShipDetails;
+export default ShipDetails;
