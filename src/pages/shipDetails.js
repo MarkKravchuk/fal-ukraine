@@ -105,8 +105,9 @@ function ShipDetails() {
                                                     })
                                                     console.error(e);
                                                 }
-                                            reader.readAsText(file);
-                                        })}}
+                                                reader.readAsText(file);
+                                            })
+                                        }}
                                         id="read-xml-file"
                                         type="file"
                                     />

@@ -10,7 +10,7 @@ export function getCountryCodes() {
 
 export function getCountriesWithCodes() {
     let countriesWithCodes = [];
-    for (let i = 0; i <Object.keys(countryCodes).length ; i++) {
+    for (let i = 0; i < Object.keys(countryCodes).length; i++) {
         let countryWithCode = Object.values(countryCodes)[i] + ' - ' + Object.keys(countryCodes)[i];
         countriesWithCodes.push(countryWithCode);
     }
@@ -18,12 +18,12 @@ export function getCountriesWithCodes() {
 }
 
 export function getCountryWithCodeByCode(countryCode) {
-    if (countryCode!=''&&countryCode!=null){
-        let countryWithCode = countryCodes[countryCode]+' - '+countryCode;
+    if (countryCode != '' && countryCode != null) {
+        let countryWithCode = countryCodes[countryCode] + ' - ' + countryCode;
         return countryWithCode;
     }
     return '';
 
 }
 
-export default {getCountryCodes, getCountriesWithCodes,getCountryWithCodeByCode};
+export default {getCountryCodes, getCountriesWithCodes, getCountryWithCodeByCode};

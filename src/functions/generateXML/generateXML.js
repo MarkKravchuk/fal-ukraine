@@ -14,7 +14,7 @@ function createXML(data) {
     generateCrew(data.crew, EPCRequestBody);
     generateShip(data.ship, EPCRequestBody);
     generatePassengers(data.passengers, EPCRequestBody);
-    generateVoyage(data.voyage,EPCRequestBody);
+    generateVoyage(data.voyage, EPCRequestBody);
 
     let xmlValue = xml([{
         EPCMessage: [{

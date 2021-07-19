@@ -8,13 +8,13 @@ export default (port, xml) => {
     port.ETDPortOfCall = xml.getElementsByTagName('ETDPortOfCall')[0].value;
     port.ATAPortOfCall = xml.getElementsByTagName('ATAPortOfCall')[0].value;
     port.ATDPortOfCall = xml.getElementsByTagName('ATDPortOfCall')[0].value;
-    if (xml.getElementsByTagName('PortOfArrival')[0]){
+    if (xml.getElementsByTagName('PortOfArrival')[0]) {
         port.portOfArrival = xml.getElementsByTagName('PortOfArrival')[0].children[2].value;
     }
-    if (xml.getElementsByTagName('LastPortOfCall')[0]){
+    if (xml.getElementsByTagName('LastPortOfCall')[0]) {
         port.lastPortOfCall = xml.getElementsByTagName('LastPortOfCall')[0].children[2].value;
     }
-    if(xml.getElementsByTagName('NextPortOfCall')[0]){
+    if (xml.getElementsByTagName('NextPortOfCall')[0]) {
         port.nextPortOfCall = xml.getElementsByTagName('NextPortOfCall')[0].children[2].value;
     }
     port.callAnchorage = xml.getElementsByTagName('Anchorage')[0].value;
@@ -31,7 +31,8 @@ export default (port, xml) => {
             let code = xml.getElementsByTagName('CallPurpose')[i].children[1].value;
             // Our app identifies calls of purposes only by the code
             port.callPurpose.push(code)
-        } catch (e) {}
+        } catch (e) {
+        }
     }
 
     port.airDraught = xml.getElementsByTagName('AirDraught')[0].value;
@@ -55,7 +56,6 @@ export default (port, xml) => {
     port.stowaways = xml.getElementsByTagName('Stowaways')[0].value;
     port.periodOfStay = xml.getElementsByTagName('periodOfStay')[0].value;
     console.log("Port ", port);
-
 
 
 }

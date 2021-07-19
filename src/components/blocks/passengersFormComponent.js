@@ -7,6 +7,7 @@ import {Editors} from 'react-data-grid-addons';
 import datePicker from "../pickers/datePicker";
 import countryCodes from "../../functions/countryCodes";
 import ListOfPorts from '../../config/consts/listOfPortsConst'
+
 const {DropDownEditor} = Editors;
 
 const styles = (theme) => ({
@@ -33,8 +34,8 @@ const TransitEditor = <DropDownEditor options={yesNo}/>;
 
 const ports = ["(...)"];
 ListOfPorts.map((port, index) =>
-        ports.push( port.code + ' - ' + port.countryCode + ' - ' + port.name)
-    );
+    ports.push(port.code + ' - ' + port.countryCode + ' - ' + port.name)
+);
 const PortEditor = <DropDownEditor options={ports}/>;
 
 
@@ -63,9 +64,9 @@ const columns = [
         editor: datePicker,
         width: 250
     },
-    {key: "Port_of_embarkation", name: "Port of embarkation", editable: true, width: 150,editor:PortEditor},
-    {key: "Port_of_disembarkation", name: "Port of disembarkation", editable: true, width: 170,editor:PortEditor},
-    {key: "Transit", name: "Transit", editable: true, width: 80, editor:TransitEditor},
+    {key: "Port_of_embarkation", name: "Port of embarkation", editable: true, width: 150, editor: PortEditor},
+    {key: "Port_of_disembarkation", name: "Port of disembarkation", editable: true, width: 170, editor: PortEditor},
+    {key: "Transit", name: "Transit", editable: true, width: 80, editor: TransitEditor},
     {key: "Visa_Residence_permit_number", name: "Visa/Residence permit number", editable: true, width: 250},
 ];
 
@@ -83,8 +84,7 @@ function PassengersForm({data, updateData}) {
     }
 
 
-
-    function onGridRowsUpdated({fromRow, toRow, updated}){
+    function onGridRowsUpdated({fromRow, toRow, updated}) {
 
         const rows = data.rows.slice();
         for (let i = fromRow; i <= toRow; i++) {

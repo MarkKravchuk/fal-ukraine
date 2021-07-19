@@ -6,10 +6,10 @@ import './App.css';
 export default class App extends React.Component {
 
 
-  render() {
-    return (
-        <AppRouter/>
-    )
-  }
+    render() {
+        return (
+            <AppRouter/>
+        )
+    }
 
 }

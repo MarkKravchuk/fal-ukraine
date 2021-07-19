@@ -8,29 +8,28 @@ export default (crew, EPCRequestBody) => {
         let CrewMemberData = [];
         console.log("id type ", rows[i].ID_type);
         let RankOfRatingCode = "";
-        if (rows[i].Rank_of_rating  && rows[i].Rank_of_rating !== '' ) {
+        if (rows[i].Rank_of_rating && rows[i].Rank_of_rating !== '') {
             RankOfRatingCode = RanksOfRating.indexOf(rows[i].Rank_of_rating) + 1;
         }
-        if (RankOfRatingCode == 0){
+        if (RankOfRatingCode == 0) {
             RankOfRatingCode = "";
         }
         let nationalityCode = '';
         let countryOfBirthCode = '';
         let IssuingCode = '';
-        if(rows[i].Nationality && rows[i].Nationality !== ''){
+        if (rows[i].Nationality && rows[i].Nationality !== '') {
             let nationality = rows[i].Nationality.split('- ');
             nationalityCode = nationality[1];
         }
-        if (rows[i].Country_of_birth && rows[i].Country_of_birth !== ''){
+        if (rows[i].Country_of_birth && rows[i].Country_of_birth !== '') {
             let countryOfBirth = rows[i].Country_of_birth.split('- ');
             countryOfBirthCode = countryOfBirth[1];
         }
 
-        if (rows[i].Issuing_state_of_identity_document && rows[i].Issuing_state_of_identity_document !== ''){
+        if (rows[i].Issuing_state_of_identity_document && rows[i].Issuing_state_of_identity_document !== '') {
             let Issuing_state_of_identity_document = rows[i].Issuing_state_of_identity_document.split('- ');
             IssuingCode = Issuing_state_of_identity_document[1];
         }
-
 
 
         CrewMemberData.push({
@@ -62,5 +61,5 @@ export default (crew, EPCRequestBody) => {
         CrewList.push({CrewMemberData});
     }
 
-    EPCRequestBody.push( {CrewList: CrewList})
+    EPCRequestBody.push({CrewList: CrewList})
 }
