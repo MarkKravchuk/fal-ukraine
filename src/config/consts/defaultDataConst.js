@@ -116,8 +116,8 @@ export default {
         enum9: '',
         nrOfDeath: '',
         nrOfIll: '',
-        sanitaryMeasures: [ {}],
         joinedStowaways: '',
+        sanitaryMeasures: [ {}],
         illList: [{}]
     }
 }

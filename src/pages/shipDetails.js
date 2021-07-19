@@ -90,11 +90,18 @@ function ShipDetails() {
                                     <input
                                         className={classes.uploadFile}
                                         onChange={() => {
-                                            console.log("onchange ")
                                             const file = document.getElementById("read-xml-file").files[0];
                                             const reader = new FileReader();
                                             reader.onload = (() => {
                                                 try {
+                                                    let {
+                                                        port,
+                                                        crew,
+                                                        ship,
+                                                        passengers,
+                                                        voyage,
+                                                        shipStores
+                                                    } = readXML(reader.result);
                                                     let {port, crew, ship, passengers, voyage, shipStores, crewEffects} = readXML(reader.result);
                                                     let dataCopy = JSON.parse(JSON.stringify(data));
 
@@ -142,7 +149,6 @@ function ShipDetails() {
                                         id="excel-file"
                                         multiple
                                         onChange={() => {
-                                            console.log('On change excel suka')
                                             const files = document.getElementById("excel-file").files;
 
                                             readXLS(files, setOpenErrorDialog, (item) => {
@@ -150,7 +156,7 @@ function ShipDetails() {
                                                 dataCopy = {...dataCopy, ...{item}}
                                                 console.log('The real data real: ', dataCopy)
 
-                                                setData(dataCopy)
+                                            setData(dataCopy)
                                             });
 
                                         }}
@@ -308,15 +314,8 @@ function getChildComponent(activeItem, [data, setData]) {
                 setData(dataCopy);
             }}/>
         case 'crew_effects':
-            return <CrewEffectsForm data={data.crewEffects} updateData={(dataItem) => {
-                // deep copy
-                //@FIXME Fix it without using deep copy
-                let dataCopy = JSON.parse(JSON.stringify(data));
-                let crewEffectsCopy = dataCopy.crewEffects;
-                dataCopy.crew = {...crewEffectsCopy, ...dataItem};
-                setData(dataCopy);
-            }}/>
         case 'cargo':
+            return null;
         case 'health':
             return <HealthFormComponent
                 data={data.health}

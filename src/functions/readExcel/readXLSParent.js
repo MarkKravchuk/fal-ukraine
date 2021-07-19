@@ -4,6 +4,7 @@ import readXLSCrew from "./readXLSCrew";
 import readXLSPassengers from "./readXLSPassengers"
 import readXLSShip from "./readXLSShip";
 import readXLSVoyage from "./readXLSVoyage";
+import readXLSHealth from './readXLSHealth'
 import readXLSShipStores from "./readXLSShipStores";
 
 function readXLS(files, setOpenErrorDialog, onSave) {
@@ -27,6 +28,8 @@ function readXLS(files, setOpenErrorDialog, onSave) {
                     readXLSPassengers(files[i], onSave);
                 } else if (name === "voyage information") {
                     readXLSVoyage(files[i], onSave);
+                } else if (name === "maritime declaration of health") {
+                    readXLSHealth(files[i], onSave);
                 } else if (name === "ship stores") {
                     readXLSShipStores(files[i], onSave);
                 }
