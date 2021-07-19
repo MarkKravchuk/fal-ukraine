@@ -5,7 +5,6 @@ import readCrewXML from "./readCrewXML";
 import readShipXML from "./readShipXML";
 import readPassengersXML from "./readPassengersXML";
 import readVoyageXML from "./readVoyageXML";
-import readShipStoresXML from "./readShipStoresXML";
 
 function readXML(fileContent) {
     let xml = new XMLParser().parseFromString(fileContent);
@@ -15,8 +14,7 @@ function readXML(fileContent) {
     readShipXML(data.ship, xml);
     readCrewXML(data.crew, xml);
     readPassengersXML(data.passengers, xml);
-    readVoyageXML(data.voyage, xml);
-    readShipStoresXML(data.shipStores, xml)
+    readVoyageXML(data.voyage, xml)
 
 
     console.log("Read from XML data: ", data);

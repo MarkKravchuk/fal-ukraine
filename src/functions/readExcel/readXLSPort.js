@@ -24,7 +24,7 @@ let readXLSPort = (file, onSave) => {
         let Row28 = rows[28];
         port.arrivalDeparture = Row2[2];
         port.voyageNumber = Row27[2];
-        port.portOfCall =  Row5[2];
+        port.portOfCall = Row5[2];
         port.portFacilityAtArrival = Row8[6];
         port.ETAPortOfCall = Row5[4];
         port.ETDPortOfCall = Row5[6];
@@ -44,12 +44,13 @@ let readXLSPort = (file, onSave) => {
         port.callPurpose.push(Row13[4]);
         port.callPurpose.push(Row14[4]);
         port.callPurpose.push(Row15[4]);
-        port.callPurpose.filter( el => el && el.length !== 0);
+        port.callPurpose.filter(el => el && el.length !== 0);
         for (let i = 0; i < port.callPurpose.length; i++) {
             let purpose = port.callPurpose[i];
             try {
                 port.callPurpose[i] = purpose.split('(')[1].split(')')[0];
-            } catch (e) {}
+            } catch (e) {
+            }
         }
         port.airDraught = Row15[2];
         port.arrivalDraught.foreDraught = Row17[2];
@@ -63,7 +64,7 @@ let readXLSPort = (file, onSave) => {
         port.personsOnBoard.crew = Row24[4];
         port.personsOnBoard.passengers = Row24[6];
         port.stowaways = Row25[3];
-        port.periodOfStay= Row27[4];
+        port.periodOfStay = Row27[4];
 
         console.log("Port read from Excel: ", port);
         onSave({port});

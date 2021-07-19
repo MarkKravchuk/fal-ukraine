@@ -1,13 +1,13 @@
 import listOfPortsConst from "../../config/consts/listOfPortsConst";
 
-export default (voyage, EPCRequestBody) => {
+const generateVoyage = (voyage, EPCRequestBody) => {
 
     let rows = voyage.rows;
     let PortCalls = [];
     for (let i = 0; i < rows.length; i++) {
         let PortCall = [];
         let port = {};
-        if (rows[i].Port && rows[i].Port != '') {
+        if (rows[i].Port && rows[i].Port !== '') {
             let PortCode = rows[i].Port.split(' -')[0]
             port = listOfPortsConst.find(function (element) {
                 return element.code === PortCode;
@@ -34,4 +34,6 @@ export default (voyage, EPCRequestBody) => {
     }
 
     EPCRequestBody.push({PortCalls: PortCalls})
-}
+};
+
+export default generateVoyage;

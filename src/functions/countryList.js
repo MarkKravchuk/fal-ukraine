@@ -1,4 +1,4 @@
-export default [
+const countryList = [
     "AF:Afghanistan",
     "AX:Åland Islands",
     "AL:Albania",
@@ -242,4 +242,6 @@ export default [
     "YE:Yemen",
     "ZM:Zambia",
     "ZW:Zimbabwe",
-]
+];
+
+export default countryList;

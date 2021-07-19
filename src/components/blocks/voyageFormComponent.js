@@ -4,9 +4,7 @@ import {withStyles} from '@material-ui/core/styles';
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import {Editors} from 'react-data-grid-addons';
-import datePicker from "../pickers/datePicker";
 import dateTimePicker from "../pickers/dateTimePicker";
-import countryCodes from "../../functions/countryCodes";
 import ListOfPorts from "../../config/consts/listOfPortsConst";
 
 const {DropDownEditor} = Editors;
@@ -21,7 +19,7 @@ const styles = (theme) => ({
 });
 
 const ports = ["(...)"];
-ListOfPorts.map((port, index) =>
+ListOfPorts.map((port) =>
     ports.push(port.code + ' - ' + port.countryCode + ' - ' + port.name)
 );
 const PortEditor = <DropDownEditor options={ports}/>;
@@ -66,7 +64,7 @@ function VoyageForm({data, updateData}) {
         }
         data.rows = rows
         updateData(data)
-    };
+    }
 
 
     return (

@@ -10,6 +10,7 @@ import FormControl from "@material-ui/core/FormControl";
 
 import countryList from "../../functions/countryList"
 import ListOfPorts from "../../config/consts/listOfPortsConst";
+import ListOfShipTypes from "../../config/consts/listOfShipTypesConst";
 
 const useStyles = makeStyles((theme) => ({
     formControl: {
@@ -27,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const ShipInfo = ({data, updateData}) => {
+const ShipFormComponent = ({data, updateData}) => {
     const classes = useStyles();
 
     const marginTop = {marginTop: '30px'};
@@ -120,13 +121,25 @@ const ShipInfo = ({data, updateData}) => {
             </FormControl>
 
 
-            <TextField
-                label="WILL BE REPLACED SOON"
-                value={data.mmsiNumner}
-                onChange={(e) =>
-                    updateData({mmsiNumner: e.target.value})}
+            <FormControl
                 variant="outlined"
-            />
+                className={classes.formControlNoMargin}
+            >
+                <InputLabel id="ship-type-label">Flag state</InputLabel>
+                <Select
+                    labelId="ship-type-label"
+                    value={data.shipType}
+                    onChange={(e) => {
+                        updateData({shipType: e.target.value})
+                    }}
+                >
+                    {ListOfShipTypes.map((item, index) =>
+                        <MenuItem key={index} value={item.code}>
+                            {`${item.name}(${item.code})`}
+                        </MenuItem>
+                    )}
+                </Select>
+            </FormControl>
 
             {emptyDIV}
         </Grid>
@@ -333,4 +346,4 @@ function correctDateTime(date) {
     return date.substr(0, 16);
 }
 
-export default ShipInfo;
+export default ShipFormComponent;

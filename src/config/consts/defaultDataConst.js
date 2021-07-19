@@ -1,13 +1,4 @@
-// const defaultDateTime = new Date();
-// defaultDateTime.setHours(0);
-// defaultDateTime.setMinutes(0);
-//
-// defaultDateTime.getFullYear()
-// defaultDateTime.getMonth()
-// defaultDateTime.getDate()
-// defaultDateTime.getHours();
-// defaultDateTime.getMinutes()
-
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
     port: {
         arrivalDeparture: '',
@@ -102,9 +93,20 @@ export default {
             { "NR": 1 }
         ]
     },
-    shipStores: {
-        rows: [
-            { "NR": 1 }
-        ]
-    },
+    health: {
+        enum1: '',
+        enum2: '',
+        enum3: '',
+        enum4: '',
+        enum5: '',
+        enum6: '',
+        enum7: '',
+        enum8: '',
+        enum9: '',
+        nrOfDeath: '',
+        nrOfIll: '',
+        sanitaryMeasures: [ {}],
+        joinedStowaways: '',
+        illList: [{}]
+    }
 }

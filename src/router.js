@@ -4,7 +4,7 @@ import {
     Switch,
     Route,
 } from "react-router-dom";
-import { createBrowserHistory } from 'history';
+import {createBrowserHistory} from 'history';
 
 import HomePage from "./pages/homePage";
 import ShipDetails from "./pages/shipDetails";

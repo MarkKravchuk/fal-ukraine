@@ -637,8 +637,4 @@ function correctDateTime(date) {
     return date.substr(0, 16);
 }
 
-function setDate(date) {
-    return Date.parse(date)
-}
-
 export default PortForm;

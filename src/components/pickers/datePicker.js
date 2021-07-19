@@ -12,7 +12,6 @@ class datePicker extends React.Component {
         this.state = {color: new Date()};
     }
 
-
     getValue() {
         return {[this.props.column.key]: moment(startDate).format("DD/MM/YYYY")};
     }

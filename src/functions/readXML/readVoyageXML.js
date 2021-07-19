@@ -1,7 +1,4 @@
-import countryCodes from "../countryCodes";
-import listOfPortsConst from "../../config/consts/listOfPortsConst";
-
-export default (voyage, xml) => {
+const readVoyageXML = (voyage, xml) => {
     let PortCalls = xml.getElementsByTagName('PortCalls');
     voyage.rows = [];
     console.log("PortCalls ", PortCalls)
@@ -31,4 +28,6 @@ export default (voyage, xml) => {
 
         }
     }
-}
+};
+
+export default readVoyageXML;

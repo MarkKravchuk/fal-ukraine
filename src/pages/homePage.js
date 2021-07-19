@@ -53,17 +53,17 @@ export default class HomePage extends React.Component {
                     </TableHead>
                     <TableBody>
                         {rows.map((row) => (
-                            <TableRow key={row.id} onClick={ (e) => {
+                            <TableRow key={row.id} onClick={(e) => {
                                 history.push(`/details/${row.id}`);
                             }}>
-                                    <TableCell component="th" scope="row">
-                                        {row.id}
-                                    </TableCell>
-                                    <TableCell align="right">{row.ship}</TableCell>
-                                    <TableCell align="right">{row.imo}</TableCell>
-                                    <TableCell align="right">{row.portCall}</TableCell>
-                                    <TableCell align="right">{row.agent}</TableCell>
-                                    <TableCell align="right">{row.ETA}</TableCell>
+                                <TableCell component="th" scope="row">
+                                    {row.id}
+                                </TableCell>
+                                <TableCell align="right">{row.ship}</TableCell>
+                                <TableCell align="right">{row.imo}</TableCell>
+                                <TableCell align="right">{row.portCall}</TableCell>
+                                <TableCell align="right">{row.agent}</TableCell>
+                                <TableCell align="right">{row.ETA}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
