@@ -30,6 +30,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import HealthFormComponent from "../components/blocks/healthFormComponent";
+import ShipStoresForm from "../components/blocks/shipStoresFormComponent";
 
 const listOfOptions = listOfOptionsConst;
 
@@ -92,10 +93,26 @@ function ShipDetails() {
                                             const reader = new FileReader();
                                             reader.onload = (() => {
                                                 try {
-                                                    let {port, crew, ship, passengers, voyage} = readXML(reader.result);
+                                                    let {
+                                                        port,
+                                                        crew,
+                                                        ship,
+                                                        passengers,
+                                                        voyage,
+                                                        shipStores
+                                                    } = readXML(reader.result);
                                                     let dataCopy = JSON.parse(JSON.stringify(data));
 
-                                                    setData({...dataCopy, ...{port, crew, ship, passengers, voyage}});
+                                                    setData({
+                                                        ...dataCopy, ...{
+                                                            port,
+                                                            crew,
+                                                            ship,
+                                                            passengers,
+                                                            voyage,
+                                                            shipStores
+                                                        }
+                                                    });
                                                 } catch (e) {
                                                     setOpenErrorDialog({
                                                         open: true, error: {
@@ -283,8 +300,18 @@ function getChildComponent(activeItem, [data, setData]) {
                 setData(dataCopy);
             }}/>
         case 'ship_stores':
+            return <ShipStoresForm data={data.shipStores} updateData={(dataItem) => {
+                // deep copy
+                //@FIXME Fix it without using deep copy
+                let dataCopy = JSON.parse(JSON.stringify(data));
+                let shipStoresCopy = dataCopy.shipStores;
+                dataCopy.passengers = {...shipStoresCopy, ...dataItem};
+                console.log("data copy ", dataCopy)
+                setData(dataCopy);
+            }}/>
         case 'crew_effects':
-        case 'cargo': return null;
+        case 'cargo':
+            return null;
         case 'health':
             return <HealthFormComponent
                 data={data.health}

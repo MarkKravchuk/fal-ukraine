@@ -59,6 +59,7 @@ export default {
             { "NR": 1 }
         ]
     },
+
     ship: {
         name: '',
         iMOnumber: '',
@@ -89,6 +90,11 @@ export default {
         ]
     },
     voyage: {
+        rows: [
+            { "NR": 1 }
+        ]
+    },
+    shipStores: {
         rows: [
             { "NR": 1 }
         ]
