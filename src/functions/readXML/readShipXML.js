@@ -32,7 +32,10 @@ const readShipXML = (ship, xml) => {
         }
 
     }
-    ship.shipType = xml.getElementsByTagName('ShipTypeContent')[0].value;
+    if(xml.getElementsByTagName('ShipTypeContent')[0]){
+        ship.shipType = xml.getElementsByTagName('ShipTypeContent')[0].value;
+    }
+
 
     if (xml.getElementsByTagName('YearOfBuilt')[0]) {
         ship.builtYear = xml.getElementsByTagName('YearOfBuilt')[0].value;

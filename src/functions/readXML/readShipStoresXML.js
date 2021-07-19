@@ -25,6 +25,7 @@ export default (shipStores, xml) => {
                 }
 
                 shipStores.rows.push(row)
+                console.log("shipStores ",shipStores)
             }
 
         }
