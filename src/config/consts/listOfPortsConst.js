@@ -1,4 +1,4 @@
-export default [
+const listOfPortConst = [
     {
         code: "BGVAR",
         countryCode: "BG",
@@ -36,4 +36,6 @@ export default [
         countryCode: "TEST",
         name: "TEST"
     },
-]
+];
+
+export default listOfPortConst;

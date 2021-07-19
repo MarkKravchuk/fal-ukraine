@@ -1,6 +1,6 @@
 import countryCodes from "../countryCodes";
 
-export default (crew, xml) => {
+const readCrewXML = (crew, xml) => {
     let crewList = xml.getElementsByTagName('CrewList');
     crew.rows = [];
     if (crewList.length > 0) {
@@ -29,4 +29,6 @@ export default (crew, xml) => {
 
         }
     }
-}
+};
+
+export default readCrewXML;

@@ -1,4 +1,4 @@
-export default (port, xml) => {
+const readPortXML = (port, xml) => {
 
     port.arrivalDeparture = xml.getElementsByTagName('arrivalDeparture')[0].value;
     port.voyageNumber = xml.getElementsByTagName('voyageNumber')[0].value;
@@ -56,6 +56,6 @@ export default (port, xml) => {
     port.stowaways = xml.getElementsByTagName('Stowaways')[0].value;
     port.periodOfStay = xml.getElementsByTagName('periodOfStay')[0].value;
     console.log("Port ", port);
+};
 
-
-}
+export default readPortXML;

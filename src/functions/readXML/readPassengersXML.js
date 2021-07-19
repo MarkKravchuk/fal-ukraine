@@ -1,7 +1,6 @@
 import countryCodes from "../countryCodes";
-import listOfPortsConst from "../../config/consts/listOfPortsConst";
 
-export default (passengers, xml) => {
+const readPassengersXML = (passengers, xml) => {
     let passengerList = xml.getElementsByTagName('PassengerList');
     passengers.rows = [];
     if (passengerList.length > 0) {
@@ -40,4 +39,6 @@ export default (passengers, xml) => {
 
         }
     }
-}
+};
+
+export default readPassengersXML;

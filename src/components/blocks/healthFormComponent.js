@@ -40,8 +40,6 @@ const HealthFormComponent = ({data, updateData, crewData, passengerData}) => {
     const classes = useStyles();
     const [openAlert, setOpenAlert] = useState({open: false, error: "", severity: 'error'})
     const marginTop = {marginTop: '30px'};
-    const miniMarginTop = {marginTop: '10px'};
-    const emptyDIV = <div style={{width: '225px'}}/>;
     const widthOfLongQuestion = {width: '60%'}
 
     return <>

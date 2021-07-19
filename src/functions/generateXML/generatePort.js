@@ -1,7 +1,7 @@
 import listOfPortsConst from "../../config/consts/listOfPortsConst";
 import listOfPurposesOfCallsConst from "../../config/consts/listOfPurposesOfCallsConst";
 
-export default (port, EPCRequestBody) => {
+const generatePort = (port, EPCRequestBody) => {
 
     let portOfCall = listOfPortsConst.find(function (element) {
         return element.code === port.portOfCall;
@@ -150,4 +150,6 @@ export default (port, EPCRequestBody) => {
     });
     EPCRequestBody.push({Stowaways: port.stowaways});
     EPCRequestBody.push({PeriodOfStay: port.periodOfStay});
-}
+};
+
+export default generatePort;

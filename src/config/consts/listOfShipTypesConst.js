@@ -1,4 +1,4 @@
-export default [
+const listOfShipTypes = [
     {
         "name": "General cargo vessel ",
         "code": "50"
@@ -246,4 +246,6 @@ export default [
         "name": "Catamaran, fast ",
         "code": "92"
     }
-]
+];
+
+export default listOfShipTypes;

@@ -1,6 +1,4 @@
-export default (ship, xml) => {
-
-
+const readShipXML = (ship, xml) => {
     let shipId = xml.getElementsByTagName('ShipID')[0];
 
     if (shipId) {
@@ -68,4 +66,6 @@ export default (ship, xml) => {
             .find(el => el.name === "ContactNumbers").children.find(el => el.name === "EMail").value;
         ship.iMOCompany = company.children.find(el => el.name === "IMOCompanyId").value;
     }
-}
+};
+
+export default readShipXML;

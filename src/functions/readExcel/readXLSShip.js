@@ -1,7 +1,7 @@
 import data from '../../config/consts/defaultDataConst'
 import readXlsxFile from 'read-excel-file'
 
-export default (file, onSave) => {
+const readXLSShip = (file, onSave) => {
     let ship = data.ship;
     readXlsxFile(file).then((rows) => {
         ship.name = rows[3][2];
@@ -30,5 +30,7 @@ export default (file, onSave) => {
 
         console.log("Port read from Excel: ", ship);
         onSave({ship});
-    }).then(console.log("finish"))
-}
+    });
+};
+
+export default readXLSShip;

@@ -1,13 +1,4 @@
-// const defaultDateTime = new Date();
-// defaultDateTime.setHours(0);
-// defaultDateTime.setMinutes(0);
-//
-// defaultDateTime.getFullYear()
-// defaultDateTime.getMonth()
-// defaultDateTime.getDate()
-// defaultDateTime.getHours();
-// defaultDateTime.getMinutes()
-
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
     port: {
         arrivalDeparture: '',

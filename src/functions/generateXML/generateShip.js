@@ -1,6 +1,6 @@
 import listOfPortsConst from "../../config/consts/listOfPortsConst";
 
-export default (ship, EPCRequestBody) => {
+const generateShip = (ship, EPCRequestBody) => {
     let shipPort = listOfPortsConst.find(el => el.code === ship.port)
     EPCRequestBody.push({
         ShipID: [
@@ -54,4 +54,6 @@ export default (ship, EPCRequestBody) => {
                 {IMOCompanyId: ship.iMOCompany}
             ]
         })
-}
+};
+
+export default generateShip;
