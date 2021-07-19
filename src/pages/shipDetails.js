@@ -67,7 +67,7 @@ const useStyles = makeStyles((theme) => ({
 function ShipDetails() {
 
     const classes = useStyles();
-    const [activeItem, setActiveItem] = useState(listOfOptions.indexOf(listOfOptions.find( el => el.label === defaultOption)));
+    const [activeItem, setActiveItem] = useState(listOfOptions.indexOf(listOfOptions.find(el => el.label === defaultOption)));
 
     const [data, setData] = useState(defaultDataConst);
     const [openErrorDialog, setOpenErrorDialog] = useState({open: false, error: {}});
@@ -91,14 +91,12 @@ function ShipDetails() {
                                             const file = document.getElementById("read-xml-file").files[0];
                                             const reader = new FileReader();
                                             reader.onload = (() => {
-                                                    let {port, crew, ship, passengers} = readXML(reader.result);
                                                 try {
                                                     let {port, crew, ship, passengers} = readXML(reader.result);
                                                     let dataCopy = JSON.parse(JSON.stringify(data));
 
                                                     setData({...dataCopy, ...{port, crew, ship, passengers}});
                                                 } catch (e) {
-                                                    console.log('Error triggered');
                                                     setOpenErrorDialog({
                                                         open: true, error: {
                                                             title: 'Error while reading XML',
@@ -132,13 +130,13 @@ function ShipDetails() {
                                             console.log('On change excel suka')
                                             const files = document.getElementById("excel-file").files;
 
-                                                readXLS(files, setOpenErrorDialog, (item) => {
-                                                    let dataCopy = JSON.parse(JSON.stringify(data));
-                                                    dataCopy = {...dataCopy, ...{item}}
-                                                    console.log('The real data real: ', dataCopy)
+                                            readXLS(files, setOpenErrorDialog, (item) => {
+                                                let dataCopy = JSON.parse(JSON.stringify(data));
+                                                dataCopy = {...dataCopy, ...{item}}
+                                                console.log('The real data real: ', dataCopy)
 
-                                                    setData(dataCopy)
-                                                });
+                                                setData(dataCopy)
+                                            });
 
                                         }}
                                         type="file"
@@ -251,7 +249,7 @@ function getChildComponent(activeItem, [data, setData]) {
                 setData(dataCopy);
             }}/>
         case 'ships':
-            return <ShipFormComponent data={data.ship} updateData={ (dataItem) => {
+            return <ShipFormComponent data={data.ship} updateData={(dataItem) => {
                 // deep copy
                 //@FIXME Fix it without using deep copy
                 let dataCopy = JSON.parse(JSON.stringify(data));
@@ -260,7 +258,7 @@ function getChildComponent(activeItem, [data, setData]) {
                 setData(dataCopy);
             }}/>
         case 'voyage':
-            return <VoyageForm data={data.voyage} updateData={ (dataItem) => {
+            return <VoyageForm data={data.voyage} updateData={(dataItem) => {
                 // deep copy
                 //@FIXME Fix it without using deep copy
                 let dataCopy = JSON.parse(JSON.stringify(data));
@@ -269,7 +267,7 @@ function getChildComponent(activeItem, [data, setData]) {
                 setData(dataCopy);
             }}/>
         case 'crew':
-            return <CrewForm data={data.crew} updateData={ (dataItem) => {
+            return <CrewForm data={data.crew} updateData={(dataItem) => {
                 // deep copy
                 //@FIXME Fix it without using deep copy
                 let dataCopy = JSON.parse(JSON.stringify(data));
@@ -277,28 +275,33 @@ function getChildComponent(activeItem, [data, setData]) {
                 dataCopy.crew = {...portCopy, ...dataItem};
                 setData(dataCopy);
             }}/>
-        case 'passengers':return <PassengersForm data={data.passengers} updateData={ (dataItem) => {
-            // deep copy
-            //@FIXME Fix it without using deep copy
-            let dataCopy = JSON.parse(JSON.stringify(data));
-            let passengersCopy = dataCopy.passengers;
-            dataCopy.passengers = {...passengersCopy, ...dataItem};
-            console.log("data copy ", dataCopy)
-            setData(dataCopy);
-        }}/>
+        case 'passengers':
+            return <PassengersForm data={data.passengers} updateData={(dataItem) => {
+                // deep copy
+                //@FIXME Fix it without using deep copy
+                let dataCopy = JSON.parse(JSON.stringify(data));
+                let passengersCopy = dataCopy.passengers;
+                dataCopy.passengers = {...passengersCopy, ...dataItem};
+                console.log("data copy ", dataCopy)
+                setData(dataCopy);
+            }}/>
         case 'ship_stores':
         case 'crew_effects':
         case 'cargo':
         case 'health':
-            return <HealthFormComponent data={data.health} updateData={(dataItem) => {
-                // deep copy
-                //@FIXME Fix it without using deep copy
-                let dataCopy = JSON.parse(JSON.stringify(data));
-                let health = dataCopy.health;
-                dataCopy.health = {...health, ...dataItem};
-                console.log("data copy ", dataCopy)
-                setData(dataCopy);
-            }}/>
+            return <HealthFormComponent
+                data={data.health}
+                crewData={data.crew}
+                passengerData={data.passengers}
+                updateData={(dataItem) => {
+                    // deep copy
+                    //@FIXME Fix it without using deep copy
+                    let dataCopy = JSON.parse(JSON.stringify(data));
+                    let health = dataCopy.health;
+                    dataCopy.health = {...health, ...dataItem};
+                    console.log("data copy ", dataCopy)
+                    setData(dataCopy);
+                }}/>
         case 'dangerous_goods':
         case 'security':
         case 'waste':

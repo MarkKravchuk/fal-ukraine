@@ -116,5 +116,6 @@ export default {
         nrOfIll: '',
         sanitaryMeasures: [ {}],
         joinedStowaways: '',
+        illList: [{}]
     }
 }
