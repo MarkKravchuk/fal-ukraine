@@ -26,6 +26,13 @@ const useStyles = makeStyles((theme) => ({
     },
     formControlNoMargin: {
         minWidth: 225,
+        height: 85
+    },
+    selectControl: {
+        height: 85
+    },
+    labelControl: {
+        width: "90%"
     },
     button: {
         margin: theme.spacing(1),
@@ -40,7 +47,7 @@ const HealthFormComponent = ({data, updateData, crewData, passengerData}) => {
     const classes = useStyles();
     const [openAlert, setOpenAlert] = useState({open: false, error: "", severity: 'error'})
     const marginTop = {marginTop: '30px'};
-    const widthOfLongQuestion = {width: '60%'}
+    const widthOfLongQuestion = {width: '65%'}
 
     return <>
         <Typography variant="h3" component="h3" gutterBottom>
@@ -58,11 +65,13 @@ const HealthFormComponent = ({data, updateData, crewData, passengerData}) => {
                     className={classes.formControlNoMargin}
                     fullWidth
                 >
-                    <InputLabel id="enum-1-label">(1) Has any person died on board during the voyage otherwise than as a
+                    <InputLabel className={classes.labelControl} id="enum-1-label">(1) Has any person died on board
+                        during the voyage otherwise than as a
                         result of accident? </InputLabel>
                     <Select
                         labelId="enum-1-label"
                         value={data.enum1}
+                        className={classes.selectControl}
                         onChange={(e) => {
                             updateData({enum1: e.target.value})
                         }}
@@ -84,13 +93,16 @@ const HealthFormComponent = ({data, updateData, crewData, passengerData}) => {
         <Grid container style={marginTop} classes={classes.topMargin} justify="space-between">
             <div style={widthOfLongQuestion}>
                 <FormControl
+                    style={{height: "85px"}}
                     variant="outlined"
                     className={classes.formControlNoMargin}
                     fullWidth
                 >
-                    <InputLabel id="enum-2-label">(2) Is there on board or has there been during the international
+                    <InputLabel className={classes.labelControl} id="enum-2-label">(2) Is there on board or has there
+                        been during the international
                         voyage any case of disease which you suspect to be of an infectious nature?</InputLabel>
                     <Select
+                        className={classes.selectControl}
                         labelId="enum-2-label"
                         value={data.enum2}
                         onChange={(e) => {
@@ -111,9 +123,11 @@ const HealthFormComponent = ({data, updateData, crewData, passengerData}) => {
                     className={classes.formControlNoMargin}
                     fullWidth
                 >
-                    <InputLabel id="enum-3-label">(3) Has the total number of ill passengers during the voyage been
+                    <InputLabel className={classes.labelControl} id="enum-3-label">(3) Has the total number of ill
+                        passengers during the voyage been
                         greater than normal/expected?</InputLabel>
                     <Select
+                        className={classes.selectControl}
                         labelId="enum-3-label"
                         value={data.enum3}
                         onChange={(e) => {
@@ -141,8 +155,10 @@ const HealthFormComponent = ({data, updateData, crewData, passengerData}) => {
                     className={classes.formControlNoMargin}
                     fullWidth
                 >
-                    <InputLabel id="enum-4-label">(4) Is there any ill person on board now?</InputLabel>
+                    <InputLabel className={classes.labelControl} id="enum-4-label">(4) Is there any ill person on board
+                        now?</InputLabel>
                     <Select
+                        className={classes.selectControl}
                         labelId="enum-4-label"
                         value={data.enum4}
                         onChange={(e) => {
@@ -163,8 +179,10 @@ const HealthFormComponent = ({data, updateData, crewData, passengerData}) => {
                     className={classes.formControlNoMargin}
                     fullWidth
                 >
-                    <InputLabel id="enum-5-label">(5) Was a medical practitioner consulted?</InputLabel>
+                    <InputLabel className={classes.labelControl} id="enum-5-label">(5) Was a medical practitioner
+                        consulted?</InputLabel>
                     <Select
+                        className={classes.selectControl}
                         labelId="enum-5-label"
                         value={data.enum5}
                         onChange={(e) => {
@@ -185,9 +203,11 @@ const HealthFormComponent = ({data, updateData, crewData, passengerData}) => {
                     className={classes.formControlNoMargin}
                     fullWidth
                 >
-                    <InputLabel id="enum-6-label">(6) Are you aware of any condition on board which may lead to
+                    <InputLabel className={classes.labelControl} id="enum-6-label">(6) Are you aware of any condition on
+                        board which may lead to
                         infection or spread of disease?</InputLabel>
                     <Select
+                        className={classes.selectControl}
                         labelId="enum-6-label"
                         value={data.enum6}
                         onChange={(e) => {
@@ -208,9 +228,11 @@ const HealthFormComponent = ({data, updateData, crewData, passengerData}) => {
                     className={classes.formControlNoMargin}
                     fullWidth
                 >
-                    <InputLabel id="enum-7-label">(7) Has any sanitary measure (e.g. quarantine, isolation, disinfection
+                    <InputLabel className={classes.labelControl} id="enum-7-label">(7) Has any sanitary measure (e.g.
+                        quarantine, isolation, disinfection
                         or decontamination) been applied on board?</InputLabel>
                     <Select
+                        className={classes.selectControl}
                         labelId="enum-7-label"
                         value={data.enum7}
                         onChange={(e) => {
@@ -258,17 +280,25 @@ const HealthFormComponent = ({data, updateData, crewData, passengerData}) => {
 
         <Grid container style={marginTop} classes={classes.topMargin} justify="space-between">
             <div style={widthOfLongQuestion}>
-                <TextField
-                    label="(8) Have any stowaways been found on board?"
-                    margin={'normal'}
-                    fullWidth
-                    value={data.enum8}
-                    onChange={(e) => {
-                        let enum8 = e.target.value;
-                        updateData({enum8})
-                    }}
+                <FormControl
                     variant="outlined"
-                />
+                    className={classes.formControlNoMargin}
+                    fullWidth
+                >
+                    <InputLabel className={classes.labelControl} id="enum-8-label">(8) have any stowaways been found on
+                        board?</InputLabel>
+                    <Select
+                        className={classes.selectControl}
+                        labelId="enum-8-label"
+                        value={data.enum8}
+                        onChange={(e) => {
+                            updateData({enum8: e.target.value})
+                        }}
+                    >
+                        <MenuItem value={'Yes'}>Yes</MenuItem>
+                        <MenuItem value={'No'}>No</MenuItem>
+                    </Select>
+                </FormControl>
             </div>
 
             <TextField
@@ -283,12 +313,36 @@ const HealthFormComponent = ({data, updateData, crewData, passengerData}) => {
             />
         </Grid>
 
+        <Grid container style={marginTop} classes={classes.topMargin} justify="space-between">
+            <div style={widthOfLongQuestion}>
+                <FormControl
+                    variant="outlined"
+                    className={classes.formControlNoMargin}
+                    fullWidth
+                >
+                    <InputLabel className={classes.labelControl} id="enum-9-label">(9) Is there a sick animal or pet on
+                        board?</InputLabel>
+                    <Select
+                        className={classes.selectControl}
+                        labelId="enum-9-label"
+                        value={data.enum9}
+                        onChange={(e) => {
+                            updateData({enum9: e.target.value})
+                        }}
+                    >
+                        <MenuItem value={'Yes'}>Yes</MenuItem>
+                        <MenuItem value={'No'}>No</MenuItem>
+                    </Select>
+                </FormControl>
+            </div>
+        </Grid>
+
         <Typography style={marginTop} variant="p" classes={classes.topMargin} component="p" gutterBottom>
             Note: In the absence of a surgeon, the master should regard the following symptoms as grounds for suspecting
-            the existence of a disease of an infectious nature:
+            the existence of a disease of an infectious nature:<br/>
             (a) fever, persisting for several days or accompanied by (i) prostration; (ii) decreased consciousness;
             (iii) glandular swelling; (iv) jaundice; (v) cough or shortness of breath; (vi) unusual bleeding; or (vii)
-            paralysis.
+            paralysis.<br/>
             (b) with or without fever: (i) any acute skin rash or eruption; (ii) severe vomiting (other than sea
             sickness); (iii) severediarrhoea; or (iv) recurrent convulsions.
         </Typography>
@@ -329,8 +383,8 @@ const HealthFormComponent = ({data, updateData, crewData, passengerData}) => {
                     },
                     {key: "familyName", name: "Family name", editable: false, width: 100},
                     {key: "firstName", name: "First name", editable: false, width: 85},
-                    {key: "ill", name: "Illness", editable: true, width: 65},
-                    {key: "SymptomsDate", name: "Symptoms Date", editable: true, width: 120, editor: datePicker},
+                    {key: "ill", name: "Illness", editable: true, width: 150},
+                    {key: "symptomsDate", name: "Symptoms Date", editable: true, width: 120, editor: datePicker},
                     {
                         key: "reportedPort",
                         name: "Reported to port medical",
@@ -338,7 +392,7 @@ const HealthFormComponent = ({data, updateData, crewData, passengerData}) => {
                         editor: <DropDownEditor options={['(...)', 'Yes', 'No']}/>,
                         width: 150
                     },
-                    {key: "state", name: "State", editable: true, width: 50},
+                    {key: "state", name: "State", editable: true, width: 150},
                     {key: "caseDisposal", name: "Case Disposal", editable: true, width: 150},
                     {key: "location", name: "Location of evacuation", editable: true, width: 150},
                     {key: "treatment", name: "Treatment", editable: true, width: 150},

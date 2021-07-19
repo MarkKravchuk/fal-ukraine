@@ -128,7 +128,6 @@ function ShipDetails() {
                                         id="excel-file"
                                         multiple
                                         onChange={() => {
-                                            console.log('On change excel suka')
                                             const files = document.getElementById("excel-file").files;
 
                                             readXLS(files, setOpenErrorDialog, (item) => {
@@ -285,7 +284,7 @@ function getChildComponent(activeItem, [data, setData]) {
             }}/>
         case 'ship_stores':
         case 'crew_effects':
-        case 'cargo':
+        case 'cargo': return null;
         case 'health':
             return <HealthFormComponent
                 data={data.health}
