@@ -119,5 +119,18 @@ export default {
         joinedStowaways: '',
         sanitaryMeasures: [ {}],
         illList: [{}]
+    },
+    security: {
+        validISSC: '',
+        noValid: '',
+        issued: '',
+        isscType: '',
+        securityLevel: "",
+        firstName: '',
+        familyName:'',
+        phone: '',
+        fax: '',
+        email: '',
+        rows: [{}]
     }
 }
