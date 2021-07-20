@@ -10,6 +10,8 @@ import InputLabel from "@material-ui/core/InputLabel";
 import Select from "@material-ui/core/Select";
 import ListOfPorts from "../../config/consts/listOfPortsConst";
 import MenuItem from "@material-ui/core/MenuItem";
+import kindOfPackagesList from "../../config/consts/kindOfPackagesList";
+import unitList from "../../config/consts/unitList";
 
 const {DropDownEditor} = Editors;
 
@@ -22,20 +24,33 @@ const styles = (theme) => ({
     },
 });
 
-const units = ["[Unit]", "KGM", "TNE"];
-const UnitEditor = <DropDownEditor options={units}/>;
+
+const KindOfPackagesEditor = <DropDownEditor options={kindOfPackagesList}/>;
+const UnitEditor = <DropDownEditor options={unitList}/>;
 
 const columns = [
-    {key: "Seq", name: "NR", editable: true, width: 50},
-    {key: "Name_of_article", name: "Name of article", editable: true},
-    {key: "Quantity", name: "Quantity", editable: true},
-    {key: "Unit", name: "Unit", editable: true, editor: UnitEditor},
-    {key: "Location_on_board", name: "Location on board", editable: true},
+    {key: "Seq", name: "Seq", editable: true, width: 50},
+    {key: "Number_of_packages", name: "Number of packages", editable: true, width: 150},
+    {key: "Kind_of_packages", name: "Kind_of_packages", editable: true, editor: KindOfPackagesEditor, width: 150},
+    {key: "Stowage_position", name: "Stowage position", editable: true, width: 150},
+    {key: "Transport_unit", name: "Transport unit(Container number)", editable: true, width: 240},
+    {key: "Description_of_goods", name: "Description of goods", editable: true, width: 150},
+    {key: "Shipping_marks", name: "Shipping marks", editable: true, width: 150},
+    {key: "HS_code", name: "HS_code", editable: true, width: 100},
+    {key: "Gross_quantity", name: "Gross quantity", editable: true, width: 150},
+    {key: "Gross_Unit", name: "Unit", editable: true, editor: UnitEditor, width: 70},
+    {key: "Net_quantity", name: "Net quantity", editable: true, width: 150},
+    {key: "Net_Unit", name: "Unit", editable: true, editor: UnitEditor, width: 70},
+    {key: "Measurement", name: "Measurement", editable: true, width: 150},
+    {key: "Measurement_Unit", name: "Unit", editable: true, editor: UnitEditor, width: 70},
+    {key: "Reference", name: "Reference of proof of Community status", editable: true, width: 300},
+    {key: "Custom_status", name: "Custom status", editable: true, width: 150},
+    {key: "Size_and_type", name: "Size and type", editable: true, width: 150},
 ];
 const useStyles = makeStyles((theme) => ({
     formControl: {
         margin: theme.spacing(1),
-        marginLeft :  theme.spacing(0),
+        marginLeft: theme.spacing(0),
         minWidth: 200,
     }
 }));
@@ -43,6 +58,7 @@ const useStyles = makeStyles((theme) => ({
 
 function CargoForm({data, updateData}) {
     const classes = useStyles();
+
     function addRow() {
         console.log("adding row");
         let number = data.rows.length + 1
@@ -62,7 +78,7 @@ function CargoForm({data, updateData}) {
         for (let i = fromRow; i <= toRow; i++) {
             rows[i] = {...rows[i], ...updated};
         }
-        data.rows = rows
+        data.rows = rows;
         updateData(data)
     };
 
@@ -124,7 +140,6 @@ function CargoForm({data, updateData}) {
                 rowsCount={data.rows.length}
                 onGridRowsUpdated={onGridRowsUpdated}
                 enableCellSelect={true}
-                columnAutoWidth="true"
 
             />
             <Button variant="primary" onClick={addRow}>Add row</Button>
