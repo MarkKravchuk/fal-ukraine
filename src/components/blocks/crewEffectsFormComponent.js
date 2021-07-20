@@ -4,8 +4,6 @@ import {withStyles} from '@material-ui/core/styles';
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import {Editors} from 'react-data-grid-addons';
-import datePicker from "../pickers/datePicker";
-import countryCodes from "../../functions/countryCodes";
 
 const {DropDownEditor} = Editors;
 

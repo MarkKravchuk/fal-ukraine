@@ -104,6 +104,13 @@ export default {
             { "NR": 1 }
         ]
     },
+    cargo:{
+        portOfLoading: '',
+        portOfDischarge: '',
+        rows: [
+            { "Seq": 1 }
+        ]
+    },
     health: {
         enum1: '',
         enum2: '',

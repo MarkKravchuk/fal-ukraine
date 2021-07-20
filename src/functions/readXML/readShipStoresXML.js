@@ -1,7 +1,4 @@
-import countryCodes from "../countryCodes";
-import listOfPortsConst from "../../config/consts/listOfPortsConst";
-
-export default (shipStores, xml) => {
+const readShipStoresXML = (shipStores, xml)=> {
     let ShipStore = xml.getElementsByTagName('ShipStore');
     shipStores.rows = [];
     if (ShipStore.length > 0) {
@@ -31,3 +28,4 @@ export default (shipStores, xml) => {
         }
     }
 }
+export default readShipStoresXML;

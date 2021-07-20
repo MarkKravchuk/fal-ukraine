@@ -1,6 +1,4 @@
-import listOfPortsConst from "../../config/consts/listOfPortsConst";
-
-export default (shipStores, EPCRequestBody) => {
+const generateShipStores = (shipStores, EPCRequestBody) => {
 
     let rows = shipStores.rows;
     let ShipStore = [];
@@ -22,3 +20,4 @@ export default (shipStores, EPCRequestBody) => {
 
     EPCRequestBody.push({ShipStore: ShipStore})
 }
+export default generateShipStores

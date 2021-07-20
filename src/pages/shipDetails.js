@@ -32,6 +32,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import HealthFormComponent from "../components/blocks/healthFormComponent";
 import ShipStoresForm from "../components/blocks/shipStoresFormComponent";
 import CrewEffectsForm from "../components/blocks/crewEffectsFormComponent";
+import CargoForm from "../components/blocks/CargoFormComponent";
 
 const listOfOptions = listOfOptionsConst;
 
@@ -318,7 +319,15 @@ function getChildComponent(activeItem, [data, setData]) {
             return <CrewEffectsForm data={data.crewEffects} updateData={() => {
             }}/>
         case 'cargo':
-            return null;
+            return <CargoForm data={data.cargo} updateData={(dataItem) => {
+                // deep copy
+                //@FIXME Fix it without using deep copy
+                let dataCopy = JSON.parse(JSON.stringify(data));
+                let cargoCopy = dataCopy.cargo;
+                dataCopy.cargo = {...cargoCopy, ...dataItem};
+                console.log("data copy ", dataCopy)
+                setData(dataCopy);
+            }}/>
         case 'health':
             return <HealthFormComponent
                 data={data.health}
