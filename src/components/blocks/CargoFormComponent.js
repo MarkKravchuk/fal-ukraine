@@ -32,6 +32,7 @@ const columns = [
     {key: "Seq", name: "Seq", editable: true, width: 50},
     {key: "Number_of_packages", name: "Number of packages", editable: true, width: 150},
     {key: "Kind_of_packages", name: "Kind_of_packages", editable: true, editor: KindOfPackagesEditor, width: 150},
+    // ??
     {key: "Stowage_position", name: "Stowage position", editable: true, width: 150},
     {key: "Transport_unit", name: "Transport unit(Container number)", editable: true, width: 240},
     {key: "Description_of_goods", name: "Description of goods", editable: true, width: 150},
@@ -43,6 +44,8 @@ const columns = [
     {key: "Net_Unit", name: "Unit", editable: true, editor: UnitEditor, width: 70},
     {key: "Measurement", name: "Measurement", editable: true, width: 150},
     {key: "Measurement_Unit", name: "Unit", editable: true, editor: UnitEditor, width: 70},
+    {key: "Seal_number", name: "Seal number", editable: true, width: 150},
+    // ??
     {key: "Reference", name: "Reference of proof of Community status", editable: true, width: 300},
     {key: "Custom_status", name: "Custom status", editable: true, width: 150},
     {key: "Size_and_type", name: "Size and type", editable: true, width: 150},
