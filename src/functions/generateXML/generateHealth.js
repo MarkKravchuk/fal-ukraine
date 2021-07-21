@@ -15,12 +15,16 @@ const generateHealth = (data, EPCRequestBody) => {
     Health.push({SickAnimal: data.enum9});
 
     //TODO ADD THE for cycle after it's arranged with the client
-    let SanitaryMeasure = [];
+    let SanitaryMeasures = [];
     for (let i = 0; i < data.sanitaryMeasures.length; i++) {
+        let SanitaryMeasure = [];
         SanitaryMeasure.push({Type: data.sanitaryMeasures[i].type})
         SanitaryMeasure.push({Place: data.sanitaryMeasures[i].place})
         SanitaryMeasure.push({Date: data.sanitaryMeasures[i].date})
+        SanitaryMeasures.push({SanitaryMeasure})
     }
+
+    Health.push({SanitaryMeasures})
 
     let HealthParticulars = [];
     for (let i = 0; i < data.illList.length; i++) {

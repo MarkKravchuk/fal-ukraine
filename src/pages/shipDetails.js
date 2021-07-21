@@ -33,11 +33,12 @@ import HealthFormComponent from "../components/blocks/healthFormComponent";
 import ShipStoresForm from "../components/blocks/shipStoresFormComponent";
 import CrewEffectsForm from "../components/blocks/crewEffectsFormComponent";
 import CargoForm from "../components/blocks/CargoFormComponent";
+import SecurityFormComponent from "../components/blocks/securityFormComponent";
 
 const listOfOptions = listOfOptionsConst;
 
 
-const defaultOption = 'Health';
+const defaultOption = 'Security';
 
 const drawerWidth = config.showDrawerIcons ? 240 : 180;
 
@@ -344,6 +345,17 @@ function getChildComponent(activeItem, [data, setData]) {
                 }}/>
         case 'dangerous_goods':
         case 'security':
+            return <SecurityFormComponent
+                data={data.security}
+                updateData={(dataItem) => {
+                    // deep copy
+                    //@FIXME Fix it without using deep copy
+                    let dataCopy = JSON.parse(JSON.stringify(data));
+                    let health = dataCopy.health;
+                    dataCopy.health = {...health, ...dataItem};
+                    console.log("data copy ", dataCopy)
+                    setData(dataCopy);
+                }}/>
         case 'waste':
         default:
             return <h1>Not supported yet</h1>

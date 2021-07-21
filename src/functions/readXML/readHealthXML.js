@@ -12,6 +12,16 @@ const readHealthXML = (health, xml) => {
     health.nrOfIll = xml.getElementsByTagName('NumberOfIllPersons')[0].value;
     health.joinedStowaways = xml.getElementsByTagName('LocationStowawaysJoinedShip')[0].value;
 
+    let sanitars = xml.getElementsByTagName('SanitaryMeasure');
+    health.sanitaryMeasures = [];
+    for (let i = 0; i < sanitars.length; i++) {
+        let element = sanitars[i];
+        let type = element.children.find( el => el.name === 'Type').value;
+        let date = element.children.find( el => el.name === 'Date').value;
+        let place = element.children.find( el => el.name === 'Place').value;
+        health.sanitaryMeasures.push({type, date, place});
+    }
+
     if (xml.getElementsByTagName('HealthParticulars')) {
         let elements = xml.getElementsByTagName('PersonHealthParticulars');
         health.illList = [];
