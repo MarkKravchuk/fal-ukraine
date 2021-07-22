@@ -139,5 +139,10 @@ export default {
         fax: '',
         email: '',
         rows: [{}]
-    }
+    },
+    dpg: {
+        rows: [
+            { "NR": '' }
+        ]
+    },
 }

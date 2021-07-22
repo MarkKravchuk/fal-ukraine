@@ -34,6 +34,7 @@ import ShipStoresForm from "../components/blocks/shipStoresFormComponent";
 import CrewEffectsForm from "../components/blocks/crewEffectsFormComponent";
 import CargoForm from "../components/blocks/CargoFormComponent";
 import SecurityFormComponent from "../components/blocks/securityFormComponent";
+import DPGForm from "../components/blocks/dpgFormComponent";
 
 const listOfOptions = listOfOptionsConst;
 
@@ -344,6 +345,18 @@ function getChildComponent(activeItem, [data, setData]) {
                     setData(dataCopy);
                 }}/>
         case 'dangerous_goods':
+            return <DPGForm
+                data={data.dpg}
+                cargoData={data.cargo}
+                updateData={(dataItem) => {
+                    // deep copy
+                    //@FIXME Fix it without using deep copy
+                    let dataCopy = JSON.parse(JSON.stringify(data));
+                    let dpg = dataCopy.dpg;
+                    dataCopy.dpg = {...dpg, ...dataItem};
+                    console.log("data copy ", dataCopy)
+                    setData(dataCopy);
+                }}/>
         case 'security':
             return <SecurityFormComponent
                 data={data.security}

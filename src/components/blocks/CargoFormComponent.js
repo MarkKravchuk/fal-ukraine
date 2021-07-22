@@ -89,7 +89,7 @@ function CargoForm({data, updateData}) {
     return <>
         <div>
             <Typography variant="h3" component="h3" gutterBottom>
-                Ship stores
+                Cargo
             </Typography>
             {/*Port of arrival / last port of call / next port of call*/}
             <Grid container justify="space-between" style={{marginTop: '30px'}}>
