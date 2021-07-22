@@ -4,6 +4,7 @@ import {withStyles} from '@material-ui/core/styles';
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import {Editors} from 'react-data-grid-addons';
+import unitList from "../../config/consts/unitList";
 
 const {DropDownEditor} = Editors;
 
@@ -16,8 +17,7 @@ const styles = (theme) => ({
     },
 });
 
-const units = ["[Unit]", "KGM", "TNE"];
-const UnitEditor = <DropDownEditor options={units}/>;
+const UnitEditor = <DropDownEditor options={unitList}/>;
 
 const columns = [
     {key: "NR", name: "NR", editable: true, width: 50},

@@ -104,6 +104,13 @@ export default {
             { "NR": 1 }
         ]
     },
+    cargo:{
+        portOfLoading: '',
+        portOfDischarge: '',
+        rows: [
+            { "Seq": 1 }
+        ]
+    },
     health: {
         enum1: '',
         enum2: '',
@@ -135,5 +142,10 @@ export default {
         fax: '',
         email: '',
         rows: [{NR: 1}]
-    }
+    },
+    dpg: {
+        rows: [
+            { "NR": '' }
+        ]
+    },
 }

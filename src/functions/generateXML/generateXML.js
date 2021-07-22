@@ -7,6 +7,7 @@ import generateVoyage from "./generateVoyage";
 import generateShipStores from "./generateShipStores";
 import generateHealth from "./generateHealth";
 import generateCrewEffects from "./generateCrewEffects";
+import generateCargo from "./generateCargo";
 import generateSecurity from "./generateSecurity";
 
 function createXML(data) {
@@ -22,6 +23,7 @@ function createXML(data) {
     generateShipStores(data.shipStores, EPCRequestBody);
     generateHealth(data.health, EPCRequestBody);
     generateCrewEffects(data.crewEffects, EPCRequestBody);
+    generateCargo(data.cargo, EPCRequestBody)
     generateSecurity(data.security, EPCRequestBody);
 
     let xmlValue = xml([{

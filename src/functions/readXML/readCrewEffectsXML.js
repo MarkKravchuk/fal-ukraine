@@ -1,5 +1,3 @@
-import countryCodes from "../countryCodes";
-
 const readCrewEffectsXML = (crewEffects, xml) => {
     let DutiableCrewEffect = xml.getElementsByTagName('DutiableCrewEffect');
     crewEffects.rows = [];

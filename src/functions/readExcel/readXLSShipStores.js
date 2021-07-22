@@ -1,8 +1,6 @@
 import readXlsxFile from 'read-excel-file'
-import moment from "moment";
 import data from '../../config/consts/defaultDataConst'
-import countryCodes from "../countryCodes";
-import listOfPortsConst from "../../config/consts/listOfPortsConst";
+
 
 function readXLSShipStores(file, onSave) {
     data.shipStores.rows = [];
