@@ -156,7 +156,7 @@ function ShipDetails() {
                                             const files = document.getElementById("excel-file").files;
 
                                             readXLS(files, setOpenErrorDialog, (item) => {
-                                                let dataCopy = JSON.parse(JSON.stringify(data));
+                                                let dataCopy = data;
                                                 dataCopy = {...dataCopy, ...{item}}
                                                 console.log('The real data real: ', dataCopy)
 
