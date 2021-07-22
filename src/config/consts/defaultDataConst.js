@@ -142,7 +142,7 @@ export default {
     },
     dpg: {
         rows: [
-            { "NR": '' }
+            {}
         ]
     },
 }

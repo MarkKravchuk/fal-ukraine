@@ -34,7 +34,7 @@ const columns = [
     {key: "Subsidiary_risk", name: "Subsidiary risk", editable: true, width: 150},
     {key: "Flash_point", name: "Flash point", editable: true, width: 150},
     {key: "pollution_code", name: "MARPOL pollution code", editable: true, width: 200, editor: pollutionCodesEditor},
-    {key: "EmS", name: "EmS", editable: true, width: 50},
+    {key: "EmS", name: "EmS", editable: true, width: 100},
     {key: "Additional_information", name: "Additional information", editable: true, width: 180},
     {key: "Segregation_information", name: "Segregation information", editable: true, width: 180},
     {key: "On_board_location", name: "On board location", editable: true, width: 150},
@@ -46,8 +46,7 @@ function DPGForm({data, updateData, cargoData}) {
 
     function addRow() {
         console.log("adding row");
-        let number = data.rows.length + 1
-        let row = {Seq: number}
+        let row = {}
         data.rows.push(row);
         updateData(data)
     }

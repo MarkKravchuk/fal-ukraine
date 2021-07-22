@@ -1,9 +1,10 @@
 import listOfPortsConst from "../../config/consts/listOfPortsConst";
 
-const generateCargo = (cargo, EPCRequestBody) => {
+const generateCargo = (cargo, dpg, EPCRequestBody) => {
 
     let CargoConsignmentsData = [];
     let rows = cargo.rows;
+    let dpgRows = dpg.rows;
     let portOfLoading = listOfPortsConst.find(function (element) {
         return element.code === cargo.portOfLoading;
     });
@@ -63,6 +64,30 @@ const generateCargo = (cargo, EPCRequestBody) => {
             ]
         });
         CargoItem.push({CustomStatus: rows[i].Custom_status});
+        let dpgTable = dpgRows.find(function (element) {
+            return parseInt(element.Container_number) === parseInt(rows[i].Seq);
+        });
+
+
+        if (dpgTable) {
+            CargoItem.push({
+                DGSafetyDataSheet: [
+                    {ProperShippingName: dpgTable.Textual_reference},
+                    {DGClassification: dpgTable.DG_Classification},
+                    {UNNumber: dpgTable.UN_number},
+                    {UNClass: dpgTable.IMO_hazard_classes},
+                    {PackingGroup: dpgTable.Packing_group},
+                    {SubsidiaryRisks: dpgTable.Subsidiary_risk},
+                    {FlashPoint: dpgTable.Flash_point},
+                    {MARPOLPollutionCode: dpgTable.pollution_code},
+                    {EmergencyInstruction: dpgTable.EmS},
+                    {SegregationInformation: dpgTable.Segregation_information},
+                    {OnBoardLocation: dpgTable.On_board_location},
+                    {Comments: dpgTable.Additional_information},
+                ]
+            })
+        }
+
         CargoItem.push({
             Container: [
                 {MarksAndNumber: rows[i].Transport_unit},

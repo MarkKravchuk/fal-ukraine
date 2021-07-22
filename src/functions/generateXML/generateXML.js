@@ -22,7 +22,7 @@ function createXML(data) {
     generateShipStores(data.shipStores, EPCRequestBody);
     generateHealth(data.health, EPCRequestBody);
     generateCrewEffects(data.crewEffects, EPCRequestBody);
-    generateCargo(data.cargo, EPCRequestBody)
+    generateCargo(data.cargo, data.dpg, EPCRequestBody)
 
     let xmlValue = xml([{
         EPCMessage: [{
