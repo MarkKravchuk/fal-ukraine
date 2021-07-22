@@ -1,0 +1,69 @@
+import listOfPortsConst from "../../config/consts/listOfPortsConst";
+
+const generateSecurity = (security, EPCRequestBody) => {
+    EPCRequestBody.push({ValidISSC: security.validISSC});
+    EPCRequestBody.push({ValidISSCReasonForNoValidISSC: security.noValid});
+    EPCRequestBody.push({
+        ISSCertificate: [
+            {CertificateStatus: security.isscType},
+            {Issuer: security.issued},
+            {ExpiryDate: security.expiryDate},
+        ]
+    });
+    EPCRequestBody.push({CurrentShipSecurityLevel: security.securityLevel});
+    EPCRequestBody.push({SecurityRelatedMatterToReport: security.securityRelatedMatter});
+    EPCRequestBody.push({ValidSSC: security.approvedSSP});
+    EPCRequestBody.push({
+        CSO: [{
+            ContactNumbers: [
+                {MobileTelephone: security.phone},
+                {Telefax: security.fax},
+                {EMail: security.email}
+            ]
+        }, {
+            Person: [
+                {GivenName: security.firstName},
+                {FamilyName: security.familyName}
+            ]
+        }
+        ]
+    });
+
+    let ShipToShipActivityList = [];
+
+    for (let i = 0; i < security.rows.length; i++) {
+        let row = security.rows[i];
+        let ShipToShipActivity = [];
+        ShipToShipActivity.push({FromDateTime: row.dateFrom});
+        ShipToShipActivity.push({ToDateTime: row.dateDeparture});
+        ShipToShipActivity.push({Activity: row.shipActivity});
+        ShipToShipActivity.push({AdditionalSecurityMeasures: row.securityMeasure});
+        let port = listOfPortsConst.find(el => el.code === row.port);
+
+        ShipToShipActivity.push({
+            Location: [
+                {Name: row.locationName},
+                {
+                    Position: [
+                        {Latitude: row.latitude},
+                        {Longitude: row.longitude}
+                    ]
+                },
+                {
+                    Port: [
+                        {Name: port.name},
+                        {Facility: port.facility},
+                        {CountryCode: port.countryCode},
+                        {UNLoCode: port.code}
+                    ]
+                }
+            ]
+        });
+
+        ShipToShipActivityList.push({ShipToShipActivity});
+    }
+    EPCRequestBody.push({ShipToShipActivityList})
+
+}
+
+export default generateSecurity;
