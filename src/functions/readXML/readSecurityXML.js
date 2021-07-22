@@ -1,22 +1,49 @@
 const readSecurityXML = (security, xml) => {
-    security.vaildISSC = xml.getElementsByTagName('ValidISSC')[0].value;
-    security.noValid = xml.getElementsByTagName('ValidISSCReasonForNoValidISSC')[0].value;
-    security.issued = xml.getElementsByTagName('Issuer')[0].value;
-    security.isscType = xml.getElementsByTagName('CertificateStatus')[0].value;
-    security.expiryDate = xml.getElementsByTagName('ExpiryDate')[0].value;
-    security.securityLevel = xml.getElementsByTagName('CurrentShipSecurityLevel')[0].value;
-    security.securityRelatedMatter = xml.getElementsByTagName('SecurityRelatedMatterToReport')[0].value;
-    security.approvedSSP = xml.getElementsByTagName('ValidSSC')[0];
-    security.firstName = xml.getElementsByTagName('CSO')[0].children.find(el => el.name === "Person")
-        .children.find(el => el.name === 'GivenName').value;
-    security.familyName = xml.getElementsByTagName('CSO')[0].children.find(el => el.name === "Person")
-        .children.find(el => el.name === 'FamilyName').value;
-    security.phone = xml.getElementsByTagName('CSO')[0].children.find(el => el.name === "ContactNumbers")
-        .children.find(el => el.name === 'MobileTelephone').value;
-    security.fax = xml.getElementsByTagName('CSO')[0].children.find(el => el.name === "ContactNumbers")
-        .children.find(el => el.name === 'Telefax').value;
-    security.email = xml.getElementsByTagName('CSO')[0].children.find(el => el.name === "ContactNumbers")
-        .children.find(el => el.name === 'EMail').value;
+    if (xml.getElementsByTagName('ValidISSC')[0]) {
+        security.vaildISSC = xml.getElementsByTagName('ValidISSC')[0].value;
+    }
+    if (xml.getElementsByTagName('ValidISSCReasonForNoValidISSC')[0]) {
+        security.noValid = xml.getElementsByTagName('ValidISSCReasonForNoValidISSC')[0].value;
+    }
+    if (xml.getElementsByTagName('Issuer')[0]) {
+        security.issued = xml.getElementsByTagName('Issuer')[0].value;
+    }
+    if (xml.getElementsByTagName('CertificateStatus')[0]) {
+        security.isscType = xml.getElementsByTagName('CertificateStatus')[0].value;
+    }
+    if (xml.getElementsByTagName('ExpiryDate')[0]) {
+        security.expiryDate = xml.getElementsByTagName('ExpiryDate')[0].value;
+    }
+    if (xml.getElementsByTagName('CurrentShipSecurityLevel')[0]) {
+        security.securityLevel = xml.getElementsByTagName('CurrentShipSecurityLevel')[0].value;
+    }
+    if (xml.getElementsByTagName('SecurityRelatedMatterToReport')[0]) {
+        security.securityRelatedMatter = xml.getElementsByTagName('SecurityRelatedMatterToReport')[0].value;
+    }
+    if (xml.getElementsByTagName('ValidSSC')[0]) {
+        security.approvedSSP = xml.getElementsByTagName('ValidSSC')[0];
+    }
+    if (xml.getElementsByTagName('CSO')[0]) {
+        security.firstName = xml.getElementsByTagName('CSO')[0].children.find(el => el.name === "Person")
+            .children.find(el => el.name === 'GivenName').value;
+    }
+    if (xml.getElementsByTagName('CSO')[0]) {
+        security.familyName = xml.getElementsByTagName('CSO')[0].children.find(el => el.name === "Person")
+            .children.find(el => el.name === 'FamilyName').value;
+    }
+    if (xml.getElementsByTagName('CSO')[0]) {
+        security.phone = xml.getElementsByTagName('CSO')[0].children.find(el => el.name === "ContactNumbers")
+            .children.find(el => el.name === 'MobileTelephone').value;
+    }
+    if (xml.getElementsByTagName('CSO')[0]) {
+        security.fax = xml.getElementsByTagName('CSO')[0].children.find(el => el.name === "ContactNumbers")
+            .children.find(el => el.name === 'Telefax').value;
+    }
+    if (xml.getElementsByTagName('CSO')[0]) {
+        security.email = xml.getElementsByTagName('CSO')[0].children.find(el => el.name === "ContactNumbers")
+            .children.find(el => el.name === 'EMail').value;
+    }
+
 
     if (xml.getElementsByTagName("ShipToShipActivityList")) {
         security.rows = [];
