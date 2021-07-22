@@ -6,6 +6,7 @@ import readXLSShip from "./readXLSShip";
 import readXLSVoyage from "./readXLSVoyage";
 import readXLSHealth from './readXLSHealth'
 import readXLSShipStores from "./readXLSShipStores";
+import readXLSSecurity from "./readXLSSecurity";
 
 function readXLS(files, setOpenErrorDialog, onSave) {
 
@@ -17,6 +18,8 @@ function readXLS(files, setOpenErrorDialog, onSave) {
         readXlsxFile(files[i]).then((rows) => {
             try {
                 let name = rows[0][0].toLowerCase();
+
+                console.log('EXCEL', rows);
 
                 if (name === "port information") {
                     readXLSPort(files[i], onSave)
@@ -32,6 +35,8 @@ function readXLS(files, setOpenErrorDialog, onSave) {
                     readXLSHealth(files[i], onSave);
                 } else if (name === "ship stores") {
                     readXLSShipStores(files[i], onSave);
+                } else if (name === "security information") {
+                    readXLSSecurity(files[i], onSave);
                 }
             } catch (e) {
                 setOpenErrorDialog({

@@ -7,6 +7,7 @@ import generateVoyage from "./generateVoyage";
 import generateShipStores from "./generateShipStores";
 import generateHealth from "./generateHealth";
 import generateCrewEffects from "./generateCrewEffects";
+import generateSecurity from "./generateSecurity";
 
 function createXML(data) {
     // @FIXME The required fields are not verified yet :(
@@ -18,10 +19,10 @@ function createXML(data) {
     generateShip(data.ship, EPCRequestBody);
     generatePassengers(data.passengers, EPCRequestBody);
     generateVoyage(data.voyage, EPCRequestBody);
-    generateShipStores(data.shipStores,EPCRequestBody);
+    generateShipStores(data.shipStores, EPCRequestBody);
     generateHealth(data.health, EPCRequestBody);
     generateCrewEffects(data.crewEffects, EPCRequestBody);
-
+    generateSecurity(data.security, EPCRequestBody);
 
     let xmlValue = xml([{
         EPCMessage: [{

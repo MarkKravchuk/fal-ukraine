@@ -10,7 +10,10 @@ import Typography from "@material-ui/core/Typography";
 import ReactDataGrid from "react-data-grid";
 import datePicker from "../pickers/datePicker";
 import Button from "@material-ui/core/Button";
+import {Editors} from "react-data-grid-addons";
+import listOfPortsConst from "../../config/consts/listOfPortsConst";
 
+const {DropDownEditor} = Editors;
 
 const useStyles = makeStyles((theme) => ({
     formControl: {
@@ -39,8 +42,8 @@ const SecurityFormComponent = ({data, updateData}) => {
     const marginTop = {marginTop: '30px'};
     const widthOfLongQuestion = {width: '50%'}
     const emptyDIV = <div style={{width: '225px'}}/>;
-
-
+    const portEditor = listOfPortsConst.map(el => el.code).filter(el => el.length !== 0);
+    const activityEditor = ['(...)', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15',]
     return <>
         <Typography style={marginTop} variant="h3" classes={classes.topMargin} component="h3" gutterBottom>
             Security Information</Typography>
@@ -95,8 +98,8 @@ const SecurityFormComponent = ({data, updateData}) => {
                     updateData({issued: e.target.value})
                 }}
             >
-                <MenuItem value={'Yes'}>Yes</MenuItem>
-                <MenuItem value={'No'}>No</MenuItem>
+                <MenuItem value={'GVT'}>GVT</MenuItem>
+                <MenuItem value={'RSO'}>RSO</MenuItem>
             </Select>
         </FormControl>
 
@@ -116,17 +119,21 @@ const SecurityFormComponent = ({data, updateData}) => {
                         updateData({isscType: e.target.value})
                     }}
                 >
-                    <MenuItem value={'Yes'}>Yes</MenuItem>
-                    <MenuItem value={'No'}>No</MenuItem>
+                    <MenuItem value={'Full'}>Full</MenuItem>
+                    <MenuItem value={'Interim'}>Interim</MenuItem>
                 </Select>
             </FormControl>
 
             <TextField
-                label="If no, why not?"
-                value={data.noValid}
+                label="Expiry date"
+                type="date"
+                variant={'outlined'}
+                value={data.expiryDate}
                 onChange={(e) =>
-                    updateData({noValid: e.target.value})}
-                variant="outlined"
+                    updateData({expiryDate: e.target.value})}
+                InputLabelProps={{
+                    shrink: true,
+                }}
             />
 
             {emptyDIV}
@@ -150,8 +157,9 @@ const SecurityFormComponent = ({data, updateData}) => {
                             updateData({securityLevel: e.target.value})
                         }}
                     >
-                        <MenuItem value={'Yes'}>Yes</MenuItem>
-                        <MenuItem value={'No'}>No</MenuItem>
+                        <MenuItem value={'Security Level 1'}>Security level 1</MenuItem>
+                        <MenuItem value={'Security Level 2'}>Security level 2</MenuItem>
+                        <MenuItem value={'Security Level 3'}>Security level 3</MenuItem>
                     </Select>
                 </FormControl>
             </div>
@@ -170,9 +178,34 @@ const SecurityFormComponent = ({data, updateData}) => {
                     <Select
                         className={classes.selectControl}
                         labelId="security-level-label"
-                        value={data.securityLevel}
+                        value={data.securityRelatedMatter}
                         onChange={(e) => {
-                            updateData({securityLevel: e.target.value})
+                            updateData({securityRelatedMatter: e.target.value})
+                        }}
+                    >
+                        <MenuItem value={'Yes'}>Yes</MenuItem>
+                        <MenuItem value={'No'}>No</MenuItem>
+                    </Select>
+                </FormControl>
+            </div>
+        </Grid>
+
+        <Grid container style={marginTop} classes={classes.topMargin} justify="space-between">
+            <div style={widthOfLongQuestion}>
+                <FormControl
+                    variant="outlined"
+                    className={classes.formControlNoMargin}
+                    fullWidth
+                >
+                    <InputLabel className={classes.labelControl} id="approved-label">
+                        Does the ship have an approved SSP on board?
+                    </InputLabel>
+                    <Select
+                        className={classes.selectControl}
+                        labelId="approved-label"
+                        value={data.approvedSSP}
+                        onChange={(e) => {
+                            updateData({approvedSSP: e.target.value})
                         }}
                     >
                         <MenuItem value={'Yes'}>Yes</MenuItem>
@@ -216,9 +249,9 @@ const SecurityFormComponent = ({data, updateData}) => {
             />
             <TextField
                 label="Fax"
-                value={data.familyName}
+                value={data.fax}
                 onChange={(e) =>
-                    updateData({familyName: e.target.value})}
+                    updateData({fax: e.target.value})}
                 variant="outlined"
             />
 
@@ -259,7 +292,13 @@ const SecurityFormComponent = ({data, updateData}) => {
                     {key: "locationName", name: "Location", editable: true, width: 150},
                     {key: "latitude", name: "Latitude", editable: true, width: 150},
                     {key: "longitude", name: "Longitude", editable: true, width: 150},
-                    {key: "shipActivity", name: "Activity", editable: true, width: 120, editor: datePicker},
+                    {
+                        key: "shipActivity",
+                        name: "Activity",
+                        editable: true,
+                        width: 120,
+                        editor: <DropDownEditor options={activityEditor}/>
+                    },
                     {
                         key: "securityMeasure",
                         name: "Security measures",
@@ -270,18 +309,16 @@ const SecurityFormComponent = ({data, updateData}) => {
                         key: "port",
                         name: "Port",
                         editable: true,
+                        editor: <DropDownEditor options={portEditor}/>,
                         width: 150
                     }
                 ]}
                 rowGetter={i => data.rows[i]}
                 rowsCount={data.rows.length}
-                onGridRowsUpdated={({fromRow, toRow, updated}) => {
-
-                    for (let i = fromRow; i <= toRow; i++) {
-
-                    }
-
-                    // updateData({illList: illList})
+                onGridRowsUpdated={({fromRow, updated}) => {
+                    let rows = data.rows;
+                    rows[fromRow] = {...rows[fromRow], ...updated};
+                    updateData({rows})
                 }}
                 enableCellSelect={true}
             />

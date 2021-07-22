@@ -8,6 +8,7 @@ import readVoyageXML from "./readVoyageXML";
 import readShipStoresXML from "./readShipStoresXML";
 import readHealthXML from "./readHealthXML";
 import readCrewEffectsXML from "./readCrewEffectsXML";
+import readSecurityXML from "./readSecurityXML";
 
 function readXML(fileContent) {
     let xml = new XMLParser().parseFromString(fileContent);
@@ -22,6 +23,7 @@ function readXML(fileContent) {
     readShipStoresXML(data.shipStores,xml)
     readHealthXML(data.health, xml);
     readCrewEffectsXML(data.crewEffects,xml);
+    readSecurityXML(data.security, xml);
 
     console.log("Read from XML data: ", data);
     makeReferences(data);

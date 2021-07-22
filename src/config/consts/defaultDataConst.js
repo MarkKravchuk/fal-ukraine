@@ -124,13 +124,16 @@ export default {
         validISSC: '',
         noValid: '',
         issued: '',
+        expiryDate: '',
         isscType: '',
         securityLevel: "",
+        securityRelatedMatter: '',
+        approvedSSP: '',
         firstName: '',
         familyName:'',
         phone: '',
         fax: '',
         email: '',
-        rows: [{}]
+        rows: [{NR: 1}]
     }
 }
