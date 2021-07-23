@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import ReactDataGrid from 'react-data-grid';
 import {withStyles} from '@material-ui/core/styles';
 import Typography from "@material-ui/core/Typography";
@@ -25,7 +25,8 @@ const IMOHazardEditor = <DropDownEditor options={IMOHazardClasses}/>;
 const packingGroupsEditor = <DropDownEditor options={packingGroups}/>;
 const pollutionCodesEditor = <DropDownEditor options={pollutionCodes}/>;
 const columns = [
-    {key: "Container_number", name: "Container number", editable: true, width: 150},
+    {key: "NR", name: "Seq", editable: true, width: 50},
+    {key: "Container_number", name: "Container number", editable: false, width: 150},
     {key: "Textual_reference", name: "Textual reference", editable: true, width: 150},
     {key: "DG_Classification", name: "DG Classification", editable: true, width: 150, editor: dgClassificationEditor},
     {key: "IMO_hazard_classes", name: "IMO hazard classes", editable: true, width: 150, editor: IMOHazardEditor},
@@ -42,7 +43,8 @@ const columns = [
 ];
 
 
-function DPGForm({data, updateData, cargoData}) {
+const DPGForm = ({data, cargoData, updateData}) => {
+    const [setOpenAlert] = useState({open: false, error: "", severity: 'error'})
 
     function addRow() {
         console.log("adding row");
@@ -56,16 +58,6 @@ function DPGForm({data, updateData, cargoData}) {
         updateData(data)
     }
 
-    function onGridRowsUpdated({fromRow, toRow, updated}) {
-
-        const rows = data.rows.slice();
-        for (let i = fromRow; i <= toRow; i++) {
-            rows[i] = {...rows[i], ...updated};
-        }
-        data.rows = rows;
-        updateData(data)
-    };
-
 
     return <>
         <div>
@@ -76,7 +68,44 @@ function DPGForm({data, updateData, cargoData}) {
                 columns={columns}
                 rowGetter={i => data.rows[i]}
                 rowsCount={data.rows.length}
-                onGridRowsUpdated={onGridRowsUpdated}
+                onGridRowsUpdated={({fromRow, toRow, updated}) => {
+                    console.log('From row:', fromRow, 'to row: ', toRow, 'and updated: ', updated)
+                    const rows = data.rows;
+
+                    for (let i = fromRow; i <= toRow; i++) {
+                        let item = rows[i];
+                        if (updated.hasOwnProperty("NR")) {
+                            item.NR = updated.NR;
+                            console.log("item beginning ",item)
+                            console.log("cargoData.rows ",cargoData.rows)
+
+                            let cargoItem = cargoData.rows.find(function (element){
+                                console.log("comparison ",parseInt(element.Seq), " === ",parseInt(item.NR))
+                                return parseInt(element.Seq) === parseInt(item.NR)
+                            });
+                            console.log("cargoItem ",cargoItem)
+                            if (!cargoItem) {
+                                // setOpenAlert({
+                                //     open: true,
+                                //     error: 'Please fill in "Crew or Passenger" field first',
+                                //     severity: 'error'
+                                // })
+                                // setTimeout(() => setOpenAlert({open: false, error: "", severity: 'error'}), 5000);
+                                // continue;
+                            }else {
+                                item.Container_number = cargoItem.Transport_unit;
+                                console.log("item modified ", item)
+                                item = {...item, ...updated};
+                            }
+
+                        } else {
+                            item = {...item, ...updated};
+                        }
+                        rows[i] = item;
+                    }
+                    updateData({rows: rows})
+
+                }}
                 enableCellSelect={true}
 
             />

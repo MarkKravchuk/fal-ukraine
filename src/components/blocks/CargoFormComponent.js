@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import ReactDataGrid from 'react-data-grid';
 import {makeStyles, withStyles} from '@material-ui/core/styles';
 import Typography from "@material-ui/core/Typography";
@@ -57,7 +57,6 @@ const useStyles = makeStyles((theme) => ({
 
 function CargoForm({data, updateData}) {
     const classes = useStyles();
-
     function addRow() {
         console.log("adding row");
         let number = data.rows.length + 1

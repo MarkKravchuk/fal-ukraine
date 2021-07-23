@@ -56,7 +56,7 @@ export default {
     },
     crew: {
         rows: [
-            { "NR": 1 }
+            {"NR": 1}
         ]
     },
 
@@ -86,29 +86,29 @@ export default {
     },
     passengers: {
         rows: [
-            { "NR": 1 }
+            {"NR": 1}
         ]
     },
     voyage: {
         rows: [
-            { "NR": 1 }
+            {"NR": 1}
         ]
     },
     shipStores: {
         rows: [
-            { "NR": 1 }
+            {"NR": 1}
         ]
     },
     crewEffects: {
         rows: [
-            { "NR": 1 }
+            {"NR": 1}
         ]
     },
-    cargo:{
+    cargo: {
         portOfLoading: '',
         portOfDischarge: '',
         rows: [
-            { "Seq": 1 }
+            {"Seq": 1}
         ]
     },
     health: {
@@ -124,7 +124,7 @@ export default {
         nrOfDeath: '',
         nrOfIll: '',
         joinedStowaways: '',
-        sanitaryMeasures: [ {}],
+        sanitaryMeasures: [{}],
         illList: [{}]
     },
     security: {
@@ -137,7 +137,7 @@ export default {
         securityRelatedMatter: '',
         approvedSSP: '',
         firstName: '',
-        familyName:'',
+        familyName: '',
         phone: '',
         fax: '',
         email: '',
