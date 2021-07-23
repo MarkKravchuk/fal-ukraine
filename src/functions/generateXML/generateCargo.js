@@ -64,7 +64,7 @@ const generateCargo = (cargo, dpg, EPCRequestBody) => {
         });
         CargoItem.push({CustomStatus: rows[i].Custom_status});
         let dpgTable = dpgRows.find(function (element) {
-            return parseInt(element.Container_number) === parseInt(rows[i].Seq);
+            return parseInt(element.Seq) === parseInt(rows[i].Seq);
         });
 
 
