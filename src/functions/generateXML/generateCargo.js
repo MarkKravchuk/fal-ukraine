@@ -82,7 +82,7 @@ const generateCargo = (cargo, dpg, EPCRequestBody) => {
                     {EmergencyInstruction: dpgTable.EmS},
                     {SegregationInformation: dpgTable.Segregation_information},
                     {OnBoardLocation: dpgTable.On_board_location},
-                    {Comments: dpgTable.Additional_information},
+                    {Comment: dpgTable.Additional_information},
                 ]
             })
         }
@@ -98,7 +98,7 @@ const generateCargo = (cargo, dpg, EPCRequestBody) => {
     }
     Consignment.push({CargoItemListSize: rows.length});
 
-    EPCRequestBody.push({CargoConsignmentsData: [{Consignment:Consignment}]})
+    EPCRequestBody.push({CargoConsignmentsData: [{Consignment: Consignment}]})
 };
 
 export default generateCargo;

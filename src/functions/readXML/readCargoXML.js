@@ -53,20 +53,56 @@ const readCargoXML = (cargo, dpg, xml) => {
                         Description_of_goods: Description,
                         HS_code: HSCode,
                         Shipping_marks: Shipping_marks,
-                        Gross_quantity: Gross_quantity_content ,
-                        Gross_Unit:Gross_Unit,
-                        Net_quantity:Net_quantity_content,
-                        Net_Unit:Net_Unit,
-                        Measurement:Measurement_content,
-                        Measurement_Unit:Measurement_Unit,
-                        Seal_number:Seal_number,
-                        Custom_status:Custom_status,
-                        Size_and_type:Size_and_type,
+                        Gross_quantity: Gross_quantity_content,
+                        Gross_Unit: Gross_Unit,
+                        Net_quantity: Net_quantity_content,
+                        Net_Unit: Net_Unit,
+                        Measurement: Measurement_content,
+                        Measurement_Unit: Measurement_Unit,
+                        Seal_number: Seal_number,
+                        Custom_status: Custom_status,
+                        Size_and_type: Size_and_type,
                     }
 
                     cargo.rows.push(row)
-                } catch (e) {
+                    let DGSafetyDataSheet = CargoItem.children.find(el => el.name === "DGSafetyDataSheet");
+                    console.log("DGSafetyDataSheet ", DGSafetyDataSheet)
 
+
+                    let Textual_reference = DGSafetyDataSheet.children.find(el => el.name === "ProperShippingName").value;
+                    let DG_Classification = DGSafetyDataSheet.children.find(el => el.name === "DGClassification").value;
+                    let IMO_hazard_classes = DGSafetyDataSheet.children.find(el => el.name === "UNClass").value;
+                    let UN_number = DGSafetyDataSheet.children.find(el => el.name === "UNNumber").value;
+                    let Packing_group = DGSafetyDataSheet.children.find(el => el.name === "PackingGroup").value;
+                    let Subsidiary_risk = DGSafetyDataSheet.children.find(el => el.name === "SubsidiaryRisks").value;
+                    let Flash_point = DGSafetyDataSheet.children.find(el => el.name === "FlashPoint").value;
+                    let pollution_code = DGSafetyDataSheet.children.find(el => el.name === "MARPOLPollutionCode").value;
+                    let EmS = DGSafetyDataSheet.children.find(el => el.name === "EmergencyInstruction").value;
+                    let Additional_information = DGSafetyDataSheet.children.find(el => el.name === "Comment").value;
+                    let Segregation_information = DGSafetyDataSheet.children.find(el => el.name === "SegregationInformation").value;
+                    let On_board_location = DGSafetyDataSheet.children.find(el => el.name === "OnBoardLocation").value;
+                    let dgdRow = {
+                        Seq: Seq,
+                        Container_number: Transport_unit,
+                        Textual_reference: Textual_reference,
+                        DG_Classification: DG_Classification,
+                        IMO_hazard_classes: IMO_hazard_classes,
+                        UN_number: UN_number,
+                        Packing_group: Packing_group,
+                        Subsidiary_risk: Subsidiary_risk,
+                        Flash_point: Flash_point,
+                        pollution_code: pollution_code,
+                        EmS: EmS,
+                        Additional_information: Additional_information,
+                        Segregation_information: Segregation_information,
+                        On_board_location: On_board_location,
+                    }
+                    console.log("dgdRow ", dgdRow)
+                    dpg.rows.push(dgdRow);
+
+
+                } catch (e) {
+                    console.log(e)
                 }
             }
 
