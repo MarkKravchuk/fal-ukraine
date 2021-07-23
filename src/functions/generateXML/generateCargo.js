@@ -1,8 +1,7 @@
 import listOfPortsConst from "../../config/consts/listOfPortsConst";
 
 const generateCargo = (cargo, dpg, EPCRequestBody) => {
-
-    let CargoConsignmentsData = [];
+    let Consignment = [];
     let rows = cargo.rows;
     let dpgRows = dpg.rows;
     let portOfLoading = listOfPortsConst.find(function (element) {
@@ -12,7 +11,7 @@ const generateCargo = (cargo, dpg, EPCRequestBody) => {
         return element.code === cargo.portOfDischarge;
     });
 
-    CargoConsignmentsData.push({
+    Consignment.push({
         PortOfLoading: [
             {
                 Port: [
@@ -22,7 +21,7 @@ const generateCargo = (cargo, dpg, EPCRequestBody) => {
                 ]
             }]
     });
-    CargoConsignmentsData.push({
+    Consignment.push({
         PortOfDischarge: [
             {
                 Port: [
@@ -95,11 +94,11 @@ const generateCargo = (cargo, dpg, EPCRequestBody) => {
                 {SealNumber: rows[i].Seal_number},
             ]
         });
-        CargoConsignmentsData.push({CargoItem: CargoItem});
+        Consignment.push({CargoItem: CargoItem});
     }
-    CargoConsignmentsData.push({CargoItemListSize: rows.length});
+    Consignment.push({CargoItemListSize: rows.length});
 
-    EPCRequestBody.push({CargoConsignmentsData: CargoConsignmentsData})
+    EPCRequestBody.push({CargoConsignmentsData: [{Consignment:Consignment}]})
 };
 
 export default generateCargo;

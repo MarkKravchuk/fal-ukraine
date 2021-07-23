@@ -61,12 +61,28 @@ const readSecurityXML = (security, xml) => {
             console.log()
             console.log()
             console.log()
-            let latitude = row.children.find(el => el.name === 'Location')
-                .children.find(el => el.name === 'Position').children.find(el => el.name === 'Latitude').value;
-            let longitude = row.children.find(el => el.name === 'Location')
-                .children.find(el => el.name === 'Position').children.find(el => el.name === 'Longitude').value;
-            let port = row.children.find(el => el.name === 'Location')
-                .children.find(el => el.name === 'Port').children.find(el => el.name === 'UNLoCode').value;
+            let latitude = '';
+            let longitude = '';
+            let port = '';
+            try {
+                latitude = row.children.find(el => el.name === 'Location')
+                    .children.find(el => el.name === 'Position').children.find(el => el.name === 'Latitude').value;
+            } catch (e) {
+
+            }
+            try {
+                longitude = row.children.find(el => el.name === 'Location')
+                    .children.find(el => el.name === 'Position').children.find(el => el.name === 'Longitude').value;
+            } catch (e) {
+
+            }
+            try {
+                port = row.children.find(el => el.name === 'Location')
+                    .children.find(el => el.name === 'Port').children.find(el => el.name === 'UNLoCode').value;
+            } catch (e) {
+
+            }
+
 
             security.rows.push({
                 NR,

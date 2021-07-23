@@ -105,7 +105,9 @@ function ShipDetails() {
                                                         voyage,
                                                         shipStores,
                                                         health,
-                                                        crewEffects
+                                                        crewEffects,
+                                                        cargo,
+                                                        dpg
                                                     } = readXML(reader.result);
                                                     let dataCopy = JSON.parse(JSON.stringify(data));
 
@@ -118,7 +120,9 @@ function ShipDetails() {
                                                             voyage,
                                                             shipStores,
                                                             health,
-                                                            crewEffects
+                                                            crewEffects,
+                                                            cargo,
+                                                            dpg
                                                         }
                                                     });
                                                 } catch (e) {
