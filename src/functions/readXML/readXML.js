@@ -28,7 +28,6 @@ function readXML(fileContent) {
     readSecurityXML(data.security, xml);
 
 
-
     console.log("Read from XML data: ", data);
     makeReferences(data);
     return data;
