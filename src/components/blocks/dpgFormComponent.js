@@ -70,7 +70,7 @@ function DPGForm({data, updateData, cargoData}) {
     return <>
         <div>
             <Typography variant="h3" component="h3" gutterBottom>
-                DPG Information
+                Dangerous goods
             </Typography>
             <ReactDataGrid
                 columns={columns}

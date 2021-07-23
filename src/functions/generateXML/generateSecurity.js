@@ -48,17 +48,19 @@ const generateSecurity = (security, EPCRequestBody) => {
                         {Latitude: row.latitude},
                         {Longitude: row.longitude}
                     ]
-                },
-                {
-                    Port: [
-                        {Name: port.name},
-                        {Facility: port.facility},
-                        {CountryCode: port.countryCode},
-                        {UNLoCode: port.code}
-                    ]
                 }
             ]
         });
+        if (port) {
+            ShipToShipActivity.push({
+                Port: [
+                    {Name: port.name},
+                    {Facility: port.facility},
+                    {CountryCode: port.countryCode},
+                    {UNLoCode: port.code}
+                ]
+            })
+        }
 
         ShipToShipActivityList.push({ShipToShipActivity});
     }
