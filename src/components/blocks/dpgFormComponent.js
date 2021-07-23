@@ -8,6 +8,10 @@ import dgClassifications from "../../config/consts/dgClassifications";
 import IMOHazardClasses from "../../config/consts/IMOHazardClasses";
 import packingGroups from "../../config/consts/packingGroups";
 import pollutionCodes from "../../config/consts/pollutionCodes";
+import Collapse from "@material-ui/core/Collapse";
+import Alert from "@material-ui/lab/Alert";
+import IconButton from "@material-ui/core/IconButton";
+import CloseIcon from "@material-ui/icons/Close";
 
 const {DropDownEditor} = Editors;
 
@@ -25,7 +29,7 @@ const IMOHazardEditor = <DropDownEditor options={IMOHazardClasses}/>;
 const packingGroupsEditor = <DropDownEditor options={packingGroups}/>;
 const pollutionCodesEditor = <DropDownEditor options={pollutionCodes}/>;
 const columns = [
-    {key: "NR", name: "Seq", editable: true, width: 50},
+    {key: "Seq", name: "Seq", editable: true, width: 50},
     {key: "Container_number", name: "Container number", editable: false, width: 150},
     {key: "Textual_reference", name: "Textual reference", editable: true, width: 150},
     {key: "DG_Classification", name: "DG Classification", editable: true, width: 150, editor: dgClassificationEditor},
@@ -44,7 +48,7 @@ const columns = [
 
 
 const DPGForm = ({data, cargoData, updateData}) => {
-    const [setOpenAlert] = useState({open: false, error: "", severity: 'error'})
+    const [openAlert, setOpenAlert] = useState({open: false, error: "", severity: 'error'});
 
     function addRow() {
         console.log("adding row");
@@ -64,6 +68,26 @@ const DPGForm = ({data, cargoData, updateData}) => {
             <Typography variant="h3" component="h3" gutterBottom>
                 Dangerous goods
             </Typography>
+            {/*The Alerts*/}
+            <Collapse in={openAlert.open} style={{marginTop: '30px'}}>
+                <Alert
+                    severity={openAlert.severity}
+                    action={
+                        <IconButton
+                            aria-label="close"
+                            color="inherit"
+                            size="small"
+                            onClick={() => {
+                                setOpenAlert({open: false, error: "", severity: 'error'});
+                            }}
+                        >
+                            <CloseIcon fontSize="inherit"/>
+                        </IconButton>
+                    }
+                >
+                    {openAlert.error}
+                </Alert>
+            </Collapse>
             <ReactDataGrid
                 columns={columns}
                 rowGetter={i => data.rows[i]}
@@ -74,25 +98,25 @@ const DPGForm = ({data, cargoData, updateData}) => {
 
                     for (let i = fromRow; i <= toRow; i++) {
                         let item = rows[i];
-                        if (updated.hasOwnProperty("NR")) {
-                            item.NR = updated.NR;
-                            console.log("item beginning ",item)
-                            console.log("cargoData.rows ",cargoData.rows)
+                        if (updated.hasOwnProperty("Seq")) {
+                            item.Seq = updated.Seq;
 
-                            let cargoItem = cargoData.rows.find(function (element){
-                                console.log("comparison ",parseInt(element.Seq), " === ",parseInt(item.NR))
-                                return parseInt(element.Seq) === parseInt(item.NR)
+                            let cargoItem = cargoData.rows.find(function (element) {
+                                console.log("comparison ", parseInt(element.Seq), " === ", parseInt(item.Seq))
+                                return parseInt(element.Seq) === parseInt(item.Seq)
                             });
-                            console.log("cargoItem ",cargoItem)
+                            console.log("cargoItem ", cargoItem)
                             if (!cargoItem) {
-                                // setOpenAlert({
-                                //     open: true,
-                                //     error: 'Please fill in "Crew or Passenger" field first',
-                                //     severity: 'error'
-                                // })
-                                // setTimeout(() => setOpenAlert({open: false, error: "", severity: 'error'}), 5000);
-                                // continue;
-                            }else {
+                                item.Seq = '';
+                                setOpenAlert({
+                                    open: true,
+                                    error: "Cargo with number " + item.Seq
+                                        + " does not exist. Please provide Seq with correct number reference of cargo item",
+                                    severity: 'error'
+                                })
+                                setTimeout(() => setOpenAlert({open: false, error: "", severity: 'error'}), 5000);
+                                continue;
+                            } else {
                                 item.Container_number = cargoItem.Transport_unit;
                                 console.log("item modified ", item)
                                 item = {...item, ...updated};
