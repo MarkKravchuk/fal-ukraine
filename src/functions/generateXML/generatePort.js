@@ -1,4 +1,4 @@
-import listOfPortsConst from "../../config/consts/listOfPortsConst";
+import listOfPortsConst from "../../config/JSON/listOfPorts";
 import listOfPurposesOfCallsConst from "../../config/consts/listOfPurposesOfCallsConst";
 
 const generatePort = (port, EPCRequestBody) => {

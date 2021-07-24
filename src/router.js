@@ -15,8 +15,6 @@ const history = createBrowserHistory();
 export default class AppRouter extends React.Component {
 
     render() {
-
-        console.log('The history: ', history)
         return (
             <Router history={history}>
                 <Switch>

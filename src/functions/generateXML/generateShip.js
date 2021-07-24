@@ -1,4 +1,4 @@
-import listOfPortsConst from "../../config/consts/listOfPortsConst";
+import listOfPortsConst from "../../config/JSON/listOfPorts";
 
 const generateShip = (ship, EPCRequestBody) => {
     let shipPort = listOfPortsConst.find(el => el.code === ship.port)

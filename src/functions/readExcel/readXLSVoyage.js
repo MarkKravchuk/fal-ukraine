@@ -1,7 +1,7 @@
 import readXlsxFile from 'read-excel-file'
 import moment from "moment";
 import data from '../../config/consts/defaultDataConst'
-import listOfPortsConst from "../../config/consts/listOfPortsConst";
+import listOfPortsConst from "../../config/JSON/listOfPorts";
 
 function readXLSVoyage(file, onSave) {
     data.voyage.rows = [];

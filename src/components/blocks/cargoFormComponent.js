@@ -8,7 +8,7 @@ import Grid from "@material-ui/core/Grid";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import Select from "@material-ui/core/Select";
-import ListOfPorts from "../../config/consts/listOfPortsConst";
+import ListOfPorts from "../../config/JSON/listOfPorts";
 import MenuItem from "@material-ui/core/MenuItem";
 import kindOfPackagesList from "../../config/consts/kindOfPackagesList";
 import unitList from "../../config/consts/unitList";
@@ -78,7 +78,7 @@ function CargoForm({data, updateData}) {
         }
         data.rows = rows;
         updateData(data)
-    };
+    }
 
 
     return <>

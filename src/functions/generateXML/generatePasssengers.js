@@ -1,4 +1,4 @@
-import listOfPortsConst from "../../config/consts/listOfPortsConst";
+import listOfPortsConst from "../../config/JSON/listOfPorts";
 
 const generatePassengers = (passengers, EPCRequestBody) => {
 

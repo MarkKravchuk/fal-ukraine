@@ -39,7 +39,7 @@ import DPGForm from "../components/blocks/dpgFormComponent";
 const listOfOptions = listOfOptionsConst;
 
 
-const defaultOption = 'Security';
+const defaultOption = 'Port';
 
 const drawerWidth = config.showDrawerIcons ? 240 : 180;
 

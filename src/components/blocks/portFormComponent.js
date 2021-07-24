@@ -14,7 +14,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import AddIcon from '@material-ui/icons/Add';
 import ListOfPurposesOfCalls from '../../config/consts/listOfPurposesOfCallsConst';
 
-import ListOfPorts from '../../config/consts/listOfPortsConst'
+import ListOfPorts from '../../config/JSON/listOfPorts'
 
 import './portFormComponent.css'
 
