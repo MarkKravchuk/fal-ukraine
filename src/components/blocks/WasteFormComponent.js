@@ -11,6 +11,8 @@ import Select from "@material-ui/core/Select";
 import ListOfPorts from "../../config/consts/listOfPortsConst";
 import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
+import wasteTypes from "../../config/consts/wasteTypes";
+
 
 const {DropDownEditor} = Editors;
 
@@ -23,10 +25,27 @@ const styles = (theme) => ({
     },
 });
 
-
+const WasteTypesEditor = <DropDownEditor options={wasteTypes}/>;
+const ports = ["(...)"];
+ListOfPorts.map((port) =>
+    ports.push(port.code + ' - ' + port.countryCode + ' - ' + port.name)
+);
+const PortEditor = <DropDownEditor options={ports}/>;
 const columns = [
     {key: "NR", name: "Seq", editable: true, width: 50},
-    {key: "Number_of_packages", name: "Number of packages", editable: true, width: 150},
+    {key: "WasteType", name: "Waste Type", editable: true, width: 150, editor: WasteTypesEditor},
+    {key: "WasteDescription", name: "Waste Description(when relevant)", editable: true, width: 250},
+    {key: "WasteToBeDelivered", name: "Waste to be delivered(m3)", editable: true, width: 250},
+    {key: "MaxStorage", name: "Maximum dedicated storage capacity (m3)", editable: true, width: 300},
+    {key: "WasteAmount", name: "Amount of waste on board (m3)", editable: true, width: 250},
+    {
+        key: "PortOfDelivery",
+        name: "Port of delivery of remaining waste",
+        editable: true,
+        width: 250,
+        editor: PortEditor
+    },
+    {key: "EstimatedWaste", name: "Estimated amount of waste to be generated (m3)", editable: true, width: 350},
 ];
 const useStyles = makeStyles((theme) => ({
     formControl: {
