@@ -7,6 +7,7 @@ import readXLSVoyage from "./readXLSVoyage";
 import readXLSHealth from './readXLSHealth'
 import readXLSShipStores from "./readXLSShipStores";
 import readXLSSecurity from "./readXLSSecurity";
+import readXLSCargo from "./readXLSCargo";
 
 function readXLS(files, setOpenErrorDialog, onSave) {
 
@@ -37,6 +38,8 @@ function readXLS(files, setOpenErrorDialog, onSave) {
                     readXLSShipStores(files[i], onSave);
                 } else if (name === "security information") {
                     readXLSSecurity(files[i], onSave);
+                } else if (name === "cargo consignment") {
+                    readXLSCargo(files[i], onSave);
                 }
             } catch (e) {
                 setOpenErrorDialog({

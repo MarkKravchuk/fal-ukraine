@@ -105,7 +105,9 @@ function ShipDetails() {
                                                         voyage,
                                                         shipStores,
                                                         health,
-                                                        crewEffects
+                                                        crewEffects,
+                                                        cargo,
+                                                        dpg
                                                     } = readXML(reader.result);
                                                     let dataCopy = JSON.parse(JSON.stringify(data));
 
@@ -118,7 +120,9 @@ function ShipDetails() {
                                                             voyage,
                                                             shipStores,
                                                             health,
-                                                            crewEffects
+                                                            crewEffects,
+                                                            cargo,
+                                                            dpg
                                                         }
                                                     });
                                                 } catch (e) {
@@ -156,7 +160,7 @@ function ShipDetails() {
                                             const files = document.getElementById("excel-file").files;
 
                                             readXLS(files, setOpenErrorDialog, (item) => {
-                                                let dataCopy = JSON.parse(JSON.stringify(data));
+                                                let dataCopy = data;
                                                 dataCopy = {...dataCopy, ...{item}}
                                                 console.log('The real data real: ', dataCopy)
 

@@ -9,21 +9,24 @@ import readShipStoresXML from "./readShipStoresXML";
 import readHealthXML from "./readHealthXML";
 import readCrewEffectsXML from "./readCrewEffectsXML";
 import readSecurityXML from "./readSecurityXML";
+import readCargoXML from "./readCargoXML";
 
 function readXML(fileContent) {
     let xml = new XMLParser().parseFromString(fileContent);
 
-    console.log("reading xml ")
+    console.log("reading xml ");
     let data = defaultData;
     readPortXML(data.port, xml);
     readShipXML(data.ship, xml);
     readCrewXML(data.crew, xml);
     readPassengersXML(data.passengers, xml);
     readVoyageXML(data.voyage, xml);
-    readShipStoresXML(data.shipStores,xml)
+    readShipStoresXML(data.shipStores, xml);
     readHealthXML(data.health, xml);
-    readCrewEffectsXML(data.crewEffects,xml);
+    readCrewEffectsXML(data.crewEffects, xml);
+    readCargoXML(data.cargo, data.dpg, xml);
     readSecurityXML(data.security, xml);
+
 
     console.log("Read from XML data: ", data);
     makeReferences(data);
@@ -31,18 +34,18 @@ function readXML(fileContent) {
 }
 
 // A function to assign the references on different elements
-function makeReferences (data) {
-    data.health.illList.map (el => {
+function makeReferences(data) {
+    data.health.illList.map(el => {
         let {NR, crewPassenger} = el;
         if (crewPassenger === 'Crew') {
-            let crewItem = data.crew.rows.find( item => item.NR === NR);
+            let crewItem = data.crew.rows.find(item => item.NR === NR);
             if (!crewItem) {
                 return el;
             }
             el.firstName = crewItem.Given_name;
             el.familyName = crewItem.Family_name;
         } else if (crewPassenger === 'Passenger') {
-            let passengerItem = data.passengers.rows.find( item => item.NR === NR);
+            let passengerItem = data.passengers.rows.find(item => item.NR === NR);
             if (!passengerItem) {
                 return el;
             }

@@ -1,9 +1,9 @@
 import listOfPortsConst from "../../config/consts/listOfPortsConst";
 
-const generateCargo = (cargo, EPCRequestBody) => {
-
-    let CargoConsignmentsData = [];
+const generateCargo = (cargo, dpg, EPCRequestBody) => {
+    let Consignment = [];
     let rows = cargo.rows;
+    let dpgRows = dpg.rows;
     let portOfLoading = listOfPortsConst.find(function (element) {
         return element.code === cargo.portOfLoading;
     });
@@ -11,7 +11,7 @@ const generateCargo = (cargo, EPCRequestBody) => {
         return element.code === cargo.portOfDischarge;
     });
 
-    CargoConsignmentsData.push({
+    Consignment.push({
         PortOfLoading: [
             {
                 Port: [
@@ -21,7 +21,7 @@ const generateCargo = (cargo, EPCRequestBody) => {
                 ]
             }]
     });
-    CargoConsignmentsData.push({
+    Consignment.push({
         PortOfDischarge: [
             {
                 Port: [
@@ -63,6 +63,30 @@ const generateCargo = (cargo, EPCRequestBody) => {
             ]
         });
         CargoItem.push({CustomStatus: rows[i].Custom_status});
+        let dpgTable = dpgRows.find(function (element) {
+            return parseInt(element.Seq) === parseInt(rows[i].Seq);
+        });
+
+
+        if (dpgTable) {
+            CargoItem.push({
+                DGSafetyDataSheet: [
+                    {ProperShippingName: dpgTable.Textual_reference},
+                    {DGClassification: dpgTable.DG_Classification},
+                    {UNNumber: dpgTable.UN_number},
+                    {UNClass: dpgTable.IMO_hazard_classes},
+                    {PackingGroup: dpgTable.Packing_group},
+                    {SubsidiaryRisks: dpgTable.Subsidiary_risk},
+                    {FlashPoint: dpgTable.Flash_point},
+                    {MARPOLPollutionCode: dpgTable.pollution_code},
+                    {EmergencyInstruction: dpgTable.EmS},
+                    {SegregationInformation: dpgTable.Segregation_information},
+                    {OnBoardLocation: dpgTable.On_board_location},
+                    {Comment: dpgTable.Additional_information},
+                ]
+            })
+        }
+
         CargoItem.push({
             Container: [
                 {MarksAndNumber: rows[i].Transport_unit},
@@ -70,11 +94,11 @@ const generateCargo = (cargo, EPCRequestBody) => {
                 {SealNumber: rows[i].Seal_number},
             ]
         });
-        CargoConsignmentsData.push({CargoItem: CargoItem});
+        Consignment.push({CargoItem: CargoItem});
     }
-    CargoConsignmentsData.push({CargoItemListSize: rows.length});
+    Consignment.push({CargoItemListSize: rows.length});
 
-    EPCRequestBody.push({CargoConsignmentsData: CargoConsignmentsData})
+    EPCRequestBody.push({CargoConsignmentsData: [{Consignment: Consignment}]})
 };
 
 export default generateCargo;
