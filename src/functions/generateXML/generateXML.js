@@ -9,6 +9,7 @@ import generateHealth from "./generateHealth";
 import generateCrewEffects from "./generateCrewEffects";
 import generateCargo from "./generateCargo";
 import generateSecurity from "./generateSecurity";
+import generateWaste from "./generateWaste";
 
 function createXML(data) {
     // @FIXME The required fields are not verified yet :(
@@ -25,6 +26,7 @@ function createXML(data) {
     generateCrewEffects(data.crewEffects, EPCRequestBody);
     generateCargo(data.cargo, data.dpg, EPCRequestBody)
     generateSecurity(data.security, EPCRequestBody);
+    generateWaste(data.waste, EPCRequestBody);
 
     let xmlValue = xml([{
         EPCMessage: [{
