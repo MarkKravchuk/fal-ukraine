@@ -148,4 +148,12 @@ export default {
             {}
         ]
     },
+    waste: {
+        WasteDeliveryStatus:'',
+        LastPortDelivered:'',
+        LastPortDeliveredDate:'',
+        rows: [
+            {NR: 1}
+        ]
+    },
 }
