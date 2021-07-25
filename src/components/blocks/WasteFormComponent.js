@@ -11,7 +11,7 @@ import Select from "@material-ui/core/Select";
 import ListOfPorts from "../../config/consts/listOfPortsConst";
 import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
-import wasteTypes from "../../config/consts/wasteTypes";
+import wasteTypes from "../../config/consts/wasteTypes.json";
 
 
 const {DropDownEditor} = Editors;
@@ -25,7 +25,12 @@ const styles = (theme) => ({
     },
 });
 
-const WasteTypesEditor = <DropDownEditor options={wasteTypes}/>;
+let wasteTypesList = ["[Waste type]"];
+for (let i = 0; i < Object.keys(wasteTypes).length; i++) {
+    let wasteTypeFormatted = Object.keys(wasteTypes)[i] + ' : ' + Object.values(wasteTypes)[i];
+    wasteTypesList.push(wasteTypeFormatted);
+}
+const WasteTypesEditor = <DropDownEditor options={wasteTypesList}/>;
 const ports = ["(...)"];
 ListOfPorts.map((port) =>
     ports.push(port.code + ' - ' + port.countryCode + ' - ' + port.name)

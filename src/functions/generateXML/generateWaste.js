@@ -7,6 +7,7 @@ const generateWaste = (waste, EPCRequestBody) => {
         return element.code === waste.LastPortDelivered;
     });
 
+
     WasteInformation.push({WasteDeliveryStatus: waste.WasteDeliveryStatus});
     WasteInformation.push({
         LastPortDelivered: [
@@ -28,8 +29,20 @@ const generateWaste = (waste, EPCRequestBody) => {
                 return element.code === DeliveryPortCode;
             });
         }
+        let wasteTypeCode = '';
+        let wasteTypeDescription = '';
+        if (rows[i].WasteType && rows[i].WasteType !== '' && rows[i].WasteType !== '[Waste type]') {
+            let wasteType = rows[i].WasteType.split(" : ");
+            wasteTypeCode = wasteType[0];
+            wasteTypeDescription = wasteType[1];
+        }
 
-        WasteDisposalInformation.push({WasteType: 'to add'});
+        WasteDisposalInformation.push({
+            WasteType: [
+                {Code: wasteTypeCode},
+                {Description: wasteTypeDescription},
+            ]
+        });
         WasteDisposalInformation.push({ToBeDelivered: rows[i].WasteToBeDelivered});
         WasteDisposalInformation.push({MaxStorage: rows[i].MaxStorage});
         WasteDisposalInformation.push({RetainedOnboard: rows[i].WasteAmount});
