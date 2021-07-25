@@ -2,5 +2,11 @@
   "1100":"Waste oils - Sludge",
   "1200":"Waste oils - Bilge water",
   "1301":"Waste oils - Other - Used engine oil",
-  "1300":"Waste oils - Other"
+  "1300":"Waste oils - Other",
+  "2100": "Garbage - Food waste",
+  "2200": "Garbage - Plastic",
+  "2301": "Garbage - Other - International catering waste",
+  "2302": "Garbage - Other - Paper products",
+  "2303": "Garbage - Other - Rags"
+
 }
