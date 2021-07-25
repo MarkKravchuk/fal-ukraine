@@ -152,7 +152,7 @@ function WasteForm({data, updateData}) {
                 <div className={'flex-item-60'}>
                     <Grid container justify="space-around">
                         <TextField
-                            label="Date of issue"
+                            label="Date"
                             type="date"
                             style={{minWidth: '225px'}}
                             variant={'outlined'}
