@@ -1,76 +1,97 @@
 import React from "react";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
+import {makeStyles} from "@material-ui/core/styles";
+import {DataGrid} from '@material-ui/data-grid';
+import shipCallsData from './../config/JSON/shipCallsData.json'
 
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
 
+console.log('COlumn data: ', shipCallsData)
+const columns = [
+    {field: 'id', headerName: 'ID', width: 100},
+    {
+        field: 'ship',
+        headerName: 'Ship',
+        width: 130,
+    },
+    {
+        field: 'imo',
+        headerName: 'IMO',
+        width: 110,
+    },
+    {
+        field: 'portCall',
+        headerName: 'Port call',
+        width: 160,
+    },
+    {
+        field: 'agent',
+        headerName: 'Agent',
+        width: 150,
+    },
+    {
+        field: 'ETA',
+        headerName: 'ETA',
+        width: 150,
+    },
+];
 
-export default class HomePage extends React.Component {
-
-    state = {
-        rows: [
-            {
-                id: 1,
-                ship: 'Ship 1',
-                imo: 9,
-                portCall: 11,
-                agent: 'Vasya',
-                ETA: '11:11:11'
-            }, {
-                id: 2,
-                ship: 'Ship 2',
-                imo: 3,
-                portCall: 15,
-                agent: 'Ivanushka',
-                ETA: '66:66:66'
-            }
-        ]
-
+const useStyles = makeStyles((theme) => ({
+    root: {
+        display: 'flex',
+    },
+    appBar: {
+        zIndex: theme.zIndex.drawer + 1,
+    },
+    drawerContainer: {
+        overflow: 'auto',
+    },
+    content: {
+        flexGrow: 1,
+        padding: theme.spacing(3),
+    },
+    uploadFile: {
+        display: 'none'
     }
+}));
 
-    render() {
+export default function HomePage({history}) {
 
-        let {rows} = this.state;
+    const classes = useStyles()
 
-        let {history} = this.props;
+    return (
+        <div className={classes.root}>
+            <CssBaseline/>
+            <AppBar position="fixed" className={classes.appBar}>
+                <Toolbar>
+                    <Grid container justify={'space-between'}>
+                        <Typography variant="h6">
+                            Ship calls
+                        </Typography>
+                    </Grid>
+                </Toolbar>
+            </AppBar>
+            <main className={classes.content}>
+                <Toolbar/>
 
-        return (
-            <TableContainer component={Paper}>
-                <Table aria-label="simple table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>ID</TableCell>
-                            <TableCell align="right">Ship</TableCell>
-                            <TableCell align="right">IMO</TableCell>
-                            <TableCell align="right">Port&nbsp;call</TableCell>
-                            <TableCell align="right">Agent</TableCell>
-                            <TableCell align="right">ETA</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {rows.map((row) => (
-                            <TableRow key={row.id} onClick={(e) => {
-                                history.push(`/details/${row.id}`);
-                            }}>
-                                <TableCell component="th" scope="row">
-                                    {row.id}
-                                </TableCell>
-                                <TableCell align="right">{row.ship}</TableCell>
-                                <TableCell align="right">{row.imo}</TableCell>
-                                <TableCell align="right">{row.portCall}</TableCell>
-                                <TableCell align="right">{row.agent}</TableCell>
-                                <TableCell align="right">{row.ETA}</TableCell>
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-            </TableContainer>
-        )
+                <Grid container style={{marginTop: '50px'}} justify={'center'}>
 
-    }
-
+                    <div style={{width: '805px', height: '500px'}}>
+                        <DataGrid
+                            rows={shipCallsData}
+                            columns={columns}
+                            pageSize={7}
+                            onRowClick={ (e) => {
+                                history.push(`/details/${e.id}`);
+                            }}
+                            disableSelectionOnClick
+                        />
+                    </div>
+                </Grid>
+            </main>
+        </div>
+    )
 }

@@ -32,7 +32,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import HealthFormComponent from "../components/blocks/healthFormComponent";
 import ShipStoresForm from "../components/blocks/shipStoresFormComponent";
 import CrewEffectsForm from "../components/blocks/crewEffectsFormComponent";
-import CargoForm from "../components/blocks/CargoFormComponent";
+import CargoForm from "../components/blocks/cargoFormComponent";
 import SecurityFormComponent from "../components/blocks/securityFormComponent";
 import DPGForm from "../components/blocks/dpgFormComponent";
 import WasteFormComponent from "../components/blocks/WasteFormComponent";
@@ -40,7 +40,7 @@ import WasteFormComponent from "../components/blocks/WasteFormComponent";
 const listOfOptions = listOfOptionsConst;
 
 
-const defaultOption = 'Security';
+const defaultOption = 'Port';
 
 const drawerWidth = config.showDrawerIcons ? 240 : 180;
 

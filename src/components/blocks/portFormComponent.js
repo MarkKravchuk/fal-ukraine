@@ -14,20 +14,25 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import AddIcon from '@material-ui/icons/Add';
 import ListOfPurposesOfCalls from '../../config/consts/listOfPurposesOfCallsConst';
 
-import ListOfPorts from '../../config/consts/listOfPortsConst'
+import ListOfPorts from '../../config/JSON/listOfPorts'
 
 import './portFormComponent.css'
 
 const useStyles = makeStyles((theme) => ({
     formControl: {
         margin: theme.spacing(1),
-        minWidth: 200,
+        minWidth: 225,
+    },
+    datePicker: {
+        minWidth: 250,
+        width: 250
     },
     formControlNoMargin: {
-        minWidth: 200,
+        minWidth: 225,
     },
     formControlNoMargin2: {
-        margin: theme.spacing(0)
+        minWidth: 225,
+        // minHeight: 60
     },
     selectEmpty: {
         marginTop: theme.spacing(2),
@@ -42,147 +47,145 @@ function PortForm({data, updateData}) {
 
     const classes = useStyles();
     console.log('THe data', data)
+    const emptyDiv = <div className={classes.formControlNoMargin} style={{height: '0px'}}/>
 
     return <>
         <Typography variant="h3" component="h3" gutterBottom>
             Port information
         </Typography>
 
-        <FormControl
-            variant="outlined"
-            className={classes.formControlNoMargin}
-        >
-            <InputLabel id="departure-arrival-label">Departure / Arrival</InputLabel>
-
-            <Select
-                labelId="departure-arrival-label"
-                value={data.arrivalDeparture}
-                onChange={(e) => {
-                    updateData({arrivalDeparture: e.target.value})
-                }}
+        <Grid container justify={'space-between'}>
+            <FormControl
+                variant="outlined"
+                className={classes.formControlNoMargin}
             >
-                <MenuItem value={'Arrival'}>Arrival</MenuItem>
-                <MenuItem value={'Departure'}>Departure</MenuItem>
-            </Select>
-        </FormControl>
+                <InputLabel id="departure-arrival-label">Departure / Arrival</InputLabel>
 
-        <FormControl
-            variant="outlined"
-            required
-            style={{marginLeft: '10%'}}
-            className={classes.formControlNoMargin}
-        >
+                <Select
+                    labelId="departure-arrival-label"
+                    value={data.arrivalDeparture}
+                    onChange={(e) => {
+                        updateData({arrivalDeparture: e.target.value})
+                    }}
+                >
+                    <MenuItem value={'Arrival'}>Arrival</MenuItem>
+                    <MenuItem value={'Departure'}>Departure</MenuItem>
+                </Select>
+            </FormControl>
+
             <TextField
                 label="Voyage Number:"
                 value={data.voyageNumber}
                 onChange={(e) => updateData({voyageNumber: e.target.value})}
                 variant="outlined"
             />
-        </FormControl>
 
-        {/*</Grid>*/}
+            {emptyDiv}
+        </Grid>
 
         <Typography variant="h5" component="h5" gutterBottom style={{marginTop: '20px'}}>
             Port of call
         </Typography>
 
         {/*Port of call and all time pickers*/}
-        <div className={'flex-parent'}>
-            <div className={'flex-item-40'}>
+        <Grid container justify="space-between" style={{marginTop: '30px'}}>
 
-                <FormControl
-                    variant="outlined"
-                    className={classes.formControlNoMargin}
-                    margin={"normal"}
+            <FormControl
+                variant="outlined"
+                className={classes.formControlNoMargin}
+                margin={"normal"}
+            >
+                <InputLabel id="port-of-call-label">Port of call</InputLabel>
+
+                <Select
+                    labelId="port-of-call-label"
+                    value={data.portOfCall}
+                    onChange={(e) => {
+                        updateData({portOfCall: e.target.value})
+                    }}
                 >
-                    <InputLabel id="port-of-call-label">Port of call</InputLabel>
+                    {ListOfPorts.map((port, index) =>
+                        <MenuItem key={index} value={`${port.code}`}>
+                            {`${port.code} - ${port.countryCode} - ${port.name}`}
+                        </MenuItem>
+                    )}
+                </Select>
+            </FormControl>
 
-                    <Select
-                        labelId="port-of-call-label"
-                        value={data.portOfCall}
-                        onChange={(e) => {
-                            updateData({portOfCall: e.target.value})
-                        }}
-                    >
-                        {ListOfPorts.map((port, index) =>
-                            <MenuItem key={index} value={`${port.code}`}>
-                                {`${port.code} - ${port.countryCode} - ${port.name}`}
-                            </MenuItem>
-                        )}
-                    </Select>
-                </FormControl>
 
-                <TextField
-                    style={{marginTop: '15px'}}
-                    value={data.portFacilityAtArrival}
-                    onChange={(e) =>
-                        updateData({portFacilityAtArrival: e.target.value})}
-                    label="Port facility at arrival"
-                    variant="outlined"
-                    margin={"normal"}
-                />
-            </div>
+            <TextField
+                label="ETA to port of call"
+                type="datetime-local"
+                variant={'outlined'}
+                className={classes.datePicker}
+                margin={"normal"}
+                value={correctDateTime(data.ETAPortOfCall)}
+                onChange={(e) =>
+                    updateData({ETAPortOfCall: e.target.value})}
+                InputLabelProps={{
+                    shrink: true,
+                }}
+                inputProps={{
+                    step: 300, // 5 min
+                }}
+            />
 
-            <div className={'flex-item-60'}>
-                <Grid container justify="space-around">
-                    <TextField
-                        label="ETA to port of call"
-                        type="datetime-local"
-                        variant={'outlined'}
-                        margin={"normal"}
-                        value={correctDateTime(data.ETAPortOfCall)}
-                        onChange={(e) =>
-                            updateData({ETAPortOfCall: e.target.value})}
-                        InputLabelProps={{
-                            shrink: true,
-                        }}
-                        inputProps={{
-                            step: 300, // 5 min
-                        }}
-                    />
-                    <TextField
-                        label="ETD to port of call"
-                        type="datetime-local"
-                        variant={'outlined'}
-                        margin={"normal"}
-                        value={correctDateTime(data.ETDPortOfCall)}
-                        onChange={(e) =>
-                            updateData({ETDPortOfCall: e.target.value})}
-                        InputLabelProps={{
-                            shrink: true,
-                        }}
-                    />
-                </Grid>
+            <TextField
+                label="ATA to port of call"
+                type="datetime-local"
+                variant={'outlined'}
+                className={classes.datePicker}
+                margin={"normal"}
+                value={correctDateTime(data.ATAPortOfCall)}
+                onChange={(e) =>
+                    updateData({ATAPortOfCall: e.target.value})}
+                InputLabelProps={{
+                    shrink: true,
+                }}
+            />
+        </Grid>
 
-                <Grid container justify="space-around">
-                    <TextField
-                        label="ATA to port of call"
-                        type="datetime-local"
-                        variant={'outlined'}
-                        margin={"normal"}
-                        value={correctDateTime(data.ATAPortOfCall)}
-                        onChange={(e) =>
-                            updateData({ATAPortOfCall: e.target.value})}
-                        InputLabelProps={{
-                            shrink: true,
-                        }}
-                    />
+        <Grid container justify="space-between">
+            <TextField
+                style={{marginTop: '15px'}}
+                value={data.portFacilityAtArrival}
+                onChange={(e) =>
+                    updateData({portFacilityAtArrival: e.target.value})}
+                label="Port facility at arrival"
+                variant="outlined"
+                margin={"normal"}
+            />
 
-                    <TextField
-                        label="ATD to port of call"
-                        type="datetime-local"
-                        variant={'outlined'}
-                        margin={"normal"}
-                        value={correctDateTime(data.ATDPortOfCall)}
-                        onChange={(e) =>
-                            updateData({ATDPortOfCall: e.target.value})}
-                        InputLabelProps={{
-                            shrink: true,
-                        }}
-                    />
-                </Grid>
-            </div>
-        </div>
+
+            <TextField
+                label="ETD to port of call"
+                type="datetime-local"
+                className={classes.datePicker}
+                variant={'outlined'}
+                margin={"normal"}
+                value={correctDateTime(data.ETDPortOfCall)}
+                onChange={(e) =>
+                    updateData({ETDPortOfCall: e.target.value})}
+                InputLabelProps={{
+                    shrink: true,
+                }}
+            />
+
+
+            <TextField
+                label="ATD to port of call"
+                type="datetime-local"
+                className={classes.datePicker}
+                variant={'outlined'}
+                margin={"normal"}
+                value={correctDateTime(data.ATDPortOfCall)}
+                onChange={(e) =>
+                    updateData({ATDPortOfCall: e.target.value})}
+                InputLabelProps={{
+                    shrink: true,
+                }}
+            />
+        </Grid>
 
         {/*Port of arrival / last port of call / next port of call*/}
         <Grid container justify="space-between" style={{marginTop: '30px'}}>
@@ -274,7 +277,8 @@ function PortForm({data, updateData}) {
             Position at port of call
         </Typography>
 
-        {/*Latitude, longitute and time*/}
+        {/*Latitude, longitute and time*/
+        }
         <Grid container justify="space-between" style={{marginTop: '30px'}}>
 
             <TextField
@@ -302,6 +306,7 @@ function PortForm({data, updateData}) {
             <TextField
                 label="Time"
                 type="datetime-local"
+                className={classes.datePicker}
                 variant={'outlined'}
                 value={correctDateTime(data.position.time)}
                 onChange={(e) => {
@@ -335,7 +340,7 @@ function PortForm({data, updateData}) {
             Name of master
         </Typography>
 
-        <Grid container justify={'flex-start'}>
+        <Grid container justify={'space-between'}>
 
             <TextField
                 label="Family name"
@@ -349,7 +354,6 @@ function PortForm({data, updateData}) {
             />
 
             <TextField
-                style={{marginLeft: '10%'}}
                 label="Given name"
                 value={data.nameOfMaster.givenName}
                 onChange={(e) => {
@@ -359,6 +363,8 @@ function PortForm({data, updateData}) {
                 }}
                 variant="outlined"
             />
+
+            {emptyDiv}
 
         </Grid>
 
@@ -602,33 +608,39 @@ function PortForm({data, updateData}) {
 
         </Grid>
 
-        <FormControl
-            variant="outlined"
-            className={classes.formControlNoMargin}
-            margin={"normal"}
-        >
-            <InputLabel id="stowaways-label">Have any stowaways been found on boards</InputLabel>
-
-            <Select
-                labelId="stowaways-label"
-                value={data.stowaways}
-                onChange={(e) => updateData({stowaways: e.target.value})}
+        <Grid container justify={'space-between'}>
+            <FormControl
+                variant="outlined"
+                className={classes.formControlNoMargin2}
+                margin={"normal"}
             >
-                <MenuItem value={'Yes'}>Yes</MenuItem>
-                <MenuItem value={'No'}>No</MenuItem>
-            </Select>
-        </FormControl>
+                <InputLabel id="stowaways-label">Have any stowaways been found on boards</InputLabel>
 
-        <TextField
-            label="Period of stay"
-            margin={'normal'}
-            style={{marginLeft: '30px'}}
-            variant="outlined"
-            value={data.periodOfStay}
-            onChange={(e) =>
-                updateData({periodOfStay: e.target.value})
-            }
-        />
+                <Select
+                    className={classes.formControlNoMargin2}
+                    labelId="stowaways-label"
+                    value={data.stowaways}
+                    onChange={(e) => updateData({stowaways: e.target.value})}
+                >
+                    <MenuItem value={'Yes'}>Yes</MenuItem>
+                    <MenuItem value={'No'}>No</MenuItem>
+                </Select>
+            </FormControl>
+
+            <TextField
+                label="Period of stay"
+                margin={'normal'}
+                style={{marginLeft: '30px'}}
+                variant="outlined"
+                value={data.periodOfStay}
+                onChange={(e) =>
+                    updateData({periodOfStay: e.target.value})
+                }
+            />
+
+            {emptyDiv}
+
+        </Grid>
     </>
 }
 

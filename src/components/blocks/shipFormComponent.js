@@ -9,7 +9,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 
 import countryList from "../../functions/countryList"
-import ListOfPorts from "../../config/consts/listOfPortsConst";
+import ListOfPorts from "../../config/JSON/listOfPorts";
 import ListOfShipTypes from "../../config/consts/listOfShipTypesConst";
 
 const useStyles = makeStyles((theme) => ({

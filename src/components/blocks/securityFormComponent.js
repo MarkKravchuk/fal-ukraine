@@ -11,7 +11,7 @@ import ReactDataGrid from "react-data-grid";
 import datePicker from "../pickers/datePicker";
 import Button from "@material-ui/core/Button";
 import {Editors} from "react-data-grid-addons";
-import listOfPortsConst from "../../config/consts/listOfPortsConst";
+import listOfPortsConst from "../../config/JSON/listOfPorts";
 
 const {DropDownEditor} = Editors;
 
@@ -45,7 +45,7 @@ const SecurityFormComponent = ({data, updateData}) => {
     const portEditor = listOfPortsConst.map(el => el.code).filter(el => el.length !== 0);
     const activityEditor = ['(...)', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15',]
     return <>
-        <Typography style={marginTop} variant="h3" classes={classes.topMargin} component="h3" gutterBottom>
+        <Typography variant="h3" classes={classes.topMargin} component="h3" gutterBottom>
             Security Information</Typography>
 
         <Typography style={marginTop} variant="h5" classes={classes.topMargin} component="h5" gutterBottom>
