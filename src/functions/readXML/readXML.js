@@ -10,6 +10,7 @@ import readHealthXML from "./readHealthXML";
 import readCrewEffectsXML from "./readCrewEffectsXML";
 import readSecurityXML from "./readSecurityXML";
 import readCargoXML from "./readCargoXML";
+import readWasteXML from "./readWasteXML";
 
 function readXML(fileContent) {
     let xml = new XMLParser().parseFromString(fileContent);
@@ -26,6 +27,7 @@ function readXML(fileContent) {
     readCrewEffectsXML(data.crewEffects, xml);
     readCargoXML(data.cargo, data.dpg, xml);
     readSecurityXML(data.security, xml);
+    readWasteXML(data.waste, xml);
 
 
     console.log("Read from XML data: ", data);

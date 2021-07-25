@@ -1,9 +1,9 @@
-import listOfPortsConst from "../../config/consts/listOfPortsConst";
+import ListOfPorts from "../../config/JSON/listOfPorts";
 
 const generateWaste = (waste, EPCRequestBody) => {
     let WasteInformation = [];
     let rows = waste.rows;
-    let lastPortDelivered = listOfPortsConst.find(function (element) {
+    let lastPortDelivered = ListOfPorts.find(function (element) {
         return element.code === waste.LastPortDelivered;
     });
 
@@ -25,7 +25,7 @@ const generateWaste = (waste, EPCRequestBody) => {
         let PortOfDelivery = {};
         if (rows[i].PortOfDelivery && rows[i].PortOfDelivery !== '') {
             let DeliveryPortCode = rows[i].PortOfDelivery.split(' -')[0]
-            PortOfDelivery = listOfPortsConst.find(function (element) {
+            PortOfDelivery = ListOfPorts.find(function (element) {
                 return element.code === DeliveryPortCode;
             });
         }
