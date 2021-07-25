@@ -35,6 +35,7 @@ import CrewEffectsForm from "../components/blocks/crewEffectsFormComponent";
 import CargoForm from "../components/blocks/cargoFormComponent";
 import SecurityFormComponent from "../components/blocks/securityFormComponent";
 import DPGForm from "../components/blocks/dpgFormComponent";
+import WasteFormComponent from "../components/blocks/WasteFormComponent";
 
 const listOfOptions = listOfOptionsConst;
 
@@ -107,7 +108,8 @@ function ShipDetails() {
                                                         health,
                                                         crewEffects,
                                                         cargo,
-                                                        dpg
+                                                        dpg,
+                                                        waste
                                                     } = readXML(reader.result);
                                                     let dataCopy = JSON.parse(JSON.stringify(data));
 
@@ -122,7 +124,8 @@ function ShipDetails() {
                                                             health,
                                                             crewEffects,
                                                             cargo,
-                                                            dpg
+                                                            dpg,
+                                                            waste
                                                         }
                                                     });
                                                 } catch (e) {
@@ -374,6 +377,17 @@ function getChildComponent(activeItem, [data, setData]) {
                     setData(dataCopy);
                 }}/>
         case 'waste':
+            return <WasteFormComponent
+                data={data.waste}
+                updateData={(dataItem) => {
+                    // deep copy
+                    //@FIXME Fix it without using deep copy
+                    let dataCopy = JSON.parse(JSON.stringify(data));
+                    let waste = dataCopy.waste;
+                    dataCopy.waste = {...waste, ...dataItem};
+                    console.log("data copy ", dataCopy)
+                    setData(dataCopy);
+                }}/>
         default:
             return <h1>Not supported yet</h1>
     }

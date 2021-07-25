@@ -8,6 +8,7 @@ import readXLSHealth from './readXLSHealth'
 import readXLSShipStores from "./readXLSShipStores";
 import readXLSSecurity from "./readXLSSecurity";
 import readXLSCargo from "./readXLSCargo";
+import readXLSWaste from "./readXLSWaste";
 
 function readXLS(files, setOpenErrorDialog, onSave) {
 
@@ -40,6 +41,8 @@ function readXLS(files, setOpenErrorDialog, onSave) {
                     readXLSSecurity(files[i], onSave);
                 } else if (name === "cargo consignment") {
                     readXLSCargo(files[i], onSave);
+                } else if (name === "waste information") {
+                    readXLSWaste(files[i], onSave);
                 }
             } catch (e) {
                 setOpenErrorDialog({
