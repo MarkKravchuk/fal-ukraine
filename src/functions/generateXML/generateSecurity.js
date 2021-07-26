@@ -5,6 +5,9 @@ export const checkRequiredSecurity = (errors, data) => {
 
     data.rows.forEach(el => {
         if (!el.shipActivity) errors.Security['Activity'] = [];
+        if (!el.dateFrom) errors.Security['Date from'] = [];
+        if (!el.dateDeparture) errors.Security['Date departure'] = [];
+        if (!el.locationName) errors.Security['Location'] = [];
     })
 }
 const generateSecurity = (security, EPCRequestBody) => {
