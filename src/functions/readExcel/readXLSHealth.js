@@ -1,5 +1,6 @@
 import readXlsxFile from 'read-excel-file'
 import data from '../../config/consts/defaultDataConst'
+import moment from "moment";
 
 const readXLSHealth = (file, onSave) => {
     let health = data.health;
@@ -22,7 +23,11 @@ const readXLSHealth = (file, onSave) => {
             if (!rows[i][2]) continue;
             let type = rows[i][2];
             let place = rows[i][3];
-            let date = new Date(rows[i][4]);
+            // let date = rows[i][4];
+            let date = "";
+            if (rows[i][4] != null) {
+                date = moment(rows[i][4]).format("DD/MM/YYYY")
+            }
             health.sanitaryMeasures.push({type, place, date})
         }
         health.illList = [];
@@ -33,7 +38,10 @@ const readXLSHealth = (file, onSave) => {
             let familyName = rows[i][3];
             let firstName = rows[i][4];
             let ill = rows[i][7];
-            let symptomsDate = (typeof new Date(rows[i][8]) === Object) ? new Date(rows[i][8]) : rows[i][8];
+            let symptomsDate = ''
+            if (rows[i][8] != null) {
+                symptomsDate = moment(rows[i][8]).format("DD/MM/YYYY")
+            }
             let reportedPort = rows[i][9];
             let state = rows[i][10];
             let caseDisposal = rows[i][11];
