@@ -1,5 +1,6 @@
 import readXlsxFile from 'read-excel-file'
 import data from '../../config/consts/defaultDataConst'
+import moment from "moment";
 
 const readXLSSecurity = (file, onSave) => {
     readXlsxFile(file).then((rows) => {
@@ -9,8 +10,10 @@ const readXLSSecurity = (file, onSave) => {
         security.noValid = rows[3][5];
         security.issued = rows[5][5];
         security.isscType = rows[7][5];
-        security.expiryDate = rows[7][7];
-        security.securityLevel = rows[11][4 ];
+        if (rows[7][7] != null) {
+            security.expiryDate = moment(rows[7][7]).format("YYYY-MM-DD")
+        }
+        security.securityLevel = rows[11][4];
         security.securityRelatedMatter = rows[13][4];
         security.firstName = rows[17][3];
         security.familyName = rows[18][3];
@@ -23,8 +26,14 @@ const readXLSSecurity = (file, onSave) => {
         for (let i = 36; i <= 45; i++) {
             if (!rows[i][2]) continue;
             let NR = rows[i][1];
-            let dateFrom = rows[i][2];
-            let dateDeparture = rows[i][3];
+            let dateFrom = '';
+            if (rows[i][2] != null) {
+                dateFrom = moment(rows[i][2]).format("DD/MM/YYYY")
+            }
+            let dateDeparture = '';
+            if (rows[i][3] != null) {
+                dateDeparture = moment(rows[i][3]).format("DD/MM/YYYY")
+            }
             let locationName = rows[i][4];
             let latitude = rows[i][5];
             let longitude = rows[i][6];
