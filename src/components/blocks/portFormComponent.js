@@ -16,8 +16,6 @@ import ListOfPurposesOfCalls from '../../config/consts/listOfPurposesOfCallsCons
 
 import ListOfPorts from '../../config/JSON/listOfPorts'
 
-import './portFormComponent.css'
-
 const useStyles = makeStyles((theme) => ({
     formControl: {
         margin: theme.spacing(1),
@@ -83,12 +81,12 @@ function PortForm({data, updateData}) {
             {emptyDiv}
         </Grid>
 
-        <Typography variant="h5" component="h5" gutterBottom style={{marginTop: '20px'}}>
+        <Typography variant="h5" component="h5" gutterBottom style={{marginTop: '30px'}}>
             Port of call
         </Typography>
 
         {/*Port of call and all time pickers*/}
-        <Grid container justify="space-between" style={{marginTop: '30px'}}>
+        <Grid container justify="space-between">
 
             <FormControl
                 variant="outlined"
@@ -268,8 +266,8 @@ function PortForm({data, updateData}) {
                     updateData({callAnchorage: e.target.value})
                 }}
             >
-                <MenuItem value={'yes'}>Yes</MenuItem>
-                <MenuItem value={'no'}>No</MenuItem>
+                <MenuItem value={'Yes'}>Yes</MenuItem>
+                <MenuItem value={'No'}>No</MenuItem>
             </Select>
         </FormControl>
 
@@ -279,7 +277,7 @@ function PortForm({data, updateData}) {
 
         {/*Latitude, longitute and time*/
         }
-        <Grid container justify="space-between" style={{marginTop: '30px'}}>
+        <Grid container justify="space-between" style={{marginTop: '15px'}}>
 
             <TextField
                 label="Latitude"

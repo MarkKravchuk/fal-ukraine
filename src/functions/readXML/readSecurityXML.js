@@ -1,6 +1,6 @@
 const readSecurityXML = (security, xml) => {
     if (xml.getElementsByTagName('ValidISSC')[0]) {
-        security.vaildISSC = xml.getElementsByTagName('ValidISSC')[0].value;
+        security.validISSC = xml.getElementsByTagName('ValidISSC')[0].value;
     }
     if (xml.getElementsByTagName('ValidISSCReasonForNoValidISSC')[0]) {
         security.noValid = xml.getElementsByTagName('ValidISSCReasonForNoValidISSC')[0].value;
@@ -21,7 +21,7 @@ const readSecurityXML = (security, xml) => {
         security.securityRelatedMatter = xml.getElementsByTagName('SecurityRelatedMatterToReport')[0].value;
     }
     if (xml.getElementsByTagName('ValidSSC')[0]) {
-        security.approvedSSP = xml.getElementsByTagName('ValidSSC')[0];
+        security.approvedSSP = xml.getElementsByTagName('ValidSSC')[0].value;
     }
     if (xml.getElementsByTagName('CSO')[0]) {
         security.firstName = xml.getElementsByTagName('CSO')[0].children.find(el => el.name === "Person")

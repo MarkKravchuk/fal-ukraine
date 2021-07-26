@@ -7,8 +7,9 @@ function readXLSCrew(file, onSave) {
     data.crew.rows = [];
     let crew = data.crew;
     readXlsxFile(file).then((rows) => {
-        console.log("crew ", rows);
         for (let i = 4; i < rows.length; i++) {
+            // skip the line if the field is not filled in
+            if (!rows[i][2]) continue;
             let dateOfBirth = "";
             if (rows[i][8] != null) {
                 dateOfBirth = moment(rows[i][8]).format("DD/MM/YYYY")
@@ -35,8 +36,6 @@ function readXLSCrew(file, onSave) {
             }
             crew.rows.push(row)
         }
-
-        console.log('Crew from Excel: ', crew);
         onSave({crew});
 
     })

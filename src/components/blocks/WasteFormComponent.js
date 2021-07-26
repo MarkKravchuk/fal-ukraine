@@ -86,7 +86,7 @@ function WasteForm({data, updateData}) {
         }
         data.rows = rows;
         updateData(data)
-    };
+    }
 
     function correctDateTime(date) {
         date = "" + date;
@@ -120,12 +120,11 @@ function WasteForm({data, updateData}) {
                     </Select>
                 </FormControl>
             </div>
-            <Typography variant="h4" component="h3" gutterBottom className={classes.formControl}>
+            <Typography variant="h5" component="h5" style={{marginTop: '30px'}} gutterBottom className={classes.formControl}>
                 Last port and date when ship-generated waste was delivered
             </Typography>
             <div className={'flex-parent'}>
-                <div className={'flex-item-40'}>
-
+                <Grid container justify="space-between" style={{width: '80%'}}>
                     <FormControl
                         variant="outlined"
                         className={classes.formControl}
@@ -147,28 +146,24 @@ function WasteForm({data, updateData}) {
                             )}
                         </Select>
                     </FormControl>
-                </div>
 
-                <div className={'flex-item-60'}>
-                    <Grid container justify="space-around">
-                        <TextField
-                            label="Date"
-                            type="date"
-                            style={{minWidth: '225px'}}
-                            variant={'outlined'}
-                            className={classes.formControl}
-                            value={correctDateTime(data.LastPortDeliveredDate)}
-                            onChange={(e) =>
-                                updateData({LastPortDeliveredDate: e.target.value})}
-                            InputLabelProps={{
-                                shrink: true,
-                            }}
-                        />
-                    </Grid>
-                </div>
+                    <TextField
+                        label="Date"
+                        type="date"
+                        style={{minWidth: '225px'}}
+                        variant={'outlined'}
+                        className={classes.formControl}
+                        value={correctDateTime(data.LastPortDeliveredDate)}
+                        onChange={(e) =>
+                            updateData({LastPortDeliveredDate: e.target.value})}
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                    />
+                </Grid>
 
             </div>
-            <Typography variant="h4" component="h3" gutterBottom className={classes.formControl}>
+            <Typography variant="h5" component="h5" gutterBottom style={{marginTop: '30px'}} className={classes.formControl}>
                 Waste items
             </Typography>
             <ReactDataGrid

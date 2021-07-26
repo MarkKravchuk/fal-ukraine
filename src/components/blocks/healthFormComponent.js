@@ -84,6 +84,7 @@ const HealthFormComponent = ({data, updateData, crewData, passengerData}) => {
             <TextField
                 label="Total no. of death"
                 value={data.nrOfDeath}
+                style={{marginRight: "30px"}}
                 onChange={(e) =>
                     updateData({nrOfDeath: e.target.value})}
                 variant="outlined"
@@ -142,6 +143,7 @@ const HealthFormComponent = ({data, updateData, crewData, passengerData}) => {
             <TextField
                 label="How many ill persons?"
                 value={data.nrOfIll}
+                style={{marginRight: "30px"}}
                 onChange={(e) =>
                     updateData({nrOfIll: e.target.value})}
                 variant="outlined"
@@ -305,6 +307,7 @@ const HealthFormComponent = ({data, updateData, crewData, passengerData}) => {
                 label="If yes, where did they join the ship (if known)?"
                 margin={'normal'}
                 value={data.joinedStowaways}
+                style={{marginRight: "30px"}}
                 onChange={(e) => {
                     let joinedStowaways = e.target.value;
                     updateData({joinedStowaways})

@@ -28,7 +28,7 @@ const readPortXML = (port, xml) => {
     port.callPurpose = [];
     for (let i = 0; i < 9; i++) {
         try {
-            let code = xml.getElementsByTagName('CallPurpose')[i].children[1].value;
+            let code = xml.getElementsByTagName('CallPurpose')[i].children.find( el=> el.name === 'CallPurposeCode').value;
             // Our app identifies calls of purposes only by the code
             port.callPurpose.push(code)
         } catch (e) {

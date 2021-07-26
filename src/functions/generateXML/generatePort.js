@@ -165,7 +165,7 @@ export const checkRequiredPort = (errors, data) => {
     if (!data.nameOfMaster.givenName) errors.Port['Master`s Given name'] = true;
     if (!data.nameOfMaster.familyName) errors.Port['Master`s Family name'] = true;
     if (!data.agent.company) errors.Port['Company name'] = true;
-    if (!data.numberOfPersonsOnBoard) errors.Port['Number of persons'] = true;
+    if (!data.personsOnBoard.numberOfPersonsOnBoard) errors.Port['Number of persons'] = true;
 }
 
 export default generatePort;

@@ -43,7 +43,7 @@ const listOfOptions = listOfOptionsConst;
 
 const defaultOption = 'Port';
 
-const drawerWidth = config.showDrawerIcons ? 240 : 180;
+const drawerWidth = config.showDrawerIcons ? 200 : 180;
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -240,12 +240,13 @@ function ShipDetails() {
                             <ListItem
                                 key={index}
                                 button
+                                color={'success'}
                                 selected={activeItem === index}
                                 onClick={() => {
                                     setActiveItem(index)
                                 }}>
 
-                                {config.showDrawerIcons && <ListItemIcon><i>icon</i></ListItemIcon>}
+                                {(config.showDrawerIcons && item.icon) && <ListItemIcon>{item.icon}</ListItemIcon>}
                                 <ListItemText primary={item.label}/>
 
                             </ListItem>

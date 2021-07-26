@@ -9,6 +9,8 @@ function readXLSVoyage(file, onSave) {
     readXlsxFile(file).then((rows) => {
         console.log("voyage ", rows);
         for (let i = 7; i < 17; i++) {
+            if (!rows[i][2]) continue;
+
             let Date_of_arrival = "";
             if (rows[i][2] != null) {
                 Date_of_arrival = moment(rows[i][2]).format("DD/MM/YYYY, h:mm")
