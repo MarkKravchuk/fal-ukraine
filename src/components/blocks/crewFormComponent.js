@@ -63,7 +63,6 @@ const columns = [
 
 function CrewForm({data, updateData}) {
     function addRow() {
-        console.log("adding row");
         let number = data.rows.length + 1
         let row = {NR: number}
         data.rows.push(row);
@@ -85,7 +84,7 @@ function CrewForm({data, updateData}) {
         data.rows = rows
         console.log("rows ", data.rows)
         updateData(data)
-    };
+    }
     return (
         <div>
             <Typography variant="h3" component="h3" gutterBottom>

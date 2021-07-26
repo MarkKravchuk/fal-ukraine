@@ -36,6 +36,7 @@ import CargoForm from "../components/blocks/cargoFormComponent";
 import SecurityFormComponent from "../components/blocks/securityFormComponent";
 import DPGForm from "../components/blocks/dpgFormComponent";
 import WasteFormComponent from "../components/blocks/WasteFormComponent";
+import _ from 'underscore'
 
 const listOfOptions = listOfOptionsConst;
 
@@ -189,7 +190,31 @@ function ShipDetails() {
                                     color="default"
                                     component="span"
                                     onClick={() => {
-                                        createXML(data);
+                                        const onError = (errors) => {
+                                            console.log("THE ERRORS: ", errors);
+                                            let missingFields = [];
+                                            for (let block in errors) {
+                                                if (!errors.hasOwnProperty(block) || _.isEmpty(errors['' + block])) continue;
+                                                missingFields.push(`Block ${block}:`);
+                                                for (let field in errors['' + block]) {
+                                                    if (!errors['' + block].hasOwnProperty(field)) continue;
+                                                    if (typeof errors[block][field] === typeof true) {
+                                                        missingFields.push(`→  ${field} is empty`);
+                                                    } else {
+                                                        missingFields.push(`→  ${field} columns are empty`);
+                                                    }
+                                                }
+                                                missingFields.push("");
+                                            }
+                                            setOpenErrorDialog({
+                                                open: true,
+                                                error: {
+                                                    title: "Please fill in required fields first: ",
+                                                    text: missingFields
+                                                }
+                                            })
+                                        }
+                                        createXML(data, onError);
                                     }}
                                     startIcon={<GetAppIcon/>}
                                 >
@@ -237,7 +262,7 @@ function ShipDetails() {
                 open={openErrorDialog.open}
                 onClose={() => setOpenErrorDialog({
                     open: false,
-                    error: {}
+                    error: {text: []}
                 })}
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
@@ -245,7 +270,13 @@ function ShipDetails() {
                 <DialogTitle id="alert-dialog-title">{openErrorDialog.error.title}</DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
-                        {"" + openErrorDialog.error.text}
+                        {
+                            (Array.isArray(openErrorDialog.error.text))
+                                ?
+                                openErrorDialog.error.text.map((el) => <>{el}<br/></>)
+                                : openErrorDialog.error.text
+                        }
+
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
@@ -294,7 +325,7 @@ function getChildComponent(activeItem, [data, setData]) {
             }}/>
         case 'crew_effects':
             return <CrewEffectsForm data={data.crewEffects} updateData={(dataItem) => {
-                setData({...data, crewEffects: {...data.crewEffects, ...dataItem} })
+                setData({...data, crewEffects: {...data.crewEffects, ...dataItem}})
             }}/>
         case 'cargo':
             return <CargoForm data={data.cargo} updateData={(dataItem) => {

@@ -1,5 +1,12 @@
 import listOfPortsConst from "../../config/JSON/listOfPorts";
 
+export const checkRequiredShip = (errors, data) => {
+    errors.Ships = {};
+    if (!data.port) errors.Ships['Port'] = true;
+    if (!data.issueDate)  errors.Ships['Date of issue'] = true;
+    if (!data.certificateNumber)  errors.Ships['Number'] = true;
+}
+
 const generateShip = (ship, EPCRequestBody) => {
     let shipPort = listOfPortsConst.find(el => el.code === ship.port)
     EPCRequestBody.push({

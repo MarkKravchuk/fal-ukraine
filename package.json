@@ -32,6 +32,7 @@
     "react-xml-parser": "^1.1.8",
     "read-excel-file": "^5.2.4",
     "superstruct": "^0.8.3",
+    "underscore": "^1.13.1",
     "web-vitals": "^1.1.2",
     "xml": "^1.0.1",
     "yup": "^0.32.9"

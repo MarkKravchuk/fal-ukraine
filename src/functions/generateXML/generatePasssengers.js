@@ -1,5 +1,25 @@
 import listOfPortsConst from "../../config/JSON/listOfPorts";
 
+export const checkRequiredPassengers = (errors, data) => {
+    errors.Passengers = {};
+
+    if (data.rows.length === 0) errors.Passengers['Table'] = true;
+    data.rows.forEach( el => {
+        if (!el.Family_name) errors.Passengers['Family name'] = [];
+        if (!el.Given_name) errors.Passengers['Given name'] = [];
+        if (!el.date_of_birth) errors.Passengers['Date of birth'] = [];
+        if (!el.Country_of_birth) errors.Passengers['Country of birth'] = [];
+        if (!el.Place_of_birth) errors.Passengers['Place of birth'] = [];
+        if (!el.Nationality) errors.Passengers['Nationality'] = [];
+        if (!el.ID_type) errors.Passengers['ID type'] = [];
+        if (!el.ID_document_number) errors.Passengers['ID document number'] = [];
+        if (!el.Place_of_birth) errors.Passengers['Place of rating'] = [];
+        if (!el.Port_of_embarkation) errors.Passengers['Port of embarkation'] = [];
+        if (!el.Port_of_disembarkation) errors.Passengers['Port of disembarkation'] = [];
+        if (!el.Transit) errors.Passengers['Transit'] = [];
+    })
+}
+
 const generatePassengers = (passengers, EPCRequestBody) => {
 
     let rows = passengers.rows;

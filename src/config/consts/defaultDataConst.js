@@ -21,7 +21,6 @@ export default {
             latitude: '',
             longitude: '',
             time: ''
-            // time: defaultDateTime
         },
         nameOfMaster: {
             givenName: '',

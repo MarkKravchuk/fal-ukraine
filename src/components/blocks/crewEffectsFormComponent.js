@@ -30,8 +30,7 @@ const columns = [
     {key: "Rank_of_rating", name: "Rank of rating", editable: true, editor: RanksOfRatingEditor},
     {key: "Effects_description", name: "Effects description", editable: true},
     {key: "Quantity", name: "Quantity", editable: true},
-    {key: "Unit", name: "Unit", editable: true, editor: UnitEditor},
-
+    {key: "Unit", name: "Unit", editable: true, editor: UnitEditor}
 ];
 
 function CrewEffectsForm({data, updateData}) {
@@ -58,7 +57,7 @@ function CrewEffectsForm({data, updateData}) {
         data.rows = rows
         console.log("rows ", data.rows)
         updateData(data)
-    };
+    }
     return (
         <div>
             <Typography variant="h3" component="h3" gutterBottom>

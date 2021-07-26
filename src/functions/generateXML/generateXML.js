@@ -1,21 +1,24 @@
 import xml from 'xml'
 import generatePort, {checkRequiredPort} from "./generatePort";
-import generateCrew from "./generateCrew";
-import generateShip from "./generateShip";
-import generatePassengers from "./generatePasssengers";
-import generateVoyage from "./generateVoyage";
+import generateCrew, {checkRequiredCrew} from "./generateCrew";
+import generateShip, {checkRequiredShip} from "./generateShip";
+import generatePassengers, {checkRequiredPassengers} from "./generatePasssengers";
+import generateVoyage, {checkRequiredVoyage} from "./generateVoyage";
 import generateShipStores from "./generateShipStores";
 import generateHealth from "./generateHealth";
 import generateCrewEffects from "./generateCrewEffects";
 import generateCargo from "./generateCargo";
 import generateSecurity from "./generateSecurity";
 import generateWaste from "./generateWaste";
+import _ from 'underscore'
 
 function createXML(data, onError) {
     // @FIXME The required fields are not verified yet :(
-    // const errors = checkRequiredFields(data);
-    // if (Object.)
-
+    const errors = checkRequiredFields(data);
+    if (!_.isEmpty(errors)) {
+        onError(errors);
+        return;
+    }
 
     let EPCRequestBody = [];
     console.log("Generating XML data structure ", data);
@@ -46,10 +49,19 @@ function createXML(data, onError) {
     downloadXMLfile(xmlValue);
 }
 
-function checkRequiredFields (data) {
+function checkRequiredFields(data) {
     const errors = {};
     checkRequiredPort(errors, data.port);
+    checkRequiredShip(errors, data.ship);
+    checkRequiredCrew(errors, data.crew)
+    checkRequiredPassengers(errors, data.passengers);
+    checkRequiredVoyage(errors, data.voyage)
 
+
+    //deleting empty objects
+    Object.keys(errors).forEach(el => {
+        if (_.isEmpty(errors[el])) delete errors[el];
+    })
 
     return errors;
 }

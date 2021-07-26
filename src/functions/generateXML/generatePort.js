@@ -153,10 +153,19 @@ const generatePort = (port, EPCRequestBody) => {
 };
 
 export const checkRequiredPort = (errors, data) => {
-    if (!data.arrivalDeparture) errors.port.arrivalDeparture = true;
+    errors.Port = {};
 
-    if (!data.portOfCall) errors.port.portOfCall = true;
-    if (!data.portOfArrival) errors.port.portOfArrival = true;
+    if (!data.arrivalDeparture) errors.Port['Departure/Arrival'] = true;
+    if (!data.portOfCall) errors.Port["Port of call"] = true;
+    if (!data.position.latitude) errors.Port['Latitude'] = true;
+    if (!data.position.longitude) errors.Port['Longitude'] = true;
+    if (!data.position.time) errors.Port['Position time'] = true;
+    if (!data.position.latitude)
+
+    if (!data.nameOfMaster.givenName) errors.Port['Master`s Given name'] = true;
+    if (!data.nameOfMaster.familyName) errors.Port['Master`s Family name'] = true;
+    if (!data.agent.company) errors.Port['Company name'] = true;
+    if (!data.numberOfPersonsOnBoard) errors.Port['Number of persons'] = true;
 }
 
 export default generatePort;
