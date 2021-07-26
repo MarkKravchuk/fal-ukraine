@@ -7,8 +7,8 @@ import generateVoyage, {checkRequiredVoyage} from "./generateVoyage";
 import generateShipStores from "./generateShipStores";
 import generateHealth from "./generateHealth";
 import generateCrewEffects from "./generateCrewEffects";
-import generateCargo from "./generateCargo";
-import generateSecurity from "./generateSecurity";
+import generateCargo, {checkRequiredCargo, checkRequiredDangerous} from "./generateCargo";
+import generateSecurity, {checkRequiredSecurity} from "./generateSecurity";
 import generateWaste from "./generateWaste";
 import _ from 'underscore'
 
@@ -53,9 +53,12 @@ function checkRequiredFields(data) {
     const errors = {};
     checkRequiredPort(errors, data.port);
     checkRequiredShip(errors, data.ship);
-    checkRequiredCrew(errors, data.crew)
+    checkRequiredCrew(errors, data.crew);
     checkRequiredPassengers(errors, data.passengers);
-    checkRequiredVoyage(errors, data.voyage)
+    checkRequiredVoyage(errors, data.voyage);
+    checkRequiredCargo(errors, data.cargo);
+    checkRequiredDangerous(errors, data.dpg);
+    checkRequiredSecurity(errors, data.security);
 
 
     //deleting empty objects

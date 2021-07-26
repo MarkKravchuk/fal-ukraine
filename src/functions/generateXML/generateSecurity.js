@@ -1,5 +1,12 @@
 import listOfPortsConst from "../../config/JSON/listOfPorts";
 
+export const checkRequiredSecurity = (errors, data) => {
+    errors.Security = {};
+
+    data.rows.forEach(el => {
+        if (!el.shipActivity) errors.Security['Activity'] = [];
+    })
+}
 const generateSecurity = (security, EPCRequestBody) => {
     EPCRequestBody.push({ValidISSC: security.validISSC});
     EPCRequestBody.push({ValidISSCReasonForNoValidISSC: security.noValid});

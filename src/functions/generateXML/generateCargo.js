@@ -1,5 +1,22 @@
 import listOfPortsConst from "../../config/JSON/listOfPorts";
 
+export const checkRequiredCargo = (errors, data) => {
+    errors.Cargo = {};
+
+    data.rows.forEach(el => {
+        if (!el.Transport_unit) errors.Cargo['Transport unit(Container number)'] = [];
+    })
+}
+
+export const checkRequiredDangerous = (errors, data) => {
+    errors.Dangerous_goods = {};
+
+    data.rows.forEach(el => {
+        if (!el.Textual_reference) errors.Dangerous_goods['Textual reference'] = [];
+        if (!el.DG_Classification) errors.Dangerous_goods['DG Classification'] = [];
+    })
+}
+
 const generateCargo = (cargo, dpg, EPCRequestBody) => {
     let Consignment = [];
     let rows = cargo.rows;

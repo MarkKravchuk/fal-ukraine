@@ -3,7 +3,6 @@ import listOfPortsConst from "../../config/JSON/listOfPorts";
 export const checkRequiredPassengers = (errors, data) => {
     errors.Passengers = {};
 
-    if (data.rows.length === 0) errors.Passengers['Table'] = true;
     data.rows.forEach( el => {
         if (!el.Family_name) errors.Passengers['Family name'] = [];
         if (!el.Given_name) errors.Passengers['Given name'] = [];

@@ -2,7 +2,6 @@ const RanksOfRating = ['AbleSeaman', 'Agent', 'AsstFoodBevMngr', 'BarManager', '
 
 export const checkRequiredCrew = (errors, data) => {
     errors.Crew = {};
-    if (data.rows.length === 0) errors.Crew['Table'] = true;
     data.rows.forEach( el => {
         if (!el.Family_name) errors.Crew['Family name'] = [];
         if (!el.Given_name) errors.Crew['Given name'] = [];

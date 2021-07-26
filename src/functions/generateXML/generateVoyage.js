@@ -3,8 +3,7 @@ import listOfPortsConst from "../../config/JSON/listOfPorts";
 export const checkRequiredVoyage = (errors, data) => {
     errors.Voyage = {};
 
-    if (data.rows.length === 0) errors.Voyage['Table'] = true;
-    data.rows.forEach( el => {
+    data.rows.forEach(el => {
         if (!el.Port) errors.Voyage.Port = [];
     });
 
