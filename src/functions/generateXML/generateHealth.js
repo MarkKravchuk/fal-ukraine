@@ -1,3 +1,12 @@
+export const checkRequiredHealth = (errors, data) => {
+    errors.Health = {};
+
+    data.illList.forEach(el => {
+        if (!el.NR) errors.Health['NR'] = [];
+        if (!el.crewPassenger) errors.Health['Crew or passenger'] = [];
+    });
+
+}
 const generateHealth = (data, EPCRequestBody) => {
 
     let Health = [];
@@ -39,10 +48,12 @@ const generateHealth = (data, EPCRequestBody) => {
         PersonHealthParticulars.push({SymptomsDate: ill.symptomsDate});
         PersonHealthParticulars.push({ReportedToPortMedical: ill.reportedPort});
         PersonHealthParticulars.push({State: ill.state});
-        PersonHealthParticulars.push({CaseDisposalAndLocationOfEvaluation: [
+        PersonHealthParticulars.push({
+            CaseDisposalAndLocationOfEvaluation: [
                 {CaseDisposal: ill.caseDisposal},
                 {LocationOfEvacuation: ill.location}
-            ]});
+            ]
+        });
         PersonHealthParticulars.push({Treatment: ill.treatment});
         PersonHealthParticulars.push({Comments: ill.comments});
         HealthParticulars.push({PersonHealthParticulars});
