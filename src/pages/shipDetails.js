@@ -270,72 +270,35 @@ function getChildComponent(activeItem, [data, setData]) {
         case 'port':
             //@FIXME make it as a better function
             return <PortForm data={data.port} updateData={(dataItem) => {
-                // deep copy
-                //@FIXME Fix it without using deep copy
-                let dataCopy = JSON.parse(JSON.stringify(data));
-                let portCopy = dataCopy.port;
-                dataCopy.port = {...portCopy, ...dataItem};
-                setData(dataCopy);
+                setData({...data, port: {...data.port, ...dataItem}});
             }}/>
         case 'ships':
             return <ShipFormComponent data={data.ship} updateData={(dataItem) => {
-                // deep copy
-                //@FIXME Fix it without using deep copy
-                let dataCopy = JSON.parse(JSON.stringify(data));
-                let portCopy = dataCopy.ship;
-                dataCopy.ship = {...portCopy, ...dataItem};
-                setData(dataCopy);
+                setData({...data, ship: {...data.ship, ...dataItem}})
             }}/>
         case 'voyage':
             return <VoyageForm data={data.voyage} updateData={(dataItem) => {
-                // deep copy
-                //@FIXME Fix it without using deep copy
-                let dataCopy = JSON.parse(JSON.stringify(data));
-                let voyageCopy = dataCopy.voyage;
-                dataCopy.voyage = {...voyageCopy, ...dataItem};
-                setData(dataCopy);
+                setData({...data, voyage: {...data.voyage, ...dataItem}})
             }}/>
         case 'crew':
             return <CrewForm data={data.crew} updateData={(dataItem) => {
-                // deep copy
-                //@FIXME Fix it without using deep copy
-                let dataCopy = JSON.parse(JSON.stringify(data));
-                let portCopy = dataCopy.crew;
-                dataCopy.crew = {...portCopy, ...dataItem};
-                setData(dataCopy);
+                setData({...data, crew: {...data.crew, ...dataItem}})
             }}/>
         case 'passengers':
             return <PassengersForm data={data.passengers} updateData={(dataItem) => {
-                // deep copy
-                //@FIXME Fix it without using deep copy
-                let dataCopy = JSON.parse(JSON.stringify(data));
-                let passengersCopy = dataCopy.passengers;
-                dataCopy.passengers = {...passengersCopy, ...dataItem};
-                console.log("data copy ", dataCopy)
-                setData(dataCopy);
+                setData({...data, passengers: {...data.passengers, ...dataItem}});
             }}/>
         case 'ship_stores':
             return <ShipStoresForm data={data.shipStores} updateData={(dataItem) => {
-                // deep copy
-                //@FIXME Fix it without using deep copy
-                let dataCopy = JSON.parse(JSON.stringify(data));
-                let shipStoresCopy = dataCopy.shipStores;
-                dataCopy.passengers = {...shipStoresCopy, ...dataItem};
-                console.log("data copy ", dataCopy)
-                setData(dataCopy);
+                setData({...data, shipStores: {...data.shipStores, ...dataItem}});
             }}/>
         case 'crew_effects':
-            return <CrewEffectsForm data={data.crewEffects} updateData={() => {
+            return <CrewEffectsForm data={data.crewEffects} updateData={(dataItem) => {
+                setData({...data, crewEffects: {...data.crewEffects, ...dataItem} })
             }}/>
         case 'cargo':
             return <CargoForm data={data.cargo} updateData={(dataItem) => {
-                // deep copy
-                //@FIXME Fix it without using deep copy
-                let dataCopy = JSON.parse(JSON.stringify(data));
-                let cargoCopy = dataCopy.cargo;
-                dataCopy.cargo = {...cargoCopy, ...dataItem};
-                console.log("data copy ", dataCopy)
-                setData(dataCopy);
+                setData({...data, cargo: {...data.cargo, ...dataItem}});
             }}/>
         case 'health':
             return <HealthFormComponent
@@ -343,54 +306,45 @@ function getChildComponent(activeItem, [data, setData]) {
                 crewData={data.crew}
                 passengerData={data.passengers}
                 updateData={(dataItem) => {
-                    // deep copy
-                    //@FIXME Fix it without using deep copy
-                    let dataCopy = JSON.parse(JSON.stringify(data));
-                    let health = dataCopy.health;
-                    dataCopy.health = {...health, ...dataItem};
-                    console.log("data copy ", dataCopy)
-                    setData(dataCopy);
+                    let health = JSON.parse(JSON.stringify(data.health))
+                    setData({...data, health: {...health, ...dataItem}});
                 }}/>
         case 'dangerous_goods':
             return <DPGForm
                 data={data.dpg}
                 cargoData={data.cargo}
                 updateData={(dataItem) => {
-                    // deep copy
-                    //@FIXME Fix it without using deep copy
-                    let dataCopy = JSON.parse(JSON.stringify(data));
-                    let dpg = dataCopy.dpg;
-                    dataCopy.dpg = {...dpg, ...dataItem};
-                    console.log("data copy ", dataCopy)
-                    setData(dataCopy);
+                    let dpg = JSON.parse(JSON.stringify(data.dpg))
+                    setData({...data, dpg: {...dpg, ...dataItem}});
                 }}/>
         case 'security':
             return <SecurityFormComponent
                 data={data.security}
                 updateData={(dataItem) => {
-                    // deep copy
-                    //@FIXME Fix it without using deep copy
-                    let dataCopy = JSON.parse(JSON.stringify(data));
-                    let health = dataCopy.health;
-                    dataCopy.health = {...health, ...dataItem};
-                    console.log("data copy ", dataCopy)
-                    setData(dataCopy);
+                    let security = JSON.parse(JSON.stringify(data.security));
+                    setData({...data, security: {...security, ...dataItem}});
                 }}/>
         case 'waste':
             return <WasteFormComponent
                 data={data.waste}
                 updateData={(dataItem) => {
-                    // deep copy
-                    //@FIXME Fix it without using deep copy
-                    let dataCopy = JSON.parse(JSON.stringify(data));
-                    let waste = dataCopy.waste;
-                    dataCopy.waste = {...waste, ...dataItem};
-                    console.log("data copy ", dataCopy)
-                    setData(dataCopy);
+                    let waste = JSON.parse(JSON.stringify(data.waste));
+                    setData({...data, waste: {...waste, ...dataItem}});
                 }}/>
         default:
             return <h1>Not supported yet</h1>
     }
 }
 
+if (config.addOnCloseEvent) {
+    window.onload = function () {
+        window.addEventListener("beforeunload", function (e) {
+            const confirmationMessage = 'It looks like you have been editing something. '
+                + 'If you leave before saving, your changes will be lost.';
+
+            (e || window.event).returnValue = confirmationMessage; //Gecko + IE
+            return confirmationMessage; //Gecko + Webkit, Safari, Chrome etc.
+        });
+    };
+}
 export default ShipDetails;

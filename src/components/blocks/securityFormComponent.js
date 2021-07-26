@@ -78,6 +78,7 @@ const SecurityFormComponent = ({data, updateData}) => {
             <TextField
                 label="If no, why not?"
                 value={data.noValid}
+                style={{marginRight:"10%"}}
                 onChange={(e) =>
                     updateData({noValid: e.target.value})}
                 variant="outlined"

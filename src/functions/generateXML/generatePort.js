@@ -152,4 +152,11 @@ const generatePort = (port, EPCRequestBody) => {
     EPCRequestBody.push({PeriodOfStay: port.periodOfStay});
 };
 
+export const checkRequiredPort = (errors, data) => {
+    if (!data.arrivalDeparture) errors.port.arrivalDeparture = true;
+
+    if (!data.portOfCall) errors.port.portOfCall = true;
+    if (!data.portOfArrival) errors.port.portOfArrival = true;
+}
+
 export default generatePort;

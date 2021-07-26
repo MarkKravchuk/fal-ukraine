@@ -1,5 +1,6 @@
 let config = {
-    showDrawerIcons: false
+    showDrawerIcons: false,
+    addOnCloseEvent: false,
 };
 
 export {config}

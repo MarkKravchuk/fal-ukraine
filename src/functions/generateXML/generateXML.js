@@ -1,5 +1,5 @@
 import xml from 'xml'
-import generatePort from "./generatePort";
+import generatePort, {checkRequiredPort} from "./generatePort";
 import generateCrew from "./generateCrew";
 import generateShip from "./generateShip";
 import generatePassengers from "./generatePasssengers";
@@ -11,8 +11,12 @@ import generateCargo from "./generateCargo";
 import generateSecurity from "./generateSecurity";
 import generateWaste from "./generateWaste";
 
-function createXML(data) {
+function createXML(data, onError) {
     // @FIXME The required fields are not verified yet :(
+    // const errors = checkRequiredFields(data);
+    // if (Object.)
+
+
     let EPCRequestBody = [];
     console.log("Generating XML data structure ", data);
 
@@ -40,6 +44,14 @@ function createXML(data) {
         ]
     }], {declaration: true});
     downloadXMLfile(xmlValue);
+}
+
+function checkRequiredFields (data) {
+    const errors = {};
+    checkRequiredPort(errors, data.port);
+
+
+    return errors;
 }
 
 let downloadXMLfile = (xmlValue) => {
