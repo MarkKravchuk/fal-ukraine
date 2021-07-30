@@ -1,18 +1,10 @@
 [
   {
     "id": 1,
-    "ship": "BELIZE",
-    "imo": 9,
-    "portCall": 11,
-    "agent": "Vasya",
-    "ETA": "11:11:11"
-  },
-  {
-    "id": 2,
-    "ship": "Ship 2",
-    "imo": 3,
-    "portCall": 15,
-    "agent": "Ivanushka",
-    "ETA": "66:66:66"
+    "ship": "GRETA",
+    "imo": 9234422,
+    "portCall": UAODS,
+    "agent": "Одемара",
+    "ETA": "01.04.2021"
   }
 ]
