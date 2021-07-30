@@ -13,12 +13,12 @@ function readXLSVoyage(file, onSave) {
 
             let Date_of_arrival = "";
             if (rows[i][2] != null) {
-                Date_of_arrival = moment(rows[i][2]).format("DD/MM/YYYY, h:mm")
+                Date_of_arrival = moment(rows[i][2]).format("DD/MM/YYYY")
             }
 
             let Date_of_departure = "";
             if (rows[i][3] != null) {
-                Date_of_departure = moment(rows[i][3]).format("DD/MM/YYYY, h:mm")
+                Date_of_departure = moment(rows[i][3]).format("DD/MM/YYYY")
             }
 
             let Port = listOfPortsConst.find(function (element) {
