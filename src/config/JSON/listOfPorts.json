@@ -1,8 +1,13 @@
 [
-  {
+    {
     "code": "BGVAR",
     "countryCode": "BG",
     "name": "Varna"
+  },
+  {
+    "code": "BZBZE",
+    "countryCode": "BZ",
+    "name": "Belize City"
   },
   {
     "code": "ROCND",
