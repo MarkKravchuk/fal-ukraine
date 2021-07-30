@@ -10,6 +10,16 @@
     "name": "Constanta"
   },
   {
+    "code": "TRAMR",
+    "countryCode": "TR",
+    "name": "Ambarli"
+  },
+  {
+    "code": "TREYP",
+    "countryCode": "TR",
+    "name": "Evyap Port"
+  },
+  {
     "code": "TRIST",
     "countryCode": "TR",
     "name": "Istanbul"
@@ -38,10 +48,5 @@
     "code": "UAYUZ",
     "countryCode": "UA",
     "name": "Yuzhnyy"
-  },
-  {
-    "code": "TREYP",
-    "countryCode": "TR",
-    "name": "Evyap Port"
   }
 ]
