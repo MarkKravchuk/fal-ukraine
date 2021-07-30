@@ -3,7 +3,7 @@
     "id": 1,
     "ship": "GRETA",
     "imo": 9234422,
-    "portCall": 1,
+    "portCall": "UAODS",
     "agent": "Одемара",
     "ETA": "01.04.2021"
   }
