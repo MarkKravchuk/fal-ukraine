@@ -9,11 +9,9 @@ export const checkRequiredCrew = (errors, data) => {
         if (!el.date_of_birth) errors.Crew['Date of birth'] = [];
         if (!el.Country_of_birth) errors.Crew['Country of birth'] = [];
         if (!el.Place_of_birth) errors.Crew['Place of birth'] = [];
-
         if (!el.Nationality) errors.Crew['Nationality'] = [];
         if (!el.ID_type) errors.Crew['ID type'] = [];
         if (!el.ID_document_number) errors.Crew['ID document number'] = [];
-        if (!el.Place_of_birth) errors.Crew['Place of rating'] = [];
     })
 }
 
