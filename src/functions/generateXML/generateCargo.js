@@ -28,26 +28,32 @@ const generateCargo = (cargo, dpg, EPCRequestBody) => {
         return element.code === cargo.portOfDischarge;
     });
 
-    Consignment.push({
-        PortOfLoading: [
-            {
-                Port: [
-                    {Name: portOfLoading.name},
-                    {CountryCode: portOfLoading.countryCode},
-                    {UNLoCode: portOfLoading.code}
-                ]
-            }]
-    });
-    Consignment.push({
-        PortOfDischarge: [
-            {
-                Port: [
-                    {Name: portOfDischarge.name},
-                    {CountryCode: portOfDischarge.countryCode},
-                    {UNLoCode: portOfDischarge.code}
-                ]
-            }]
-    });
+    if (portOfLoading) {
+        Consignment.push({
+            PortOfLoading: [
+                {
+                    Port: [
+                        {Name: portOfLoading.name},
+                        {CountryCode: portOfLoading.countryCode},
+                        {UNLoCode: portOfLoading.code}
+                    ]
+                }]
+        });
+    }
+
+    if (portOfDischarge) {
+        Consignment.push({
+            PortOfDischarge: [
+                {
+                    Port: [
+                        {Name: portOfDischarge.name},
+                        {CountryCode: portOfDischarge.countryCode},
+                        {UNLoCode: portOfDischarge.code}
+                    ]
+                }]
+        });
+    }
+
     for (let i = 0; i < rows.length; i++) {
         let CargoItem = [];
 

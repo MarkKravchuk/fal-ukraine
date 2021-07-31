@@ -19,16 +19,19 @@ const generateWaste = (waste, EPCRequestBody) => {
 
 
     WasteInformation.push({WasteDeliveryStatus: waste.WasteDeliveryStatus});
-    WasteInformation.push({
-        LastPortDelivered: [
-            {
-                Port: [
-                    {Name: lastPortDelivered.name},
-                    {CountryCode: lastPortDelivered.countryCode},
-                    {UNLoCode: lastPortDelivered.code}
-                ]
-            }]
-    });
+    if (lastPortDelivered) {
+        WasteInformation.push({
+            LastPortDelivered: [
+                {
+                    Port: [
+                        {Name: lastPortDelivered.name},
+                        {CountryCode: lastPortDelivered.countryCode},
+                        {UNLoCode: lastPortDelivered.code}
+                    ]
+                }]
+        });
+    }
+
     WasteInformation.push({LastPortDeliveredDate: waste.LastPortDeliveredDate});
     for (let i = 0; i < rows.length; i++) {
         let WasteDisposalInformation = [];

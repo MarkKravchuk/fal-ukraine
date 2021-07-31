@@ -3,12 +3,13 @@ import listOfPortsConst from "../../config/JSON/listOfPorts";
 export const checkRequiredShip = (errors, data) => {
     errors.Ships = {};
     if (!data.port) errors.Ships['Port'] = true;
-    if (!data.issueDate)  errors.Ships['Date of issue'] = true;
-    if (!data.certificateNumber)  errors.Ships['Number'] = true;
+    if (!data.issueDate) errors.Ships['Date of issue'] = true;
+    if (!data.certificateNumber) errors.Ships['Number'] = true;
 }
 
 const generateShip = (ship, EPCRequestBody) => {
     let shipPort = listOfPortsConst.find(el => el.code === ship.port)
+
     EPCRequestBody.push({
         ShipID: [
             {ShipName: ship.name},
@@ -28,7 +29,8 @@ const generateShip = (ship, EPCRequestBody) => {
     EPCRequestBody.push({NetTonnage: ship.netTonnage})
     EPCRequestBody.push({ShipTypeContent: ship.shipType})
     EPCRequestBody.push({SummerDraught: ship.summerDraught})
-    EPCRequestBody.push({
+    if (shipPort) {
+        EPCRequestBody.push({
             RegistryCertificate: [
                 {
                     IssueLocation: [
@@ -40,7 +42,9 @@ const generateShip = (ship, EPCRequestBody) => {
                 {IssueDate: ship.issueDate},
                 {Number: ship.certificateNumber}
             ]
-        },
+        })
+    }
+    EPCRequestBody.push(
         {
             Company: [
                 {
