@@ -2,17 +2,21 @@ const RanksOfRating = ['AbleSeaman', 'Agent', 'AsstFoodBevMngr', 'BarManager', '
 
 export const checkRequiredCrew = (errors, data) => {
     errors.Crew = {};
-    data.rows.forEach( el => {
-        if (!el.Family_name) errors.Crew['Family name'] = [];
-        if (!el.Given_name) errors.Crew['Given name'] = [];
-        if (!el.Rank_of_rating) errors.Crew['Rank of rating'] = [];
-        if (!el.date_of_birth) errors.Crew['Date of birth'] = [];
-        if (!el.Country_of_birth) errors.Crew['Country of birth'] = [];
-        if (!el.Place_of_birth) errors.Crew['Place of birth'] = [];
-        if (!el.Nationality) errors.Crew['Nationality'] = [];
-        if (!el.ID_type) errors.Crew['ID type'] = [];
-        if (!el.ID_document_number) errors.Crew['ID document number'] = [];
-    })
+    if (JSON.stringify(data.rows) !== JSON.stringify([
+        {"NR": 1}
+    ])) {
+        data.rows.forEach(el => {
+            if (!el.Family_name) errors.Crew['Family name'] = [];
+            if (!el.Given_name) errors.Crew['Given name'] = [];
+            if (!el.Rank_of_rating) errors.Crew['Rank of rating'] = [];
+            if (!el.date_of_birth) errors.Crew['Date of birth'] = [];
+            if (!el.Country_of_birth) errors.Crew['Country of birth'] = [];
+            if (!el.Place_of_birth) errors.Crew['Place of birth'] = [];
+            if (!el.Nationality) errors.Crew['Nationality'] = [];
+            if (!el.ID_type) errors.Crew['ID type'] = [];
+            if (!el.ID_document_number) errors.Crew['ID document number'] = [];
+        })
+    }
 }
 
 const generateCrew = (crew, EPCRequestBody) => {

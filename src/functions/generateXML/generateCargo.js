@@ -1,13 +1,5 @@
 import listOfPortsConst from "../../config/JSON/listOfPorts";
 
-export const checkRequiredCargo = (errors, data) => {
-    errors.Cargo = {};
-
-    data.rows.forEach(el => {
-        if (!el.Transport_unit) errors.Cargo['Transport unit(Container number)'] = [];
-    })
-}
-
 export const checkRequiredDangerous = (errors, data) => {
     errors.Dangerous_goods = {};
 

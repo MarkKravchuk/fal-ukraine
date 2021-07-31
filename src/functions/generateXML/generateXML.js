@@ -7,7 +7,7 @@ import generateVoyage, {checkRequiredVoyage} from "./generateVoyage";
 import generateShipStores from "./generateShipStores";
 import generateHealth, {checkRequiredHealth} from "./generateHealth";
 import generateCrewEffects, {checkRequiredCrewEffects} from "./generateCrewEffects";
-import generateCargo, {checkRequiredCargo, checkRequiredDangerous} from "./generateCargo";
+import generateCargo, {checkRequiredDangerous} from "./generateCargo";
 import generateSecurity, {checkRequiredSecurity} from "./generateSecurity";
 import generateWaste, {checkRequiredWaste} from "./generateWaste";
 import _ from 'underscore'
@@ -56,7 +56,6 @@ function checkRequiredFields(data) {
     checkRequiredCrew(errors, data.crew);
     checkRequiredPassengers(errors, data.passengers);
     checkRequiredVoyage(errors, data.voyage);
-    checkRequiredCargo(errors, data.cargo);
     checkRequiredDangerous(errors, data.dpg);
     checkRequiredSecurity(errors, data.security);
     checkRequiredCrewEffects(errors, data.crewEffects);
