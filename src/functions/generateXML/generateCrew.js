@@ -29,7 +29,7 @@ const generateCrew = (crew, EPCRequestBody) => {
         if (rows[i].Rank_of_rating && rows[i].Rank_of_rating !== '') {
             RankOfRatingCode = RanksOfRating.indexOf(rows[i].Rank_of_rating) + 1;
         }
-        if (RankOfRatingCode === 0) {
+        if (parseInt(RankOfRatingCode) === 0) {
             RankOfRatingCode = "";
         }
         let nationalityCode = '';

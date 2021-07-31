@@ -325,7 +325,7 @@ function getChildComponent(activeItem, [data, setData]) {
                 setData({...data, shipStores: {...data.shipStores, ...dataItem}});
             }}/>
         case 'crew_effects':
-            return <CrewEffectsForm data={data.crewEffects} updateData={(dataItem) => {
+            return <CrewEffectsForm data={data.crewEffects} crewData={data.crew} updateData={(dataItem) => {
                 setData({...data, crewEffects: {...data.crewEffects, ...dataItem}})
             }}/>
         case 'cargo':

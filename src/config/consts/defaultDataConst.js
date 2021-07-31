@@ -96,7 +96,7 @@ export default {
     },
     crewEffects: {
         rows: [
-            {"NR": 1}
+            {}
         ]
     },
     cargo: {
