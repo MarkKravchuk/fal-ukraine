@@ -3,10 +3,14 @@ import listOfPortsConst from "../../config/JSON/listOfPorts";
 export const checkRequiredDangerous = (errors, data) => {
     errors.Dangerous_goods = {};
 
-    data.rows.forEach(el => {
-        if (!el.Textual_reference) errors.Dangerous_goods['Textual reference'] = [];
-        if (!el.DG_Classification) errors.Dangerous_goods['DG Classification'] = [];
-    })
+    if (JSON.stringify(data.rows) !== JSON.stringify([
+        {}
+    ])) {
+        data.rows.forEach(el => {
+            if (!el.Textual_reference) errors.Dangerous_goods['Textual reference'] = [];
+            if (!el.DG_Classification) errors.Dangerous_goods['DG Classification'] = [];
+        })
+    }
 }
 
 const generateCargo = (cargo, dpg, EPCRequestBody) => {

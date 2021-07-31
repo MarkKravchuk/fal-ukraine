@@ -5,10 +5,14 @@ export const checkRequiredWaste = (errors, data) => {
 
     if (!data.WasteDeliveryStatus) errors.Waste['Are you delivering all,some or none\n' +
     'of your waste into port reception facility'] = true;
-    data.rows.forEach(el => {
-        if (!el.WasteType) errors.Waste['Waste Type'] = [];
-        if (!el.WasteToBeDelivered) errors.Waste['Waste to be delivered(m3)'] = [];
-    })
+    if (JSON.stringify(data.rows) !== JSON.stringify([
+        {"NR": 1}
+    ])) {
+        data.rows.forEach(el => {
+            if (!el.WasteType) errors.Waste['Waste Type'] = [];
+            if (!el.WasteToBeDelivered) errors.Waste['Waste to be delivered(m3)'] = [];
+        })
+    }
 }
 const generateWaste = (waste, EPCRequestBody) => {
     let WasteInformation = [];

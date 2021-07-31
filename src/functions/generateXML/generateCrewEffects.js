@@ -2,10 +2,14 @@ const RanksOfRating = ['AbleSeaman', 'Agent', 'AsstFoodBevMngr', 'BarManager', '
 export const checkRequiredCrewEffects = (errors, data) => {
     errors.Crew_effects = {};
 
-    data.rows.forEach(el => {
-        if (!el.NR) errors.Crew_effects['NR'] = [];
-        if (!el.Effects_description) errors.Crew_effects['Effects description'] = [];
-    });
+    if (JSON.stringify(data.rows) !== JSON.stringify([
+        {"NR": 1}
+    ])) {
+        data.rows.forEach(el => {
+            if (!el.NR) errors.Crew_effects['NR'] = [];
+            if (!el.Effects_description) errors.Crew_effects['Effects description'] = [];
+        });
+    }
 
 }
 const generateCrewEffects = (crewEffects, EPCRequestBody) => {
