@@ -5,7 +5,6 @@ import moment from "moment";
 const readXLSHealth = (file, onSave) => {
     let health = data.health;
     readXlsxFile(file).then((rows) => {
-        console.log('rows', rows);
         health.enum1 = rows[13][5];
         health.nrOfDeath = rows[13][7];
         health.enum2 = rows[16][5];

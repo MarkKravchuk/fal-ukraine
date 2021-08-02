@@ -10,7 +10,6 @@ import FormControl from "@material-ui/core/FormControl";
 
 import countryList from "../../functions/countryList"
 import ListOfPorts from "../../config/JSON/listOfPorts";
-import MainPageInfo from './../../config/JSON/shipCallsData.json'
 import ListOfShipTypes from "../../config/consts/listOfShipTypesConst";
 
 const useStyles = makeStyles((theme) => ({
@@ -50,13 +49,13 @@ const ShipFormComponent = ({data, updateData, locationNumber}) => {
             <TextField
                 label="Ship name"
                 contentEditable={false}
-                value={MainPageInfo[locationNumber].ship}
+                value={data.name}
                 variant="outlined"
             />
 
             <TextField
                 label="IMO number"
-                value={MainPageInfo[locationNumber].imo}
+                value={data.IMOnumber}
                 variant="outlined"
             />
 

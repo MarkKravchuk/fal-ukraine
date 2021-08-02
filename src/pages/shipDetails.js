@@ -37,6 +37,7 @@ import SecurityFormComponent from "../components/blocks/securityFormComponent";
 import DPGForm from "../components/blocks/dpgFormComponent";
 import WasteFormComponent from "../components/blocks/WasteFormComponent";
 import _ from 'underscore'
+import MainPageInfo from './../config/JSON/shipCallsData.json'
 
 const listOfOptions = listOfOptionsConst;
 
@@ -73,10 +74,34 @@ const useStyles = makeStyles((theme) => ({
 
 function ShipDetails({history}) {
     const location = history.location.pathname;
+    let locationNumber = parseInt(location.split('/')[2]);
+    locationNumber--;
     const classes = useStyles();
     const [activeItem, setActiveItem] = useState(listOfOptions.indexOf(listOfOptions.find(el => el.label === defaultOption)));
 
-    const [data, setData] = useState(defaultDataConst);
+    const [data, setData] = useState(() => {
+        let portOfCall = MainPageInfo[locationNumber].portCall;
+        let eta = MainPageInfo[locationNumber].ETA;
+        if (eta.split('.').length !== 0) {
+            let dates = eta.split('.');
+            if (dates[0].length !== 2) {
+                eta = `${dates[0]}-${dates[1]}-${dates[2]}T00:00`;
+            } else {
+                eta = `${dates[2]}-${dates[1]}-${dates[0]}T00:00`;
+            }
+        }
+        let companyName = MainPageInfo[locationNumber].agent;
+        let imo = MainPageInfo[locationNumber].imo;
+        let ship = MainPageInfo[locationNumber].ship;
+
+        const def = defaultDataConst;
+        def.port.portOfCall = portOfCall;
+        def.port.ETAPortOfCall = eta;
+        def.port.agent.company = companyName;
+        def.ship.name = ship;
+        def.ship.IMOnumber = imo;
+        return defaultDataConst
+    });
     const [openErrorDialog, setOpenErrorDialog] = useState({open: false, error: {}});
 
     console.log("All the data FROM PARENT!!", data);
@@ -166,8 +191,6 @@ function ShipDetails({history}) {
                                             readXLS(files, setOpenErrorDialog, (item) => {
                                                 let dataCopy = data;
                                                 dataCopy = {...dataCopy, ...{item}}
-                                                console.log('The real data real: ', dataCopy)
-
                                                 setData(dataCopy)
                                             });
 
@@ -191,7 +214,6 @@ function ShipDetails({history}) {
                                     component="span"
                                     onClick={() => {
                                         const onError = (errors) => {
-                                            console.log("THE ERRORS: ", errors);
                                             let missingFields = [];
                                             for (let block in errors) {
                                                 if (!errors.hasOwnProperty(block) || _.isEmpty(errors['' + block])) continue;
@@ -256,7 +278,7 @@ function ShipDetails({history}) {
             </Drawer>
             <main className={classes.content}>
                 <Toolbar/>
-                {getChildComponent(activeItem, [data, setData], location)}
+                {getChildComponent(activeItem, [data, setData])}
             </main>
 
             <Dialog
@@ -295,19 +317,17 @@ function ShipDetails({history}) {
     )
 }
 
-function getChildComponent(activeItem, [data, setData], location) {
+function getChildComponent(activeItem, [data, setData]) {
     let selectedItem = listOfOptions[activeItem].value;
-    let locationNumber = parseInt(location.split('/')[2]);
-    locationNumber--;
 
     switch (selectedItem) {
         case 'port':
             //@FIXME make it as a better function
-            return <PortForm locationNumber={locationNumber} data={data.port} updateData={(dataItem) => {
+            return <PortForm data={data.port} updateData={(dataItem) => {
                 setData({...data, port: {...data.port, ...dataItem}});
             }}/>
         case 'ships':
-            return <ShipFormComponent locationNumber={locationNumber} data={data.ship} updateData={(dataItem) => {
+            return <ShipFormComponent data={data.ship} updateData={(dataItem) => {
                 setData({...data, ship: {...data.ship, ...dataItem}})
             }}/>
         case 'voyage':
