@@ -2,9 +2,11 @@ import listOfPortsConst from "../../config/JSON/listOfPorts";
 
 export const checkRequiredShip = (errors, data) => {
     errors.Ships = {};
-    if (!data.port) errors.Ships['Port'] = true;
-    if (!data.issueDate) errors.Ships['Date of issue'] = true;
-    if (!data.certificateNumber) errors.Ships['Number'] = true;
+    if (data.port || data.issueDate || data.certificateNumber) {
+        if (!data.port) errors.Ships['Port'] = true;
+        if (!data.issueDate) errors.Ships['Date of issue'] = true;
+        if (!data.certificateNumber) errors.Ships['Number'] = true;
+    }
 }
 
 const generateShip = (ship, EPCRequestBody) => {

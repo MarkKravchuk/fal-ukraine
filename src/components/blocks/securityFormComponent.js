@@ -324,16 +324,21 @@ const SecurityFormComponent = ({data, updateData}) => {
                 enableCellSelect={true}
             />
             <Button variant="primary" onClick={() => {
-                let illList = data.illList;
-                illList.push({});
-                updateData({illList})
+                if (data.rows.length === 0) {
+                    data.rows.push({NR: 1});
+                    updateData({rows: data.rows})
+                    return;
+                }
+                let NR = parseInt(data.rows[data.rows.length-1].NR);
+                NR++;
+                data.rows.push({NR: NR});
+                updateData({rows: data.rows})
             }}>
                 Add row
             </Button>
             <Button variant="primary" onClick={() => {
-                let illList = data.illList;
-                illList.pop();
-                updateData({illList});
+                data.rows.pop();
+                updateData({rows: data.rows});
             }}>Delete row</Button>
         </div>
     </>

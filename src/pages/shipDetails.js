@@ -71,8 +71,8 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-function ShipDetails() {
-
+function ShipDetails({history}) {
+    const location = history.location.pathname;
     const classes = useStyles();
     const [activeItem, setActiveItem] = useState(listOfOptions.indexOf(listOfOptions.find(el => el.label === defaultOption)));
 
@@ -256,7 +256,7 @@ function ShipDetails() {
             </Drawer>
             <main className={classes.content}>
                 <Toolbar/>
-                {getChildComponent(activeItem, [data, setData])}
+                {getChildComponent(activeItem, [data, setData], location)}
             </main>
 
             <Dialog
@@ -295,17 +295,19 @@ function ShipDetails() {
     )
 }
 
-function getChildComponent(activeItem, [data, setData]) {
+function getChildComponent(activeItem, [data, setData], location) {
     let selectedItem = listOfOptions[activeItem].value;
+    let locationNumber = parseInt(location.split('/')[2]);
+    locationNumber--;
 
     switch (selectedItem) {
         case 'port':
             //@FIXME make it as a better function
-            return <PortForm data={data.port} updateData={(dataItem) => {
+            return <PortForm locationNumber={locationNumber} data={data.port} updateData={(dataItem) => {
                 setData({...data, port: {...data.port, ...dataItem}});
             }}/>
         case 'ships':
-            return <ShipFormComponent data={data.ship} updateData={(dataItem) => {
+            return <ShipFormComponent locationNumber={locationNumber} data={data.ship} updateData={(dataItem) => {
                 setData({...data, ship: {...data.ship, ...dataItem}})
             }}/>
         case 'voyage':

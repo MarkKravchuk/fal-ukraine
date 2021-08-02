@@ -94,16 +94,18 @@ const generatePort = (port, EPCRequestBody) => {
     }
 
     EPCRequestBody.push({Anchorage: port.callAnchorage})
-    EPCRequestBody.push({
-        EntryPosition: [
-            {
-                Position: [
-                    {Latitude: port.position.latitude},
-                    {Longitude: port.position.longitude},
-                    {Time: port.position.time}
-                ]
-            }]
-    })
+    if (port.position.latitude || port.position.longitude || port.position.time) {
+        EPCRequestBody.push({
+            EntryPosition: [
+                {
+                    Position: [
+                        {Latitude: port.position.latitude},
+                        {Longitude: port.position.longitude},
+                        {Time: port.position.time}
+                    ]
+                }]
+        })
+    }
     EPCRequestBody.push({CargoOverview: port.cargoDescription});
     EPCRequestBody.push({
         NameOfMaster: [
@@ -157,11 +159,11 @@ export const checkRequiredPort = (errors, data) => {
 
     if (!data.arrivalDeparture) errors.Port['Departure/Arrival'] = true;
     if (!data.portOfCall) errors.Port["Port of call"] = true;
-    if (!data.position.latitude) errors.Port['Latitude'] = true;
-    if (!data.position.longitude) errors.Port['Longitude'] = true;
-    if (!data.position.time) errors.Port['Position time'] = true;
-    if (!data.position.latitude)
-
+    if (data.position.latitude || data.position.longitude || data.position.time) {
+        if (!data.position.latitude) errors.Port['Latitude'] = true;
+        if (!data.position.longitude) errors.Port['Longitude'] = true;
+        if (!data.position.time) errors.Port['Position time'] = true;
+    }
     if (!data.nameOfMaster.givenName) errors.Port['Master`s Given name'] = true;
     if (!data.nameOfMaster.familyName) errors.Port['Master`s Family name'] = true;
     if (!data.agent.company) errors.Port['Company name'] = true;

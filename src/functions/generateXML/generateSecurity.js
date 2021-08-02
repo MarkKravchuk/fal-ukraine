@@ -2,13 +2,14 @@ import listOfPortsConst from "../../config/JSON/listOfPorts";
 
 export const checkRequiredSecurity = (errors, data) => {
     errors.Security = {};
-
-    data.rows.forEach(el => {
-        if (!el.shipActivity) errors.Security['Activity'] = [];
-        if (!el.dateFrom) errors.Security['Date from'] = [];
-        if (!el.dateDeparture) errors.Security['Date departure'] = [];
-        if (!el.locationName) errors.Security['Location'] = [];
-    })
+    if (JSON.stringify(data.rows) !== JSON.stringify([{NR: 1}])) {
+        data.rows.forEach(el => {
+            if (!el.shipActivity) errors.Security['Activity'] = [];
+            if (!el.dateFrom) errors.Security['Date from'] = [];
+            if (!el.dateDeparture) errors.Security['Date departure'] = [];
+            if (!el.locationName) errors.Security['Location'] = [];
+        })
+    }
 }
 const generateSecurity = (security, EPCRequestBody) => {
     EPCRequestBody.push({ValidISSC: security.validISSC});

@@ -86,7 +86,6 @@ let downloadXMLfile = (xmlValue) => {
         document.body.removeChild(a);
         window.URL.revokeObjectURL(url);
     }, 100);
-
 }
 
 export default createXML;

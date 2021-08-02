@@ -13,7 +13,7 @@ import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddIcon from '@material-ui/icons/Add';
 import ListOfPurposesOfCalls from '../../config/consts/listOfPurposesOfCallsConst';
-
+import MainPageInfo from './../../config/JSON/shipCallsData.json'
 import ListOfPorts from '../../config/JSON/listOfPorts'
 
 const useStyles = makeStyles((theme) => ({
@@ -41,12 +41,23 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-function PortForm({data, updateData}) {
-
+function PortForm({data, updateData, locationNumber}) {
     const classes = useStyles();
-    console.log('THe data', data)
     const emptyDiv = <div className={classes.formControlNoMargin} style={{height: '0px'}}/>
 
+    const portOfCall = MainPageInfo[locationNumber].portCall;
+    let eta = MainPageInfo[locationNumber].ETA;
+    if (eta.split('.').length !== 0) {
+        let dates = eta.split('.');
+        if (dates[0].length !== 2) {
+            eta = `${dates[0]}-${dates[1]}-${dates[2]}T00:00`;
+        } else {
+            eta = `${dates[2]}-${dates[1]}-${dates[0]}T00:00`;
+        }
+    }
+    const companyName = MainPageInfo[locationNumber].agent;
+
+    console.log('port of call', portOfCall)
     return <>
         <Typography variant="h3" component="h3" gutterBottom>
             Port information
@@ -97,10 +108,10 @@ function PortForm({data, updateData}) {
 
                 <Select
                     labelId="port-of-call-label"
-                    value={data.portOfCall}
-                    onChange={(e) => {
-                        updateData({portOfCall: e.target.value})
-                    }}
+                    value={portOfCall}
+                    // onChange={(e) => {
+                    //     updateData({portOfCall: e.target.value})
+                    // }}
                 >
                     {ListOfPorts.map((port, index) =>
                         <MenuItem key={index} value={`${port.code}`}>
@@ -117,9 +128,7 @@ function PortForm({data, updateData}) {
                 variant={'outlined'}
                 className={classes.datePicker}
                 margin={"normal"}
-                value={correctDateTime(data.ETAPortOfCall)}
-                onChange={(e) =>
-                    updateData({ETAPortOfCall: e.target.value})}
+                value={correctDateTime(eta)}
                 InputLabelProps={{
                     shrink: true,
                 }}
@@ -158,6 +167,7 @@ function PortForm({data, updateData}) {
             <TextField
                 label="ETD to port of call"
                 type="datetime-local"
+                contentEditable={false}
                 className={classes.datePicker}
                 variant={'outlined'}
                 margin={"normal"}
@@ -500,12 +510,7 @@ function PortForm({data, updateData}) {
                 label="Name"
                 multiline
                 rowsMax={2}
-                value={data.agent.company}
-                onChange={(e) => {
-                    let company = e.target.value;
-                    let agent = {...data.agent, company};
-                    updateData({agent})
-                }}
+                value={companyName}
                 variant="outlined"
             />
 

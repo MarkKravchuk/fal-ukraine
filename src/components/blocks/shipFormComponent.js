@@ -10,6 +10,7 @@ import FormControl from "@material-ui/core/FormControl";
 
 import countryList from "../../functions/countryList"
 import ListOfPorts from "../../config/JSON/listOfPorts";
+import MainPageInfo from './../../config/JSON/shipCallsData.json'
 import ListOfShipTypes from "../../config/consts/listOfShipTypesConst";
 
 const useStyles = makeStyles((theme) => ({
@@ -28,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const ShipFormComponent = ({data, updateData}) => {
+const ShipFormComponent = ({data, updateData, locationNumber}) => {
     const classes = useStyles();
 
     const marginTop = {marginTop: '30px'};
@@ -49,18 +50,13 @@ const ShipFormComponent = ({data, updateData}) => {
             <TextField
                 label="Ship name"
                 contentEditable={false}
-                value={data.name}
-                onChange={(e) =>
-                    updateData({name: e.target.value})}
+                value={MainPageInfo[locationNumber].ship}
                 variant="outlined"
             />
 
             <TextField
                 label="IMO number"
-                contentEditable={'false'}
-                value={data.iMOnumber}
-                onChange={(e) =>
-                    updateData({iMOnumber: e.target.value})}
+                value={MainPageInfo[locationNumber].imo}
                 variant="outlined"
             />
 
@@ -125,7 +121,7 @@ const ShipFormComponent = ({data, updateData}) => {
                 variant="outlined"
                 className={classes.formControlNoMargin}
             >
-                <InputLabel id="ship-type-label">Flag state</InputLabel>
+                <InputLabel id="ship-type-label">Ship state</InputLabel>
                 <Select
                     labelId="ship-type-label"
                     value={data.shipType}
