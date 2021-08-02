@@ -6,5 +6,13 @@
     "portCall": "UAODS",
     "agent": "Одемара",
     "ETA": "01.04.2021"
+  },
+  {
+    "id": 2,
+    "ship": "GEROITE NA SEVASTOPOL",
+    "imo": 7529976,
+    "portCall": "UAODS",
+    "agent": "PLASKE JSC",
+    "ETA": "10.08.2020"
   }
 ]
