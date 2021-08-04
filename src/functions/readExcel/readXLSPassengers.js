@@ -22,17 +22,26 @@ function readXLSPassengers(file, onSave) {
             if (rows[i][15] != null) {
                 Issuing_state_of_identity_document = moment(rows[i][15]).format("MM/DD/YYYY")
             }
-            let Port_of_embarkation = listOfPortsConst.find(function (element) {
-                return element.code === rows[i][10];
-            });
+            let Port_of_embarkation_formatted = '';
+            if (rows[i][10] != null) {
+                let Port_of_embarkation = listOfPortsConst.find(function (element) {
+                    return element.code === rows[i][10];
+                });
+                if (Port_of_embarkation) {
+                    Port_of_embarkation_formatted = Port_of_embarkation.code + ' - ' + Port_of_embarkation.countryCode + ' - ' + Port_of_embarkation.name;
+                }
+            }
 
-            let Port_of_embarkation_formatted = Port_of_embarkation.code + ' - ' + Port_of_embarkation.countryCode + ' - ' + Port_of_embarkation.name;
 
-            let Port_of_disembarkation = listOfPortsConst.find(function (element) {
-                return element.code === rows[i][11];
-            });
-
-            let Port_of_disembarkation_formatted = Port_of_disembarkation.code + ' - ' + Port_of_disembarkation.countryCode + ' - ' + Port_of_disembarkation.name;
+            let Port_of_disembarkation_formatted = '';
+            if (rows[i][11] != null) {
+                let Port_of_disembarkation = listOfPortsConst.find(function (element) {
+                    return element.code === rows[i][11];
+                });
+                if (Port_of_disembarkation) {
+                    Port_of_disembarkation_formatted = Port_of_disembarkation.code + ' - ' + Port_of_disembarkation.countryCode + ' - ' + Port_of_disembarkation.name;
+                }
+            }
 
 
             let row = {

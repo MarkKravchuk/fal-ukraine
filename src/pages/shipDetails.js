@@ -188,11 +188,23 @@ function ShipDetails({history}) {
                                         onChange={() => {
                                             const files = document.getElementById("excel-file").files;
 
-                                            readXLS(files, setOpenErrorDialog, (item) => {
-                                                let dataCopy = data;
-                                                dataCopy = {...dataCopy, ...{item}}
-                                                setData(dataCopy)
-                                            });
+                                            try {
+                                                readXLS(files, setOpenErrorDialog, (item) => {
+                                                    let dataCopy = data;
+                                                    dataCopy = {...dataCopy, ...{item}}
+                                                    setData(dataCopy)
+                                                });
+                                            } catch (e) {
+                                                console.log("catch")
+                                                setOpenErrorDialog({
+                                                    open: true, error: {
+                                                        title: 'Error while reading XLS',
+                                                        text: e
+                                                    }
+                                                })
+                                                console.error(e);
+                                            }
+
 
                                         }}
                                         type="file"
