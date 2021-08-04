@@ -119,12 +119,15 @@ const generatePort = (port, EPCRequestBody) => {
                 return element.callPurposeCode = port.callPurpose[i];
             })
             console.log("call purposes ", port.callPurpose[i])
-            EPCRequestBody.push({
-                CallPurpose: [
-                    {CallPurposeCode: callPurpose.callPurposeCode},
-                    {CallPurposeText: callPurpose.callPurposeText}
-                ]
-            })
+            if (callPurpose) {
+                EPCRequestBody.push({
+                    CallPurpose: [
+                        {CallPurposeCode: callPurpose.callPurposeCode},
+                        {CallPurposeText: callPurpose.callPurposeText}
+                    ]
+                })
+            }
+
         }
 
     }
