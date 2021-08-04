@@ -10,6 +10,12 @@
     "name": "Belize City"
   },
   {
+    "code": "GEPTI",
+    "countryCode": "GE",
+    "name": "Poti"
+  },
+  
+  {
     "code": "ROCND",
     "countryCode": "RO",
     "name": "Constanta"
