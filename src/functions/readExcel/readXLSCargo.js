@@ -10,9 +10,6 @@ function readXLSCargo(file, onSave) {
     let dpg = data.dpg;
     readXlsxFile(file).then((rows) => {
         console.log("cargo ", rows);
-        console.log("portOfLoading ", rows[72][3])
-        cargo.portOfLoading = rows[72][3];
-        cargo.portOfDischarge = rows[73][3];
         for (let i = 45; i < 54; i++) {
             let row = {
                 Seq: rows[i][1],
@@ -31,8 +28,17 @@ function readXLSCargo(file, onSave) {
                 Seal_number: rows[i][14],
                 Custom_status: rows[i][16],
                 Size_and_type: rows[i][17],
+                BL_number: rows[i][19],
+                Port_of_loading: rows[i][20],
+                Port_of_discharge: rows[i][21],
             }
-            cargo.rows.push(row)
+            for (let key of Object.keys(row)) {
+                if (row[key]) {
+                    cargo.rows.push(row)
+                    break;
+                }
+            }
+
         }
         for (let i = 59; i < 68; i++) {
             let row = {
@@ -50,8 +56,13 @@ function readXLSCargo(file, onSave) {
                 Segregation_information: rows[i][12],
                 On_board_location: rows[i][13],
             }
-            console.log(row)
-            dpg.rows.push(row)
+            for (let key of Object.keys(row)) {
+                if (row[key]) {
+                    dpg.rows.push(row)
+                    break;
+                }
+            }
+
         }
 
 

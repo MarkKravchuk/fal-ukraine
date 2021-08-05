@@ -129,7 +129,7 @@ const generateCargo = (cargo, dpg, EPCRequestBody) => {
                     ]
                 });
                 Consignment.push({CargoItem: CargoItem});
-                for (let j = i; j < rows.length; j++) {
+                for (let j = i+1; j < rows.length; j++) {
                     if (rows[j].BL_number === rows[i].BL_number) {
                         let CargoItem = [];
                         CargoItem.push({ItemNumber: rows[j].Seq});
@@ -194,9 +194,12 @@ const generateCargo = (cargo, dpg, EPCRequestBody) => {
                         Consignment.push({CargoItem: CargoItem});
                     }
                 }
-                checkedBLNumbers.push(rows[i].BL_number)
                 CargoConsignmentsData.push({Consignment: Consignment})
+                checkedBLNumbers.push(rows[i].BL_number)
+                console.log("checkedBLNumbers ",checkedBLNumbers)
             }
+
+
         }
     }
 
