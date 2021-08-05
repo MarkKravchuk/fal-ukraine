@@ -27,17 +27,17 @@ let readXLSPort = (file, onSave) => {
         port.voyageNumber = Row27[2];
         port.portOfCall = Row5[2];
         port.portFacilityAtArrival = Row8[6];
-        port.ETAPortOfCall = getUIDate(Row5[4]);
-        port.ETDPortOfCall = getUIDate(Row5[6]);
-        port.ATAPortOfCall = getUIDate(Row6[4]);
-        port.ATDPortOfCall = getUIDate(Row6[6]);
+        port.ETAPortOfCall = getUIDate(Row5[4],true);
+        port.ETDPortOfCall = getUIDate(Row5[6],true);
+        port.ATAPortOfCall = getUIDate(Row6[4],true);
+        port.ATDPortOfCall = getUIDate(Row6[6],true);
         port.portOfArrival = Row28[2];
         port.lastPortOfCall = Row28[4];
         port.nextPortOfCall = Row28[6];
         port.callAnchorage = Row8[2];
         port.position.latitude = Row9[3];
         port.position.longitude = Row9[4];
-        port.position.time = getUIDate(Row8[4]);
+        port.position.time = getUIDate(Row8[4],true);
         port.cargoDescription = Row10[2];
         port.nameOfMaster.familyName = Row13[2];
         port.nameOfMaster.givenName = Row14[2];
@@ -66,10 +66,8 @@ let readXLSPort = (file, onSave) => {
         port.personsOnBoard.passengers = Row24[6];
         port.stowaways = Row25[3];
         port.periodOfStay = Row27[4];
-
-        console.log("Port read from Excel: ", port);
         onSave({port});
         return port;
-    }).then(console.log("finish"))
+    });
 }
 export default readXLSPort

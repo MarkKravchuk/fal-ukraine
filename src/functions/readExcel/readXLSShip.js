@@ -36,7 +36,7 @@ const readXLSShip = (file, onSave) => {
     });
 };
 
-export function getUIDate(issueDate) {
+export function getUIDate(issueDate, isDateTime) {
     if (!issueDate) return undefined;
     let year = issueDate.getFullYear();
     let month = issueDate.getMonth();
@@ -49,9 +49,11 @@ export function getUIDate(issueDate) {
     if (hours < 10) hours = `0${hours}`;
     if (minutes < 10) minutes = `0${minutes}`;
 
-    if (!(issueDate.getUTCHours() && issueDate.getUTCMinutes())){
+    if (!isDateTime){
         return `${year}-${month}-${date}`;
     }
+    if (issueDate.getUTCHours() === 0) hours = '00';
+
     return `${year}-${month}-${date}T${hours}:${minutes}`
 }
 
