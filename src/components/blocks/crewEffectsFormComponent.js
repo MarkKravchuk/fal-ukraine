@@ -9,6 +9,8 @@ import Collapse from "@material-ui/core/Collapse";
 import Alert from "@material-ui/lab/Alert";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
+import AddIcon from '@material-ui/icons/Add';
+import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 
 const {DropDownEditor} = Editors;
 
@@ -125,8 +127,8 @@ function CrewEffectsForm({data, crewData, updateData}) {
                 columnAutoWidth="true"
 
             />
-            <Button variant="primary" onClick={addRow}>Add row</Button>
-            <Button variant="primary" onClick={deleteRow}>Delete row</Button>
+            <Button variant="primary" startIcon={<AddIcon/>} onClick={addRow}>Add row</Button>
+            <Button variant="primary" startIcon={<DeleteOutlineIcon/>} onClick={deleteRow}>Delete row</Button>
         </div>
     );
 

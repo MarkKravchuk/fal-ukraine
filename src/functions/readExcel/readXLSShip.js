@@ -13,7 +13,10 @@ const readXLSShip = (file, onSave) => {
         ship.grossTonnage = rows[8][2];
         ship.netTonnage = rows[8][4];
         ship.port = rows[13][2];
-        ship.issueDate = rows[13][4];
+        // let issueDate =
+        // let issueDate = new Date();
+        ship.issueDate = getUIDate(rows[13][4]);
+        // ship.issueDate = `${issueDate.getFullYear()}-${(issueDate.getMonth() + 1)}-${(issueDate.getDate() + 1)}`
         ship.certificateNumber = rows[13][6];
         ship.companyName = rows[16][2];
         ship.iMOCompany = rows[16][4];
@@ -32,5 +35,24 @@ const readXLSShip = (file, onSave) => {
         onSave({ship});
     });
 };
+
+export function getUIDate(issueDate) {
+    if (!issueDate) return undefined;
+    let year = issueDate.getFullYear();
+    let month = issueDate.getMonth();
+    let date = issueDate.getDate();
+    let hours = issueDate.getHours();
+    let minutes = issueDate.getMinutes();
+    month ++;
+    if (month < 10) month = `0${month}`;
+    if (date < 10) date = `0${date}`;
+    if (hours < 10) hours = `0${hours}`;
+    if (minutes < 10) minutes = `0${minutes}`;
+
+    if (!(issueDate.getUTCHours() && issueDate.getUTCMinutes())){
+        return `${year}-${month}-${date}`;
+    }
+    return `${year}-${month}-${date}T${hours}:${minutes}`
+}
 
 export default readXLSShip;

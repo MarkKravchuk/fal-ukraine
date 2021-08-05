@@ -12,7 +12,8 @@ import ListOfPorts from "../../config/JSON/listOfPorts";
 import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
 import wasteTypes from "../../config/consts/wasteTypes.json";
-
+import AddIcon from '@material-ui/icons/Add';
+import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 
 const {DropDownEditor} = Editors;
 
@@ -174,8 +175,8 @@ function WasteForm({data, updateData}) {
                 enableCellSelect={true}
 
             />
-            <Button variant="primary" onClick={addRow}>Add row</Button>
-            <Button variant="primary" onClick={deleteRow}>Delete row</Button>
+            <Button startIcon={<AddIcon/>} variant="primary" onClick={addRow}>Add row</Button>
+            <Button startIcon={<DeleteOutlineIcon/>} variant="primary" onClick={deleteRow}>Delete row</Button>
         </div>
 
     </>

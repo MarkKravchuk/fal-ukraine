@@ -18,9 +18,11 @@ const readPortXML = (port, xml) => {
         port.nextPortOfCall = xml.getElementsByTagName('NextPortOfCall')[0].children[2].value;
     }
     port.callAnchorage = xml.getElementsByTagName('Anchorage')[0].value;
-    port.position.latitude = xml.getElementsByTagName('EntryPosition')[0].children[0].children[0].value;
-    port.position.longitude = xml.getElementsByTagName('EntryPosition')[0].children[0].children[1].value;
-    port.position.time = xml.getElementsByTagName('EntryPosition')[0].children[0].children[2].value;
+    if (xml.getElementsByTagName('EntryPosition')[0]) {
+        port.position.latitude = xml.getElementsByTagName('EntryPosition')[0].children[0].children[0].value;
+        port.position.longitude = xml.getElementsByTagName('EntryPosition')[0].children[0].children[1].value;
+        port.position.time = xml.getElementsByTagName('EntryPosition')[0].children[0].children[2].value;
+    }
     port.cargoDescription = xml.getElementsByTagName('CargoOverview')[0].value;
     port.nameOfMaster.givenName = xml.getElementsByTagName('NameOfMaster')[0].children[0].value;
     port.nameOfMaster.familyName = xml.getElementsByTagName('NameOfMaster')[0].children[1].value;

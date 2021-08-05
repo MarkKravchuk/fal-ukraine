@@ -15,6 +15,8 @@ import Collapse from "@material-ui/core/Collapse";
 import Alert from "@material-ui/lab/Alert";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
+import AddIcon from '@material-ui/icons/Add';
+import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 
 const {DropDownEditor} = Editors;
 
@@ -266,14 +268,14 @@ const HealthFormComponent = ({data, updateData, crewData, passengerData}) => {
                 }}
                 enableCellSelect={true}
             />
-            <Button variant="primary" onClick={() => {
+            <Button startIcon={<AddIcon/>} variant="primary" onClick={() => {
                 let sanitaryMeasures = data.sanitaryMeasures;
                 sanitaryMeasures.push({});
                 updateData({sanitaryMeasures})
             }}>
                 Add row
             </Button>
-            <Button variant="primary" onClick={() => {
+            <Button startIcon={<DeleteOutlineIcon/>} variant="primary" onClick={() => {
                 let sanitaryMeasures = data.sanitaryMeasures;
                 sanitaryMeasures.pop();
                 updateData({sanitaryMeasures});
@@ -468,14 +470,14 @@ const HealthFormComponent = ({data, updateData, crewData, passengerData}) => {
                 }}
                 enableCellSelect={true}
             />
-            <Button variant="primary" onClick={() => {
+            <Button startIcon={<AddIcon/>} variant="primary" onClick={() => {
                 let illList = data.illList;
                 illList.push({});
                 updateData({illList})
             }}>
                 Add row
             </Button>
-            <Button variant="primary" onClick={() => {
+            <Button startIcon={<DeleteOutlineIcon/>} variant="primary" onClick={() => {
                 let illList = data.illList;
                 illList.pop();
                 updateData({illList});

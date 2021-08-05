@@ -6,6 +6,8 @@ import Button from "@material-ui/core/Button";
 import {Editors} from 'react-data-grid-addons';
 import datePicker from "../pickers/datePicker";
 import countryCodes from "../../functions/countryCodes";
+import AddIcon from "@material-ui/icons/Add";
+import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 
 const {DropDownEditor} = Editors;
 
@@ -85,6 +87,7 @@ function CrewForm({data, updateData}) {
         console.log("rows ", data.rows)
         updateData(data)
     }
+
     return (
         <div>
             <Typography variant="h3" component="h3" gutterBottom>
@@ -98,12 +101,10 @@ function CrewForm({data, updateData}) {
                 enableCellSelect={true}
 
             />
-            <Button variant="primary" onClick={addRow}>Add row</Button>
-            <Button variant="primary" onClick={deleteRow}>Delete row</Button>
+            <Button variant="primary" startIcon={<AddIcon/>} onClick={addRow}>Add row</Button>
+            <Button variant="primary" startIcon={<DeleteOutlineIcon/>} onClick={deleteRow}>Delete row</Button>
         </div>
     );
-
 }
-
 
 export default withStyles(styles)(CrewForm);

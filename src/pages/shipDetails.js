@@ -38,6 +38,8 @@ import DPGForm from "../components/blocks/dpgFormComponent";
 import WasteFormComponent from "../components/blocks/WasteFormComponent";
 import _ from 'underscore'
 import MainPageInfo from './../config/JSON/shipCallsData.json'
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 
 const listOfOptions = listOfOptionsConst;
 
@@ -52,6 +54,7 @@ const useStyles = makeStyles((theme) => ({
     },
     appBar: {
         zIndex: theme.zIndex.drawer + 1,
+        // height: 70
     },
     drawer: {
         width: drawerWidth,
@@ -100,9 +103,22 @@ function ShipDetails({history}) {
         def.port.agent.company = companyName;
         def.ship.name = ship;
         def.ship.IMOnumber = imo;
-        return defaultDataConst
+        return def
     });
     const [openErrorDialog, setOpenErrorDialog] = useState({open: false, error: {}});
+    const [uploadAnchorEl, setUploadAnchorEl] = React.useState(null);
+    const [downloadAnchorEl, setDownloadAnchorEl] = React.useState(null);
+    const handleUploadClick = (event) => {
+        setUploadAnchorEl(event.currentTarget);
+    };
+    const handleDownloadClick = (event) => {
+        setDownloadAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setUploadAnchorEl(null);
+        setDownloadAnchorEl(null);
+    };
 
     console.log("All the data FROM PARENT!!", data);
     return (
@@ -112,119 +128,55 @@ function ShipDetails({history}) {
                 <Toolbar>
                     <Grid container justify={'space-between'}>
                         <Typography variant="h6">
-                            Ship details
+                            Прототип Українського Морського Єдиного Вікна<br/>Ukrainian Maritime Single Window Prototype
                         </Typography>
                         <div>
-                            <Grid container justify={'flex-start'}>
-                                <div style={{marginRight: '30px'}}>
-                                    <input
-                                        className={classes.uploadFile}
-                                        onChange={() => {
-                                            const file = document.getElementById("read-xml-file").files[0];
-                                            const reader = new FileReader();
-                                            reader.onload = (() => {
-                                                try {
-                                                    let {
-                                                        port,
-                                                        crew,
-                                                        ship,
-                                                        passengers,
-                                                        voyage,
-                                                        shipStores,
-                                                        health,
-                                                        crewEffects,
-                                                        cargo,
-                                                        dpg,
-                                                        waste
-                                                    } = readXML(reader.result);
-                                                    let dataCopy = JSON.parse(JSON.stringify(data));
-
-                                                    setData({
-                                                        ...dataCopy, ...{
-                                                            port,
-                                                            crew,
-                                                            ship,
-                                                            passengers,
-                                                            voyage,
-                                                            shipStores,
-                                                            health,
-                                                            crewEffects,
-                                                            cargo,
-                                                            dpg,
-                                                            waste
-                                                        }
-                                                    });
-                                                } catch (e) {
-                                                    setOpenErrorDialog({
-                                                        open: true, error: {
-                                                            title: 'Error while reading XML',
-                                                            text: e
-                                                        }
-                                                    })
-                                                    console.error(e);
-                                                }
-                                            })
-                                            reader.readAsText(file);
-                                        }}
-                                        id="read-xml-file"
-                                        type="file"
-                                    />
-                                    <label htmlFor="read-xml-file">
-                                        <Button
-                                            variant="contained"
-                                            color="default"
-                                            component="span"
-                                            startIcon={<CloudUploadIcon/>}
-                                        >
-                                            Upload XML
-                                        </Button>
-                                    </label>
-                                </div>
-                                <div style={{marginRight: '30px'}}>
-                                    <input
-                                        className={classes.uploadFile}
-                                        id="excel-file"
-                                        multiple
-                                        onChange={() => {
-                                            const files = document.getElementById("excel-file").files;
-
-                                            try {
-                                                readXLS(files, setOpenErrorDialog, (item) => {
-                                                    let dataCopy = data;
-                                                    dataCopy = {...dataCopy, ...{item}}
-                                                    setData(dataCopy)
-                                                });
-                                            } catch (e) {
-                                                console.log("catch")
-                                                setOpenErrorDialog({
-                                                    open: true, error: {
-                                                        title: 'Error while reading XLS',
-                                                        text: e
-                                                    }
-                                                })
-                                                console.error(e);
-                                            }
-
-
-                                        }}
-                                        type="file"
-                                    />
-                                    <label htmlFor="excel-file">
-                                        <Button
-                                            variant="contained"
-                                            color="default"
-                                            component="span"
-                                            startIcon={<CloudUploadIcon/>}
-                                        >
-                                            Upload Excel
-                                        </Button>
-                                    </label>
-                                </div>
+                            <Grid container justify={'flex-end'} style={{marginTop: '12px'}}>
                                 <Button
+                                    aria-controls="upload-menu"
+                                    style={{marginRight: '30px'}}
                                     variant="contained"
-                                    color="default"
-                                    component="span"
-                                    onClick={() => {
+                                    startIcon={<CloudUploadIcon/>}
+                                    aria-haspopup="true"
+                                    onClick={handleUploadClick}
+                                >
+                                    Upload
+                                </Button>
+                                <Menu
+                                    id="upload-menu"
+                                    anchorEl={uploadAnchorEl}
+                                    keepMounted
+                                    open={Boolean(uploadAnchorEl)}
+                                    onClose={handleClose}
+                                >
+                                    <MenuItem onClick={handleClose}>
+                                        <label htmlFor="read-xml-file">Upload XML document</label>
+                                    </MenuItem>
+                                    <MenuItem onClick={handleClose}>
+                                        <label htmlFor="excel-file">Upload Excel document</label>
+                                    </MenuItem>
+                                </Menu>
+                                <Button
+                                    aria-controls="download-menu"
+                                    startIcon={<GetAppIcon/>}
+                                    aria-haspopup="true"
+                                    onClick={handleDownloadClick}
+                                    variant="contained"
+                                >
+                                    Download
+                                </Button>
+                                <Menu
+                                    id="download-menu"
+                                    anchorEl={downloadAnchorEl}
+                                    keepMounted
+                                    open={Boolean(downloadAnchorEl)}
+                                    onClose={handleClose}
+                                >
+                                    <MenuItem onClick={() => {
+                                        createXML(data, () => {}, false)
+                                        handleClose();
+                                    }}>Save to XML (as draft)</MenuItem>
+                                    <MenuItem onClick={() => {
                                         const onError = (errors) => {
                                             let missingFields = [];
                                             for (let block in errors) {
@@ -248,13 +200,91 @@ function ShipDetails({history}) {
                                                 }
                                             })
                                         }
-                                        createXML(data, onError);
-                                    }}
-                                    startIcon={<GetAppIcon/>}
-                                >
-                                    Generate XML file
-                                </Button>
+                                        createXML(data, onError, true);
+                                        handleClose();
+                                    }}>Generate full XML file</MenuItem>
+                                </Menu>
                             </Grid>
+                            <input
+                                className={classes.uploadFile}
+                                onChange={() => {
+                                    const file = document.getElementById("read-xml-file").files[0];
+                                    const reader = new FileReader();
+                                    reader.onload = (() => {
+                                        try {
+                                            let {
+                                                port,
+                                                crew,
+                                                ship,
+                                                passengers,
+                                                voyage,
+                                                shipStores,
+                                                health,
+                                                crewEffects,
+                                                cargo,
+                                                dpg,
+                                                waste
+                                            } = readXML(reader.result);
+                                            let dataCopy = JSON.parse(JSON.stringify(data));
+
+                                            setData({
+                                                ...dataCopy, ...{
+                                                    port,
+                                                    crew,
+                                                    ship,
+                                                    passengers,
+                                                    voyage,
+                                                    shipStores,
+                                                    health,
+                                                    crewEffects,
+                                                    cargo,
+                                                    dpg,
+                                                    waste
+                                                }
+                                            });
+                                        } catch (e) {
+                                            setOpenErrorDialog({
+                                                open: true, error: {
+                                                    title: 'Error while reading XML',
+                                                    text: [e]
+                                                }
+                                            })
+                                            console.error(e);
+                                        }
+                                    })
+                                    reader.readAsText(file);
+                                }}
+                                id="read-xml-file"
+                                type="file"
+                            />
+                            <input
+                                className={classes.uploadFile}
+                                id="excel-file"
+                                multiple
+                                onChange={() => {
+                                    const files = document.getElementById("excel-file").files;
+
+                                    try {
+                                        readXLS(files, setOpenErrorDialog, (item) => {
+                                            let dataCopy = data;
+                                            dataCopy = {...dataCopy, ...{item}}
+                                            setData(dataCopy)
+                                        });
+                                    } catch (e) {
+                                        console.log("catch")
+                                        setOpenErrorDialog({
+                                            open: true, error: {
+                                                title: 'Error while reading XLS',
+                                                text: e
+                                            }
+                                        })
+                                        console.error(e);
+                                    }
+
+
+                                }}
+                                type="file"
+                            />
                         </div>
                     </Grid>
                 </Toolbar>

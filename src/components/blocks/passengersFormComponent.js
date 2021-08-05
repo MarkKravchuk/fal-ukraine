@@ -7,7 +7,8 @@ import {Editors} from 'react-data-grid-addons';
 import datePicker from "../pickers/datePicker";
 import countryCodes from "../../functions/countryCodes";
 import ListOfPorts from '../../config/JSON/listOfPorts'
-
+import AddIcon from '@material-ui/icons/Add';
+import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 const {DropDownEditor} = Editors;
 
 const styles = (theme) => ({
@@ -107,8 +108,8 @@ function PassengersForm({data, updateData}) {
                 onGridRowsUpdated={onGridRowsUpdated}
                 enableCellSelect={true}
             />
-            <Button variant="primary" onClick={addRow}>Add row</Button>
-            <Button variant="primary" onClick={deleteRow}>Delete row</Button>
+            <Button startIcon={<AddIcon/>} variant="primary" onClick={addRow}>Add row</Button>
+            <Button startIcon={<DeleteOutlineIcon/>} variant="primary" onClick={deleteRow}>Delete row</Button>
         </div>
     );
 

@@ -1,4 +1,5 @@
 import readXlsxFile from 'read-excel-file'
+import {getUIDate} from "./readXLSShip";
 import data from '../../config/consts/defaultDataConst'
 
 let readXLSPort = (file, onSave) => {
@@ -26,25 +27,24 @@ let readXLSPort = (file, onSave) => {
         port.voyageNumber = Row27[2];
         port.portOfCall = Row5[2];
         port.portFacilityAtArrival = Row8[6];
-        port.ETAPortOfCall = Row5[4];
-        port.ETDPortOfCall = Row5[6];
-        port.ATAPortOfCall = Row6[4];
-        port.ATDPortOfCall = Row6[6];
+        port.ETAPortOfCall = getUIDate(Row5[4]);
+        port.ETDPortOfCall = getUIDate(Row5[6]);
+        port.ATAPortOfCall = getUIDate(Row6[4]);
+        port.ATDPortOfCall = getUIDate(Row6[6]);
         port.portOfArrival = Row28[2];
         port.lastPortOfCall = Row28[4];
         port.nextPortOfCall = Row28[6];
         port.callAnchorage = Row8[2];
         port.position.latitude = Row9[3];
         port.position.longitude = Row9[4];
-        port.position.time = Row8[4];
+        port.position.time = getUIDate(Row8[4]);
         port.cargoDescription = Row10[2];
         port.nameOfMaster.familyName = Row13[2];
         port.nameOfMaster.givenName = Row14[2];
-        port.callPurpose = [];
-        port.callPurpose.push(Row13[4]);
-        port.callPurpose.push(Row14[4]);
-        port.callPurpose.push(Row15[4]);
-        port.callPurpose.filter(el => el && el.length !== 0);
+        port.callPurpose = []
+        for (let i = 13; i < 16; i++) {
+            if (rows[i][4]) port.callPurpose.push(rows[i][4]);
+        }
         for (let i = 0; i < port.callPurpose.length; i++) {
             let purpose = port.callPurpose[i];
             try {
@@ -52,6 +52,7 @@ let readXLSPort = (file, onSave) => {
             } catch (e) {
             }
         }
+        if (port.callPurpose.length === 0) port.callPurpose.push('')
         port.airDraught = Row15[2];
         port.arrivalDraught.foreDraught = Row17[2];
         port.arrivalDraught.midShipDraught = Row17[4];

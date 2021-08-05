@@ -7,6 +7,8 @@ import {Editors} from 'react-data-grid-addons';
 import ListOfPorts from "../../config/JSON/listOfPorts";
 import kindOfPackagesList from "../../config/consts/kindOfPackagesList";
 import unitList from "../../config/consts/unitList";
+import AddIcon from '@material-ui/icons/Add';
+import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 
 const {DropDownEditor} = Editors;
 
@@ -88,8 +90,8 @@ function CargoForm({data, updateData}) {
                 enableCellSelect={true}
 
             />
-            <Button variant="primary" onClick={addRow}>Add row</Button>
-            <Button variant="primary" onClick={deleteRow}>Delete row</Button>
+            <Button variant="primary" startIcon={<AddIcon/>} onClick={addRow}>Add row</Button>
+            <Button variant="primary" startIcon={<DeleteOutlineIcon/>} onClick={deleteRow}>Delete row</Button>
         </div>
 
     </>

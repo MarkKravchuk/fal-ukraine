@@ -15,7 +15,7 @@ const columns = [
     {
         field: 'ship',
         headerName: 'Ship',
-        width: 130,
+        width: 200,
     },
     {
         field: 'imo',
@@ -69,7 +69,7 @@ export default function HomePage({history}) {
                 <Toolbar>
                     <Grid container justify={'space-between'}>
                         <Typography variant="h6">
-                            Ship calls
+                            Прототип Українського Морського Єдиного Вікна<br/>Ukrainian Maritime Single Window Prototype
                         </Typography>
                     </Grid>
                 </Toolbar>
@@ -77,19 +77,36 @@ export default function HomePage({history}) {
             <main className={classes.content}>
                 <Toolbar/>
 
-                <Grid container style={{marginTop: '50px'}} justify={'center'}>
+                <Grid container style={{marginTop: '10px'}} justify={'center'}>
+                    <Typography variant="h5">
+                        Перелік суднозаходів / Ship calls
+                    </Typography>
+                </Grid>
 
-                    <div style={{width: '805px', height: '500px'}}>
+                <Grid container style={{marginTop: '30px'}} justify={'center'}>
+
+                    <div style={{width: '905px', height: '300px'}}>
                         <DataGrid
                             rows={shipCallsData}
                             columns={columns}
-                            pageSize={7}
-                            onRowClick={ (e) => {
+                            pageSize={4}
+                            onRowClick={(e) => {
                                 history.push(`/details/${e.id}`);
                             }}
                             disableSelectionOnClick
                         />
                     </div>
+                </Grid>
+
+                <Grid container style={{marginTop: '20px'}} justify={'center'}>
+                    <Typography style={{width: '900px'}} variant="p">
+                        Prototype is aimed to help public authorities implement electronic information exchange systems.
+                        <br/><br/>
+                        Prototype implements the Annex to the Convention on the Facilitation of International Navigation
+                        of 1965, approved by International Maritime Organization Resolution FAL.12 (40), Standard
+                        1.3bis, based on UN/CEFACT MMT reference data model (RDM) and refers to the European Union’s
+                        Maritime Single Window Environment (of the European Maritime Safety Agency, EMSA) requirements.
+                    </Typography>
                 </Grid>
             </main>
         </div>

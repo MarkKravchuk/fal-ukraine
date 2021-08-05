@@ -12,16 +12,15 @@ import generateSecurity, {checkRequiredSecurity} from "./generateSecurity";
 import generateWaste, {checkRequiredWaste} from "./generateWaste";
 import _ from 'underscore'
 
-function createXML(data, onError) {
+function createXML(data, onError, checkForErrors) {
     // @FIXME The required fields are not verified yet :(
     const errors = checkRequiredFields(data);
-    if (!_.isEmpty(errors)) {
+    if (!_.isEmpty(errors) && checkForErrors) {
         onError(errors);
         return;
     }
 
     let EPCRequestBody = [];
-    console.log("Generating XML data structure ", data);
 
     generatePort(data.port, EPCRequestBody);
     generateCrew(data.crew, EPCRequestBody);

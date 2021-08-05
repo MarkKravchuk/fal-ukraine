@@ -1,7 +1,10 @@
+import _ from 'underscore'
+
 export const checkRequiredHealth = (errors, data) => {
     errors.Health = {};
 
     data.illList.forEach(el => {
+        if (_.isEmpty(el)) return;
         if (!el.NR) errors.Health['NR'] = [];
         if (!el.crewPassenger) errors.Health['Crew or passenger'] = [];
     });

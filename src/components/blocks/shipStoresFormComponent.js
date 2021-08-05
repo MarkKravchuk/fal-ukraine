@@ -5,6 +5,8 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import {Editors} from 'react-data-grid-addons';
 import unitList from "../../config/consts/unitList";
+import AddIcon from '@material-ui/icons/Add';
+import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 
 const {DropDownEditor} = Editors;
 
@@ -67,8 +69,8 @@ function ShipStoresForm({data, updateData}) {
                 columnAutoWidth="true"
 
             />
-            <Button variant="primary" onClick={addRow}>Add row</Button>
-            <Button variant="primary" onClick={deleteRow}>Delete row</Button>
+            <Button startIcon={<AddIcon/>} variant="primary" onClick={addRow}>Add row</Button>
+            <Button startIcon={<DeleteOutlineIcon/>} variant="primary" onClick={deleteRow}>Delete row</Button>
         </div>
     );
 

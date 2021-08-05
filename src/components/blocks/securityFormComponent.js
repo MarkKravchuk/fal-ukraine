@@ -12,6 +12,8 @@ import datePicker from "../pickers/datePicker";
 import Button from "@material-ui/core/Button";
 import {Editors} from "react-data-grid-addons";
 import listOfPortsConst from "../../config/JSON/listOfPorts";
+import AddIcon from '@material-ui/icons/Add';
+import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 
 const {DropDownEditor} = Editors;
 
@@ -323,7 +325,7 @@ const SecurityFormComponent = ({data, updateData}) => {
                 }}
                 enableCellSelect={true}
             />
-            <Button variant="primary" onClick={() => {
+            <Button startIcon={<AddIcon/>} variant="primary" onClick={() => {
                 if (data.rows.length === 0) {
                     data.rows.push({NR: 1});
                     updateData({rows: data.rows})
@@ -336,7 +338,7 @@ const SecurityFormComponent = ({data, updateData}) => {
             }}>
                 Add row
             </Button>
-            <Button variant="primary" onClick={() => {
+            <Button startIcon={<DeleteOutlineIcon/>} variant="primary" onClick={() => {
                 data.rows.pop();
                 updateData({rows: data.rows});
             }}>Delete row</Button>
