@@ -56,8 +56,13 @@ function readXLSCargo(file, onSave) {
                 Segregation_information: rows[i][12],
                 On_board_location: rows[i][13],
             }
-            console.log(row)
-            dpg.rows.push(row)
+            for (let key of Object.keys(row)) {
+                if (row[key]) {
+                    dpg.rows.push(row)
+                    break;
+                }
+            }
+
         }
 
 
