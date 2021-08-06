@@ -2,6 +2,7 @@ import readXlsxFile from 'read-excel-file'
 import moment from "moment";
 import data from '../../config/consts/defaultDataConst'
 import listOfPortsConst from "../../config/JSON/listOfPorts";
+import format from "./formatDropdownListValue";
 
 function readXLSVoyage(file, onSave) {
     data.voyage.rows = [];
@@ -37,7 +38,7 @@ function readXLSVoyage(file, onSave) {
                 Date_of_departure: Date_of_departure,
                 Port: Port_formatted,
                 Port_facility: rows[i][5],
-                Security_level: rows[i][7],
+                Security_level: format(rows[i][7]),
                 Security_measures: rows[i][8],
             }
             voyage.rows.push(row)
