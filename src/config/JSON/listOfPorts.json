@@ -1,5 +1,5 @@
 [
-    {
+  {
     "code": "BGVAR",
     "countryCode": "BG",
     "name": "Varna"
@@ -10,16 +10,40 @@
     "name": "Belize City"
   },
   {
+    "code": "DZBJA",
+    "countryCode": "DZ",
+    "name": "Bejaia"
+  },
+  {
+    "code": "EGEDK",
+    "countryCode": "EG",
+    "name": "El Dekheila"
+  },
+  {
+    "code": "EGALY",
+    "countryCode": "EG",
+    "name": "El Iskandariya(Alexandria)"
+  },  
+  {
     "code": "GEPTI",
     "countryCode": "GE",
     "name": "Poti"
   },
-  
+  {
+    "code": "LBSEL",
+    "countryCode": "LB",
+    "name": "Selaata"
+  },
   {
     "code": "ROCND",
     "countryCode": "RO",
     "name": "Constanta"
   },   
+  {
+    "code": "RUNVS",
+    "countryCode": "RU",
+    "name": "Novorossiysk"
+  },     
   {
     "code": "TRAMR",
     "countryCode": "TR",
@@ -30,7 +54,11 @@
     "countryCode": "SY",
     "name": "Latakia"
   },
-  
+    {
+    "code": "SYTTS",
+    "countryCode": "SY",
+    "name": "Tartus"
+  },
   {
     "code": "TREYP",
     "countryCode": "TR",
