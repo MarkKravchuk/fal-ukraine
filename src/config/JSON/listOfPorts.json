@@ -19,12 +19,18 @@
     "code": "ROCND",
     "countryCode": "RO",
     "name": "Constanta"
-  },
+  },   
   {
     "code": "TRAMR",
     "countryCode": "TR",
     "name": "Ambarli"
   },
+  {
+    "code": "SYLTK",
+    "countryCode": "SY",
+    "name": "Latakia"
+  },
+  
   {
     "code": "TREYP",
     "countryCode": "TR",
