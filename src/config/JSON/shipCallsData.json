@@ -4,7 +4,7 @@
     "ship": "LILY HA",
     "imo": 8116972,
     "portCall": "UAODS",
-    "agent": "ТОВ МА ОДЕМАРА",
+    "agent": "Odemara LTD",
     "ETA": "17.08.2021"
   },
   {
@@ -12,7 +12,15 @@
     "ship": "ADMIRAL MOON",
     "imo": 9437220,
     "portCall": "UAODS",
-    "agent": "ТОВ ОДЕМАРА",
+    "agent": "Odemara LTD",
     "ETA": "12.08.2021"
+  },
+  {
+    "id": 2,
+    "ship": "ZEFIREA",
+    "imo": 	9607643,
+    "portCall": "UAODS",
+    "agent": "Odemara LTD",
+    "ETA": "10.08.2021"
   }
 ]

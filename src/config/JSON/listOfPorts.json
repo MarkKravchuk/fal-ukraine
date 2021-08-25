@@ -1,5 +1,10 @@
 [
   {
+    "code": "BGBOJ",
+    "countryCode": "BG",
+    "name": "Burgas"
+  },
+  {
     "code": "BGVAR",
     "countryCode": "BG",
     "name": "Varna"
@@ -25,15 +30,70 @@
     "name": "El Iskandariya(Alexandria)"
   },  
   {
+    "code": "ESTAR",
+    "countryCode": "ES",
+    "name": "Tarragona"
+  },
+  {
+    "code": "GEKUL",
+    "countryCode": "GE",
+    "name": "Kulevi"
+  },
+  {
     "code": "GEPTI",
     "countryCode": "GE",
     "name": "Poti"
-  },
+  },  
+  {
+    "code": "ILASH",
+    "countryCode": "IL",
+    "name": "Ashdod"
+  },  
+  {
+    "code": "ITGOA",
+    "countryCode": "IT",
+    "name": "Genova"
+  },  
+  {
+    "code": "ITPFX",
+    "countryCode": "IT",
+    "name": "Porto Foxi(Sarroch)"
+  },  
+  {
+    "code": "ITSPA",
+    "countryCode": "IT",
+    "name": "Santa Panagia"
+  },  
+  {
+    "code": "ITVNO",
+    "countryCode": "IT",
+    "name": "Venezia"
+  },  
   {
     "code": "LBSEL",
     "countryCode": "LB",
     "name": "Selaata"
   },
+  {
+    "code": "LRMLW",
+    "countryCode": "LR",
+    "name": "Monrovia"
+  },  
+  {
+    "code": "LYBEN",
+    "countryCode": "LY",
+    "name": "Bingazi(Benghazi)"
+  },   
+  {
+    "code": "LYZAW",
+    "countryCode": "LY",
+    "name": "Az Zawiyah"
+  },    
+  {
+    "code": "LYZUE",
+    "countryCode": "LY",
+    "name": "Zueitina"
+  },  
   {
     "code": "ROCND",
     "countryCode": "RO",
@@ -43,7 +103,7 @@
     "code": "RUNVS",
     "countryCode": "RU",
     "name": "Novorossiysk"
-  },     
+  },    
   {
     "code": "TRAMR",
     "countryCode": "TR",
