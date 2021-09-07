@@ -22,5 +22,13 @@
     "portCall": "UAODS",
     "agent": "Odemara LTD",
     "ETA": "10.08.2021"
+  },
+  {
+    "id": 4,
+    "ship": "CMA CGM COLUMBIA",
+    "imo": 	9722663,
+    "portCall": "UAODS",
+    "agent": "CMA CGM SHIPPING AGENCES UKRAINE",
+    "ETA": "20.06.2021"
   }
 ]
