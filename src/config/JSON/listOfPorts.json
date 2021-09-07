@@ -45,6 +45,11 @@
     "name": "Poti"
   },  
   {
+    "code": "GRPIR",
+    "countryCode": "GR",
+    "name": "Piraeus"
+  },
+  {
     "code": "ILASH",
     "countryCode": "IL",
     "name": "Ashdod"
@@ -95,9 +100,14 @@
     "name": "Zueitina"
   },  
   {
-    "code": "ROCND",
-    "countryCode": "RO",
-    "name": "Constanta"
+    "code": "LYZUE",
+    "countryCode": "LY",
+    "name": "Zueitina"
+  },  
+  {
+    "code": "MTMLA",
+    "countryCode": "MT",
+    "name": "Valletta"
   },   
   {
     "code": "RUNVS",
