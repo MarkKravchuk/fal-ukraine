@@ -30,5 +30,13 @@
     "portCall": "UAODS",
     "agent": "CMA CGM SHIPPING AGENCES UKRAINE",
     "ETA": "20.06.2021"
+  }  ,
+  {
+    "id": 5,
+    "ship": "DRAFTDODGER",
+    "imo": 	9746102,
+    "portCall": "UAODS",
+    "agent": "METUNVEST SHIPPING",
+    "ETA": "18.08.2021"
   }
 ]
