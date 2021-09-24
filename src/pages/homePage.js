@@ -77,7 +77,7 @@ export default function HomePage({history}) {
             <main className={classes.content}>
                 <Toolbar/>
 
-                <Grid container style={{marginTop: '10px'}} justify={'center'}>
+                <Grid container  justify={'center'}>
                     <Typography variant="h5">
                         Перелік суднозаходів / Ship calls
                     </Typography>
@@ -85,11 +85,11 @@ export default function HomePage({history}) {
 
                 <Grid container style={{marginTop: '30px'}} justify={'center'}>
 
-                    <div style={{width: '905px', height: '300px'}}>
+                    <div style={{width: '905px', height: '475px'}}>
                         <DataGrid
                             rows={shipCallsData}
                             columns={columns}
-                            pageSize={4}
+                            pageSize={7}
                             onRowClick={(e) => {
                                 history.push(`/details/${e.id}`);
                             }}
