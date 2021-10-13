@@ -130,6 +130,11 @@
     "name": "Tartus"
   },
   {
+    "code": "TRDIL",
+    "countryCode": "TR",
+    "name": "Diliskelesi"
+  },
+  {
     "code": "TREYP",
     "countryCode": "TR",
     "name": "Evyap Port"
@@ -148,6 +153,11 @@
     "code": "UAILK",
     "countryCode": "UA",
     "name": "Chornomorsk"
+  },
+  {
+    "code": "UANLV",
+    "countryCode": "UA",
+    "name": "Mykolaiv"
   },
   {
     "code": "UAODS",
