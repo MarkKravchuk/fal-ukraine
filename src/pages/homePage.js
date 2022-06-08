@@ -69,7 +69,7 @@ export default function HomePage({history}) {
                 <Toolbar>
                     <Grid container justify={'space-between'}>
                         <Typography variant="h6">
-                            Прототип Українського Морського Єдиного Вікна<br/>Ukrainian Maritime Single Window Prototype
+                            Прототип Морського Єдиного Вікна<br/>Maritime Single Window Prototype
                         </Typography>
                     </Grid>
                 </Toolbar>

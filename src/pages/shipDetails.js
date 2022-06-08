@@ -128,7 +128,7 @@ function ShipDetails({history}) {
                 <Toolbar>
                     <Grid container justify={'space-between'}>
                         <Typography variant="h6">
-                            Прототип Українського Морського Єдиного Вікна<br/>Ukrainian Maritime Single Window Prototype
+                            Прототип Морського Єдиного Вікна<br/>Maritime Single Window Prototype
                         </Typography>
                         <div>
                             <Grid container justify={'flex-end'} style={{marginTop: '12px'}}>
